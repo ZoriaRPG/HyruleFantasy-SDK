@@ -75,33 +75,49 @@ ffc script BetterAquamentus
 				else if (Ghost_HP <= maxHP * 0.5 && Ghost_HP > maxHP * 0.25)
 				{
 					choice = Rand(7);
-					if (choice == 5 || choice == 4)
+					switch(choice)
 					{
-						Aqua_RamAttack(this, ghost, original_x, original_y, aspeed);
-					}
-					if (choice == 3)
-					{
-						Aqua_StompAttack(this, ghost, original_x, original_y, aspeed);
-					}
-					else
-					{
-						Aqua_FireballAttack(this, ghost, maxHP);
+						case 4:
+						case 5:
+						{
+							Aqua_RamAttack(this, ghost, original_x, original_y, aspeed);
+							break;
+						}
+						case 3:
+						{
+							Aqua_StompAttack(this, ghost, original_x, original_y, aspeed);
+							break;
+						}
+						default:
+						{
+							Aqua_FireballAttack(this, ghost, maxHP);
+							break;
+						}
 					}
 				}
 				else if (Ghost_HP <= maxHP * 0.25)
 				{
 					choice = Rand(9);
-					if (choice == 5 || choice == 4 || choice == 3)
+					switch(choice)
 					{
-						Aqua_RamAttack(this, ghost, original_x, original_y, aspeed);
-					}
-					if (choice == 6 || choice == 2)
-					{
-						Aqua_StompAttack(this, ghost, original_x, original_y, aspeed);
-					}
-					else
-					{
-						Aqua_FireballAttack(this, ghost, maxHP);
+						case 3:
+						case 4:
+						case 5:
+						{
+							Aqua_RamAttack(this, ghost, original_x, original_y, aspeed);
+							break;
+						}
+						case 2:
+						case 6:
+						{
+							Aqua_StompAttack(this, ghost, original_x, original_y, aspeed);
+							break;
+						}
+						default:
+						{
+							Aqua_FireballAttack(this, ghost, maxHP);
+							break;
+						}
 					}
 				}
 				timer_attack = Rand(120, 240);
@@ -133,14 +149,14 @@ void Aqua_FireballAttack(ffc this, npc ghost, int maxHP)
 		ghost->Misc[0] = 0;
 		ghost->OriginalTile = TILE_AQUA2;
 	}
-	for (int i = 0; i < 20; i++)
+	for (int i = 0; i < 20; ++i)
 	{
 		BetterAqua_Ghost_Waitframe(this, ghost);
 	}
 	float angle = Angle(Ghost_X, Ghost_Y, Link->X, Link->Y);
 	float initangle = angle - 30;
 	int numshots = 3;
-	for (int i = 0; i < 10; i++)
+	for (int i = 0; i < 10; ++i)
 	{
 		BetterAqua_Ghost_Waitframe(this, ghost);
 	}
@@ -164,20 +180,20 @@ void Aqua_FireballAttack(ffc this, npc ghost, int maxHP)
 		angle = Angle(Ghost_X, Ghost_Y, Link->X, Link->Y);
 		initangle = angle - 80;
 		numshots = 9;
-		for (int i = 0; i < numshots; i++)
+		for (int i = 0; i < numshots; ++i)
 		{
 			FireEWeapon(EW_FIREBALL, Ghost_X, Ghost_Y, DegtoRad(initangle + (20 * i)), 150, ghost->WeaponDamage, -1, -1, 0);
-			for (int k = 0; k < 3; k++)
+			for (int k = 0; k < 3; ++k)
 			{
 				BetterAqua_Ghost_Waitframe(this, ghost);
 			}
 		}
 	}
-	else for (int i = 0; i < numshots; i++)
+	else for (int i = 0; i < numshots; ++i)
 	{
 		FireEWeapon(EW_FIREBALL, Ghost_X, Ghost_Y, DegtoRad(initangle + (30 * i)), 150, ghost->WeaponDamage, -1, -1, 0);
 	}
-	for (int i = 0; i < 10; i++)
+	for (int i = 0; i < 10; ++i)
 	{
 		BetterAqua_Ghost_Waitframe(this, ghost);
 	}
@@ -203,18 +219,18 @@ void Aqua_RamAttack(ffc this, npc ghost, int original_x, int original_y, int asp
 	ghost->Misc[0] = 2;
 	Ghost_StoreDefenses(ghost, storedDefense);
 	Ghost_SetAllDefenses(ghost, NPCDT_BLOCK);
-	for (int i = 0; i < 45; i++)
+	for (int i = 0; i < 45; ++i)
 	{
 		BetterAqua_Ghost_Waitframe(this, ghost);
 	}
 	angle = Angle(Ghost_X + (0.5 * ghost->HitWidth), Ghost_Y + (0.5 * ghost->HitHeight), Link->X + 8, Link->Y + 8);
 	//while (Ghost_CanMove(DIR_UP, ghost->Step * 0.08, 64) && Ghost_CanMove(DIR_DOWN, ghost->Step * 0.08, 64) && Ghost_CanMove(DIR_LEFT, ghost->Step * 0.08, 64))
-	while (!Screen->isSolid(Ghost_X + 16, Ghost_Y + 11) && !Screen->isSolid(Ghost_X + 3, Ghost_Y + 16) && !Screen->isSolid(Ghost_X + 29, Ghost_Y + 16) && !Screen->isSolid(Ghost_X + 16, Ghost_Y + 29))
+	until (Screen->isSolid(Ghost_X + 16, Ghost_Y + 11) && Screen->isSolid(Ghost_X + 3, Ghost_Y + 16) && Screen->isSolid(Ghost_X + 29, Ghost_Y + 16) && Screen->isSolid(Ghost_X + 16, Ghost_Y + 29))
 	{
 		//Ghost_MoveAtAngle(angle, ghost->Step * 0.08, 4);
 		Ghost_X += VectorX(ghost->Step * 0.08, angle);
 		Ghost_Y += VectorY(ghost->Step * 0.08, angle);
-		timer_collide++;
+		++timer_collide;
 		BetterAqua_Ghost_Waitframe(this, ghost);
 	}
 	Game->PlaySound(SFX_AQUA_WALLCRASH);
@@ -278,19 +294,13 @@ void Aqua_StompAttack(ffc this, npc ghost, int original_x, int original_y, int a
 	t0 = (2 * jump) / GRAVITY;
 	t1 = (jump + TERMINAL_VELOCITY) / GRAVITY;
 	t2 = ((-0.5 * GRAVITY * Pow(t1, 2)) + (jump * t1)) / TERMINAL_VELOCITY;
-	if (t0 > t1)
-	{
-		t = t1 + t2;
-	}
-	else
-	{
-		t = t0;
-	}
+	t = (t0 > t1) ? t1 + t2 : t0;
+	
 	v = Distance(Ghost_X, Ghost_Y, Link->X - 8, Link->Y - 8) / t;
 	ghost->ASpeed = aspeed;
 	Ghost_Jump = jump;
 	ghost->Misc[0] = 2;
-	for (int i = 0; i < t; i++)
+	for (int i = 0; i < t; ++i)
 	{
 		Ghost_MoveAtAngle(angle, v, 2);
 		BetterAqua_Ghost_Waitframe(this, ghost);
@@ -308,7 +318,7 @@ void BetterAqua_Ghost_Waitframe(ffc this, npc ghost)
 		if(GH_SHADOW_TRANSLUCENT>0) Screen->DrawTile(1, Ghost_X+8, Ghost_Y+16, GH_SHADOW_TILE+__ghzhData[__GHI_SHADOW_FRAME], 1, 1, GH_SHADOW_CSET, -1, -1, 0, 0, 0, 0, true, OP_TRANS);
 		else Screen->DrawTile(1, Ghost_X+8, Ghost_Y+16, GH_SHADOW_TILE+__ghzhData[__GHI_SHADOW_FRAME], 1, 1, GH_SHADOW_CSET, -1, -1, 0, 0, 0, 0, true, OP_OPAQUE);
 	}
-	ghost->Misc[1]++;
+	++ghost->Misc[1];
 	if (ghost->Misc[1] > 120)
 	{
 		Game->PlaySound(24);
