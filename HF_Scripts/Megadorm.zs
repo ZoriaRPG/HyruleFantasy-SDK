@@ -112,8 +112,8 @@ ffc script Megadorm{
 			X = TrackX[Pos];
 			Y = TrackY[Pos];
 			if(BounceFrames[i]>0){
-				if (i > 0) DrawCombo(2, X, Y, Combo+i, 2, 2, CSet, 32+4*Sin(BounceFrames[i]*5.625*8), 32+4*Sin(BounceFrames[i]*5.625*8), 0, 0, 0, -1, 0, true, 128);
-				else DrawCombo(2, X, Y, Combo+i, 3, 3, CSet, 48+4*Sin(BounceFrames[i]*5.625*8), 48+4*Sin(BounceFrames[i]*5.625*8), 0, 0, 0, -1, 0, true, 128);
+				if (i > 0) DrawComboMoldorm(2, X, Y, Combo+i, 2, 2, CSet, 32+4*Sin(BounceFrames[i]*5.625*8), 32+4*Sin(BounceFrames[i]*5.625*8), 0, 0, 0, -1, 0, true, 128);
+				else DrawComboMoldorm(2, X, Y, Combo+i, 3, 3, CSet, 48+4*Sin(BounceFrames[i]*5.625*8), 48+4*Sin(BounceFrames[i]*5.625*8), 0, 0, 0, -1, 0, true, 128);
 				if(i==0){
 					Angle = WrapDegrees(Vars[1]-45);
 					Screen->FastCombo(2, X-8+VectorX(15+4*Sin(BounceFrames[i]*5.625*8), Angle), Y-8+VectorY(15+4*Sin(BounceFrames[i]*5.625*8), Angle), Combo+6+AngleDir8(Angle), CSet, 128);
@@ -128,8 +128,8 @@ ffc script Megadorm{
 				Link->HitDir = 8;
 			}
 			else{
-				if (i > 0) DrawCombo(2, X, Y, Combo+i, 2, 2, CSet, -1, -1, 0, 0, 0, -1, 0, true, 128);
-				else DrawCombo(2, X, Y, Combo+i, 3, 3, CSet, -1, -1, 0, 0, 0, -1, 0, true, 128);
+				if (i > 0) DrawComboMoldorm(2, X, Y, Combo+i, 2, 2, CSet, -1, -1, 0, 0, 0, -1, 0, true, 128);
+				else DrawComboMoldorm(2, X, Y, Combo+i, 3, 3, CSet, -1, -1, 0, 0, 0, -1, 0, true, 128);
 				if(i==0){
 					Angle = WrapDegrees(Vars[1]-45);
 					Screen->FastCombo(2, X-8+VectorX(15, Angle), Y-8+VectorY(15, Angle), Combo+6+AngleDir8(Angle), CSet, 128);
@@ -217,8 +217,8 @@ ffc script Megadorm{
 							X = TrackX[Pos];
 							Y = TrackY[Pos];
 							if(i<4){
-								if (i > 0)DrawCombo(2, X, Y, Combo+i, 2, 2, CSet, -1, -1, 0, 0, 0, -1, 0, true, 128);
-								else DrawCombo(2, X, Y, Combo+i, 3, 3, CSet, -1, -1, 0, 0, 0, -1, 0, true, 128);
+								if (i > 0)DrawComboMoldorm(2, X, Y, Combo+i, 2, 2, CSet, -1, -1, 0, 0, 0, -1, 0, true, 128);
+								else DrawComboMoldorm(2, X, Y, Combo+i, 3, 3, CSet, -1, -1, 0, 0, 0, -1, 0, true, 128);
 								if(i==0){
 									Angle = WrapDegrees(Vars[1]-45);
 									Screen->FastCombo(2, X-8+VectorX(15, Angle), Y-8+VectorY(15, Angle), Combo+14, CSet, 128);
@@ -358,9 +358,9 @@ ffc script Gigadorm{
 			X = TrackX[Pos];
 			Y = TrackY[Pos];
 			if(BounceFrames[i]>0){
-				if (i > 2) DrawCombo(2, X, Y, Combo+i-1, 2, 2, CSet, 32+4*Sin(BounceFrames[i]*5.625*8), 32+4*Sin(BounceFrames[i]*5.625*8), 0, 0, 0, -1, 0, true, 128);
-				else if (i > 1) DrawCombo(2, X, Y, Combo+i, 2, 2, CSet, 32+4*Sin(BounceFrames[i]*5.625*8), 32+4*Sin(BounceFrames[i]*5.625*8), 0, 0, 0, -1, 0, true, 128);
-				else DrawCombo(2, X, Y, Combo+i, 3, 3, CSet, 48+4*Sin(BounceFrames[i]*5.625*8), 48+4*Sin(BounceFrames[i]*5.625*8), 0, 0, 0, -1, 0, true, 128);
+				if (i > 2) DrawComboMoldorm(2, X, Y, Combo+i-1, 2, 2, CSet, 32+4*Sin(BounceFrames[i]*5.625*8), 32+4*Sin(BounceFrames[i]*5.625*8), 0, 0, 0, -1, 0, true, 128);
+				else if (i > 1) DrawComboMoldorm(2, X, Y, Combo+i, 2, 2, CSet, 32+4*Sin(BounceFrames[i]*5.625*8), 32+4*Sin(BounceFrames[i]*5.625*8), 0, 0, 0, -1, 0, true, 128);
+				else DrawComboMoldorm(2, X, Y, Combo+i, 3, 3, CSet, 48+4*Sin(BounceFrames[i]*5.625*8), 48+4*Sin(BounceFrames[i]*5.625*8), 0, 0, 0, -1, 0, true, 128);
 				if(i==0){
 					Angle = WrapDegrees(Vars[1]-45);
 					Screen->FastCombo(2, X-8+VectorX(18+4*Sin(BounceFrames[i]*5.625*8), Angle), Y-8+VectorY(18+4*Sin(BounceFrames[i]*5.625*8), Angle), Combo+7+AngleDir8(Angle), CSet, 128);
@@ -375,9 +375,9 @@ ffc script Gigadorm{
 				Link->HitDir = 8;
 			}
 			else{
-				if (i > 2) DrawCombo(2, X, Y, Combo+i-1, 2, 2, CSet, -1, -1, 0, 0, 0, -1, 0, true, 128);
-				else if (i > 1) DrawCombo(2, X, Y, Combo+i, 2, 2, CSet, -1, -1, 0, 0, 0, -1, 0, true, 128);
-				else DrawCombo(2, X, Y, Combo+i, 3, 3, CSet, -1, -1, 0, 0, 0, -1, 0, true, 128);
+				if (i > 2) DrawComboMoldorm(2, X, Y, Combo+i-1, 2, 2, CSet, -1, -1, 0, 0, 0, -1, 0, true, 128);
+				else if (i > 1) DrawComboMoldorm(2, X, Y, Combo+i, 2, 2, CSet, -1, -1, 0, 0, 0, -1, 0, true, 128);
+				else DrawComboMoldorm(2, X, Y, Combo+i, 3, 3, CSet, -1, -1, 0, 0, 0, -1, 0, true, 128);
 				if(i==0){
 					Angle = WrapDegrees(Vars[1]-45);
 					Screen->FastCombo(2, X-8+VectorX(18, Angle), Y-8+VectorY(18, Angle), Combo+7+AngleDir8(Angle), CSet, 128);
@@ -469,9 +469,9 @@ ffc script Gigadorm{
 							X = TrackX[Pos];
 							Y = TrackY[Pos];
 							if(i<6){
-								if (i > 2)DrawCombo(2, X, Y, Combo+i - 1, 2, 2, CSet, -1, -1, 0, 0, 0, -1, 0, true, 128);
-								else if (i > 1)DrawCombo(2, X, Y, Combo+i, 2, 2, CSet, -1, -1, 0, 0, 0, -1, 0, true, 128);
-								else DrawCombo(2, X, Y, Combo+i, 3, 3, CSet, -1, -1, 0, 0, 0, -1, 0, true, 128);
+								if (i > 2)DrawComboMoldorm(2, X, Y, Combo+i - 1, 2, 2, CSet, -1, -1, 0, 0, 0, -1, 0, true, 128);
+								else if (i > 1)DrawComboMoldorm(2, X, Y, Combo+i, 2, 2, CSet, -1, -1, 0, 0, 0, -1, 0, true, 128);
+								else DrawComboMoldorm(2, X, Y, Combo+i, 3, 3, CSet, -1, -1, 0, 0, 0, -1, 0, true, 128);
 								if(i==0){
 									Angle = WrapDegrees(Vars[1]-45);
 									Screen->FastCombo(2, X-8+VectorX(18, Angle), Y-8+VectorY(18, Angle), Combo+15, CSet, 128);
@@ -607,12 +607,12 @@ ffc script Omegadorm{
 			X = TrackX[Pos];
 			Y = TrackY[Pos];
 			if(BounceFrames[i]>0){
-				if (i > 5) DrawCombo(2, X, Y, Combo+i-3, 2, 2, CSet, 32+4*Sin(BounceFrames[i]*5.625*8), 32+4*Sin(BounceFrames[i]*5.625*8), 0, 0, 0, -1, 0, true, 128);
-				else if (i > 4) DrawCombo(2, X, Y, Combo+i-2, 2, 2, CSet, 32+4*Sin(BounceFrames[i]*5.625*8), 32+4*Sin(BounceFrames[i]*5.625*8), 0, 0, 0, -1, 0, true, 128);
-				else if (i > 3) DrawCombo(2, X, Y, Combo+i-2, 3, 3, CSet, 48+4*Sin(BounceFrames[i]*5.625*8), 48+4*Sin(BounceFrames[i]*5.625*8), 0, 0, 0, -1, 0, true, 128);
-				else if (i > 1) DrawCombo(2, X, Y, Combo+i-1, 3, 3, CSet, 48+4*Sin(BounceFrames[i]*5.625*8), 48+4*Sin(BounceFrames[i]*5.625*8), 0, 0, 0, -1, 0, true, 128);
-				else if (i > 0) DrawCombo(2, X, Y, Combo+i, 3, 3, CSet, 48+4*Sin(BounceFrames[i]*5.625*8), 48+4*Sin(BounceFrames[i]*5.625*8), 0, 0, 0, -1, 0, true, 128);
-				else DrawCombo(2, X, Y, Combo+i, 4, 4, CSet, 64+4*Sin(BounceFrames[i]*5.625*8), 64+4*Sin(BounceFrames[i]*5.625*8), 0, 0, 0, -1, 0, true, 128);
+				if (i > 5) DrawComboMoldorm(2, X, Y, Combo+i-3, 2, 2, CSet, 32+4*Sin(BounceFrames[i]*5.625*8), 32+4*Sin(BounceFrames[i]*5.625*8), 0, 0, 0, -1, 0, true, 128);
+				else if (i > 4)DrawComboMoldorm(2, X, Y, Combo+i-2, 2, 2, CSet, 32+4*Sin(BounceFrames[i]*5.625*8), 32+4*Sin(BounceFrames[i]*5.625*8), 0, 0, 0, -1, 0, true, 128);
+				else if (i > 3) DrawComboMoldorm(2, X, Y, Combo+i-2, 3, 3, CSet, 48+4*Sin(BounceFrames[i]*5.625*8), 48+4*Sin(BounceFrames[i]*5.625*8), 0, 0, 0, -1, 0, true, 128);
+				else if (i > 1) DrawComboMoldorm(2, X, Y, Combo+i-1, 3, 3, CSet, 48+4*Sin(BounceFrames[i]*5.625*8), 48+4*Sin(BounceFrames[i]*5.625*8), 0, 0, 0, -1, 0, true, 128);
+				else if (i > 0) DrawComboMoldorm(2, X, Y, Combo+i, 3, 3, CSet, 48+4*Sin(BounceFrames[i]*5.625*8), 48+4*Sin(BounceFrames[i]*5.625*8), 0, 0, 0, -1, 0, true, 128);
+				else DrawComboMoldorm(2, X, Y, Combo+i, 4, 4, CSet, 64+4*Sin(BounceFrames[i]*5.625*8), 64+4*Sin(BounceFrames[i]*5.625*8), 0, 0, 0, -1, 0, true, 128);
 				if(i==0){
 					Angle = WrapDegrees(Vars[1]-45);
 					Screen->FastCombo(2, X-8+VectorX(18+4*Sin(BounceFrames[i]*5.625*8), Angle), Y-8+VectorY(18+4*Sin(BounceFrames[i]*5.625*8), Angle), Combo+8+AngleDir8(Angle), CSet, 128);
@@ -627,12 +627,12 @@ ffc script Omegadorm{
 				Link->HitDir = 8;
 			}
 			else{
-				if (i > 5) DrawCombo(2, X, Y, Combo+i-3, 2, 2, CSet, -1, -1, 0, 0, 0, -1, 0, true, 128);
-				else if (i > 4) DrawCombo(2, X, Y, Combo+i-2, 2, 2, CSet, -1, -1, 0, 0, 0, -1, 0, true, 128);
-				else if (i > 3) DrawCombo(2, X, Y, Combo+i-2, 3, 3, CSet, -1, -1, 0, 0, 0, -1, 0, true, 128);
-				else if (i > 1) DrawCombo(2, X, Y, Combo+i-1, 3, 3, CSet, -1, -1, 0, 0, 0, -1, 0, true, 128);
-				else if (i > 0) DrawCombo(2, X, Y, Combo+i, 3, 3, CSet, -1, -1, 0, 0, 0, -1, 0, true, 128);
-				else DrawCombo(2, X, Y, Combo+i, 4, 4, CSet, -1, -1, 0, 0, 0, -1, 0, true, 128);
+				if (i > 5) DrawComboMoldorm(2, X, Y, Combo+i-3, 2, 2, CSet, -1, -1, 0, 0, 0, -1, 0, true, 128);
+				else if (i > 4) DrawComboMoldorm(2, X, Y, Combo+i-2, 2, 2, CSet, -1, -1, 0, 0, 0, -1, 0, true, 128);
+				else if (i > 3) DrawComboMoldorm(2, X, Y, Combo+i-2, 3, 3, CSet, -1, -1, 0, 0, 0, -1, 0, true, 128);
+				else if (i > 1) DrawComboMoldorm(2, X, Y, Combo+i-1, 3, 3, CSet, -1, -1, 0, 0, 0, -1, 0, true, 128);
+				else if (i > 0) DrawComboMoldorm(2, X, Y, Combo+i, 3, 3, CSet, -1, -1, 0, 0, 0, -1, 0, true, 128);
+				else DrawComboMoldorm(2, X, Y, Combo+i, 4, 4, CSet, -1, -1, 0, 0, 0, -1, 0, true, 128);
 				if(i==0){
 					Angle = WrapDegrees(Vars[1]-45);
 					Screen->FastCombo(2, X-8+VectorX(21, Angle), Y-8+VectorY(21, Angle), Combo+8+AngleDir8(Angle), CSet, 128);
@@ -730,12 +730,12 @@ ffc script Omegadorm{
 							X = TrackX[Pos];
 							Y = TrackY[Pos];
 							if(i<9){
-								if (i > 5) DrawCombo(2, X, Y, Combo+i-3, 2, 2, CSet, -1, -1, 0, 0, 0, -1, 0, true, 128);
-								else if (i > 4) DrawCombo(2, X, Y, Combo+i-2, 2, 2, CSet, -1, -1, 0, 0, 0, -1, 0, true, 128);
-								else if (i > 3) DrawCombo(2, X, Y, Combo+i-2, 3, 3, CSet, -1, -1, 0, 0, 0, -1, 0, true, 128);
-								else if (i > 1) DrawCombo(2, X, Y, Combo+i-1, 3, 3, CSet, -1, -1, 0, 0, 0, -1, 0, true, 128);
-								else if (i > 0) DrawCombo(2, X, Y, Combo+i, 3, 3, CSet, -1, -1, 0, 0, 0, -1, 0, true, 128);
-								else DrawCombo(2, X, Y, Combo+i, 4, 4, CSet, -1, -1, 0, 0, 0, -1, 0, true, 128);
+								if (i > 5) DrawComboMoldorm(2, X, Y, Combo+i-3, 2, 2, CSet, -1, -1, 0, 0, 0, -1, 0, true, 128);
+								else if (i > 4) DrawComboMoldorm(2, X, Y, Combo+i-2, 2, 2, CSet, -1, -1, 0, 0, 0, -1, 0, true, 128);
+								else if (i > 3) DrawComboMoldorm(2, X, Y, Combo+i-2, 3, 3, CSet, -1, -1, 0, 0, 0, -1, 0, true, 128);
+								else if (i > 1) DrawComboMoldorm(2, X, Y, Combo+i-1, 3, 3, CSet, -1, -1, 0, 0, 0, -1, 0, true, 128);
+								else if (i > 0) DrawComboMoldorm(2, X, Y, Combo+i, 3, 3, CSet, -1, -1, 0, 0, 0, -1, 0, true, 128);
+								else DrawComboMoldorm(2, X, Y, Combo+i, 4, 4, CSet, -1, -1, 0, 0, 0, -1, 0, true, 128);
 								if(i==0){
 									Angle = WrapDegrees(Vars[1]-45);
 									Screen->FastCombo(2, X-8+VectorX(12, Angle), Y-8+VectorY(12, Angle), Combo+16, CSet, 128);
