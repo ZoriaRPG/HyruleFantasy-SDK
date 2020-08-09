@@ -18,7 +18,7 @@ void DEATHWORM(int X, int Y, int WormX, int WormY){
 	// }
 }
 
-void DrawComboOof(int layer, int cx, int cy, int tile, int blockw, int blockh, int cset, int xscale, int yscale, int rx, int ry, int rangle, int frame, int flip, bool transparency, int opacity){
+void DrawComboMoldorm(int layer, int cx, int cy, int tile, int blockw, int blockh, int cset, int xscale, int yscale, int rx, int ry, int rangle, int frame, int flip, bool transparency, int opacity){
 	int w = xscale;
 	if(xscale==-1)
 		w = blockw*16;
@@ -272,8 +272,8 @@ ffc script Moldorm{
 			}
 			if (XA[i] != 0 || YA[i] != 0)
 			{
-				if (Vars[10] < 5) DrawCombo(2, XA[Max(0,i)], YA[Max(0,i)], Combo-4, 1, 1, 10, -1, -1, 0, 0, 0, -1, 0, true, 64);
-				else DrawCombo(2, XA[Max(0,i)], YA[Max(0,i)], Combo+4, 1, 1, 10, -1, -1, 0, 0, 0, -1, 0, true, 64);
+				if (Vars[10] < 5) DrawComboMoldorm(2, XA[Max(0,i)], YA[Max(0,i)], Combo-4, 1, 1, 10, -1, -1, 0, 0, 0, -1, 0, true, 64);
+				else  DrawComboMoldorm(2, XA[Max(0,i)], YA[Max(0,i)], Combo+4, 1, 1, 10, -1, -1, 0, 0, 0, -1, 0, true, 64);
 			}
 		}
 		//Trace(5);
@@ -324,8 +324,8 @@ ffc script Moldorm{
 				}
 				if (XA[l] != 0 || YA[l] != 0)
 				{
-					if (Vars[10] < 5) DrawCombo(2, XA[Max(0,l)], YA[Max(0,l)], Combo+i, 2, 2, 10, -1, -1, 0, 0, 0, -1, 0, true, 64);
-					else DrawCombo(2, XA[Max(0,l)], YA[Max(0,l)], Combo+i, 2, 2, 10, -1, -1, 0, 0, 0, -1, 0, true, 64);
+					if (Vars[10] < 5)  DrawComboMoldorm(2, XA[Max(0,l)], YA[Max(0,l)], Combo+i, 2, 2, 10, -1, -1, 0, 0, 0, -1, 0, true, 64);
+					else  DrawComboMoldorm(2, XA[Max(0,l)], YA[Max(0,l)], Combo+i, 2, 2, 10, -1, -1, 0, 0, 0, -1, 0, true, 64);
 				}
 			}
 			for (int l = 4 - Vars[22] + 1; l < 5; l++)
@@ -354,15 +354,15 @@ ffc script Moldorm{
 		Y = TrackY[Pos];
 		if (Vars[16] < 3)
 		{
-			if (Vars[10] <= 0) DrawCombo(2, X, Y, Combo-3, 1, 1, CSet, -1, -1, 0, 0, 0, -1, 0, true, 64);
-			else if (Vars[10] < 5) DrawCombo(2, X, Y, Combo-4, 1, 1, CSet, -1, -1, 0, 0, 0, -1, 0, true, 64);
-			else DrawCombo(2, X, Y, Combo+4, 1, 1, CSet, -1, -1, 0, 0, 0, -1, 0, true, 64);
+			if (Vars[10] <= 0) DrawComboMoldorm(2, X, Y, Combo-3, 1, 1, CSet, -1, -1, 0, 0, 0, -1, 0, true, 64);
+			else if (Vars[10] < 5) DrawComboMoldorm(2, X, Y, Combo-4, 1, 1, CSet, -1, -1, 0, 0, 0, -1, 0, true, 64);
+			else DrawComboMoldorm(2, X, Y, Combo+4, 1, 1, CSet, -1, -1, 0, 0, 0, -1, 0, true, 64);
 		}
 		else
 		{
-			if (Vars[10] <= 0) DrawCombo(2, X, Y, Combo-3, 1, 1, CSet, -1, -1, 0, 0, 0, -1, 0, true, 128);
-			else if (Vars[10] < 5) DrawCombo(2, X, Y, Combo-4, 1, 1, CSet, -1, -1, 0, 0, 0, -1, 0, true, 128);
-			else DrawCombo(2, X, Y, Combo+4, 1, 1, CSet, -1, -1, 0, 0, 0, -1, 0, true, 128);
+			if (Vars[10] <= 0) DrawComboMoldorm(2, X, Y, Combo-3, 1, 1, CSet, -1, -1, 0, 0, 0, -1, 0, true, 128);
+			else if (Vars[10] < 5) DrawComboMoldorm(2, X, Y, Combo-4, 1, 1, CSet, -1, -1, 0, 0, 0, -1, 0, true, 128);
+			else DrawComboMoldorm(2, X, Y, Combo+4, 1, 1, CSet, -1, -1, 0, 0, 0, -1, 0, true, 128);
 		}
 		//Trace(9);
 		if(tail->isValid()){
@@ -384,23 +384,23 @@ ffc script Moldorm{
 			X = TrackX[Pos];
 			Y = TrackY[Pos];
 			if(BounceFrames[i]>0){
-				if (Vars[16] < 3) DrawCombo(2, X, Y, Combo+i, 2, 2, CSet, 32+4*Sin(BounceFrames[i]*5.625*8), 32+4*Sin(BounceFrames[i]*5.625*8), 0, 0, 0, -1, 0, true, 64);
-				else DrawCombo(2, X, Y, Combo+i, 2, 2, CSet, 32+4*Sin(BounceFrames[i]*5.625*8), 32+4*Sin(BounceFrames[i]*5.625*8), 0, 0, 0, -1, 0, true, 128);
+				if (Vars[16] < 3) DrawComboMoldorm(2, X, Y, Combo+i, 2, 2, CSet, 32+4*Sin(BounceFrames[i]*5.625*8), 32+4*Sin(BounceFrames[i]*5.625*8), 0, 0, 0, -1, 0, true, 64);
+				else DrawComboMoldorm(2, X, Y, Combo+i, 2, 2, CSet, 32+4*Sin(BounceFrames[i]*5.625*8), 32+4*Sin(BounceFrames[i]*5.625*8), 0, 0, 0, -1, 0, true, 128);
 				if(i==0){
-					DrawCombo(2, X, Y, Combo+6, 2, 2, CSet, 32, 32, X, Y, Vars[1], -1, 0, true, 128);
+					DrawComboMoldorm(2, X, Y, Combo+6, 2, 2, CSet, 32, 32, X, Y, Vars[1], -1, 0, true, 128);
 					if ((Vars[20] < 0 && Vars[20] > -5) || (Vars[20] <= -145 && Vars[20] > -150)) 
 					{
-						if (Vars[16] < 3) DrawCombo(2, X, Y, Combo-2, 3, 3, CSet, 48, 48, X, Y, Vars[1], -1, 0, true, 128);
-						else DrawCombo(2, X, Y, Combo+20, 3, 3, CSet, 48, 48, X, Y, Vars[1], -1, 0, true, 128);
+						if (Vars[16] < 3) DrawComboMoldorm(2, X, Y, Combo-2, 3, 3, CSet, 48, 48, X, Y, Vars[1], -1, 0, true, 128);
+						else DrawComboMoldorm(2, X, Y, Combo+20, 3, 3, CSet, 48, 48, X, Y, Vars[1], -1, 0, true, 128);
 					}
 					else if (Vars[20] <= -5 && Vars[20] > -150) 
 					{
-						if (Vars[16] < 3) DrawCombo(2, X, Y, Combo-1, 3, 3, CSet, 48, 48, X, Y, Vars[1], -1, 0, true, 128);
-						else DrawCombo(2, X, Y, Combo+21, 3, 3, CSet, 48, 48, X, Y, Vars[1], -1, 0, true, 128);
+						if (Vars[16] < 3) DrawComboMoldorm(2, X, Y, Combo-1, 3, 3, CSet, 48, 48, X, Y, Vars[1], -1, 0, true, 128);
+						else DrawComboMoldorm(2, X, Y, Combo+21, 3, 3, CSet, 48, 48, X, Y, Vars[1], -1, 0, true, 128);
 					}
-					if (Vars[16] == 0) DrawCombo(2, X, Y, Combo+5, 2, 2, CSet, 32, 32, X, Y, Vars[1], -1, 0, true, 128);
-					else if (Vars[16] == 1) DrawCombo(2, X, Y, Combo+18, 2, 2, CSet, 32, 32, X, Y, Vars[1], -1, 0, true, 128);
-					else if (Vars[16] == 2) DrawCombo(2, X, Y, Combo+19, 2, 2, CSet, 32, 32, X, Y, Vars[1], -1, 0, true, 128);
+					if (Vars[16] == 0) DrawComboMoldorm(2, X, Y, Combo+5, 2, 2, CSet, 32, 32, X, Y, Vars[1], -1, 0, true, 128);
+					else if (Vars[16] == 1) DrawComboMoldorm(2, X, Y, Combo+18, 2, 2, CSet, 32, 32, X, Y, Vars[1], -1, 0, true, 128);
+					else if (Vars[16] == 2) DrawComboMoldorm(2, X, Y, Combo+19, 2, 2, CSet, 32, 32, X, Y, Vars[1], -1, 0, true, 128);
 					Angle = WrapDegrees(Vars[1]-45);
 					Screen->FastCombo(2, X-8+VectorX(12+4*Sin(BounceFrames[i]*5.625*8), Angle), Y-8+VectorY(12+4*Sin(BounceFrames[i]*5.625*8), Angle), Combo+8+AngleDir8(Angle), CSet, 128);
 					Angle = WrapDegrees(Vars[1]+45);
@@ -414,23 +414,23 @@ ffc script Moldorm{
 				Link->HitDir = 8;
 			}
 			else{
-				if (Vars[16] < 3) DrawCombo(2, X, Y, Combo+i, 2, 2, CSet, -1, -1, 0, 0, 0, -1, 0, true, 64);
-				else DrawCombo(2, X, Y, Combo+i, 2, 2, CSet, -1, -1, 0, 0, 0, -1, 0, true, 128);
+				if (Vars[16] < 3) DrawComboMoldorm(2, X, Y, Combo+i, 2, 2, CSet, -1, -1, 0, 0, 0, -1, 0, true, 64);
+				else DrawComboMoldorm(2, X, Y, Combo+i, 2, 2, CSet, -1, -1, 0, 0, 0, -1, 0, true, 128);
 				if(i==0){
-					DrawCombo(2, X, Y, Combo+6, 2, 2, CSet, 32, 32, X, Y, Vars[1], -1, 0, true, 128);
+					DrawComboMoldorm(2, X, Y, Combo+6, 2, 2, CSet, 32, 32, X, Y, Vars[1], -1, 0, true, 128);
 					if ((Vars[20] < 0 && Vars[20] > -5) || (Vars[20] <= -145 && Vars[20] > -150)) 
 					{
-						if (Vars[16] < 3) DrawCombo(2, X, Y, Combo-2, 3, 3, CSet, 48, 48, X, Y, Vars[1], -1, 0, true, 128);
-						else DrawCombo(2, X, Y, Combo+20, 3, 3, CSet, 48, 48, X, Y, Vars[1], -1, 0, true, 128);
+						if (Vars[16] < 3) DrawComboMoldorm(2, X, Y, Combo-2, 3, 3, CSet, 48, 48, X, Y, Vars[1], -1, 0, true, 128);
+						else DrawComboMoldorm(2, X, Y, Combo+20, 3, 3, CSet, 48, 48, X, Y, Vars[1], -1, 0, true, 128);
 					}
 					else if (Vars[20] <= -5 && Vars[20] > -150) 
 					{
-						if (Vars[16] < 3) DrawCombo(2, X, Y, Combo-1, 3, 3, CSet, 48, 48, X, Y, Vars[1], -1, 0, true, 128);
-						else DrawCombo(2, X, Y, Combo+21, 3, 3, CSet, 48, 48, X, Y, Vars[1], -1, 0, true, 128);
+						if (Vars[16] < 3) DrawComboMoldorm(2, X, Y, Combo-1, 3, 3, CSet, 48, 48, X, Y, Vars[1], -1, 0, true, 128);
+						else DrawComboMoldorm(2, X, Y, Combo+21, 3, 3, CSet, 48, 48, X, Y, Vars[1], -1, 0, true, 128);
 					}
-					if (Vars[16] == 0) DrawCombo(2, X, Y, Combo+5, 2, 2, CSet, 32, 32, X, Y, Vars[1], -1, 0, true, 128);
-					else if (Vars[16] == 1) DrawCombo(2, X, Y, Combo+18, 2, 2, CSet, 32, 32, X, Y, Vars[1], -1, 0, true, 128);
-					else if (Vars[16] == 2) DrawCombo(2, X, Y, Combo+19, 2, 2, CSet, 32, 32, X, Y, Vars[1], -1, 0, true, 128);
+					if (Vars[16] == 0) DrawComboMoldorm(2, X, Y, Combo+5, 2, 2, CSet, 32, 32, X, Y, Vars[1], -1, 0, true, 128);
+					else if (Vars[16] == 1) DrawComboMoldorm(2, X, Y, Combo+18, 2, 2, CSet, 32, 32, X, Y, Vars[1], -1, 0, true, 128);
+					else if (Vars[16] == 2) DrawComboMoldorm(2, X, Y, Combo+19, 2, 2, CSet, 32, 32, X, Y, Vars[1], -1, 0, true, 128);
 					Angle = WrapDegrees(Vars[1]-45);
 					Screen->FastCombo(2, X-8+VectorX(12, Angle), Y-8+VectorY(12, Angle), Combo+8+AngleDir8(Angle), CSet, 128);
 					Angle = WrapDegrees(Vars[1]+45);
@@ -583,9 +583,9 @@ ffc script Moldorm{
 							X = TrackX[Pos];
 							Y = TrackY[Pos];
 							if(i<4){
-								DrawCombo(2, X, Y, Combo+i, 2, 2, CSet, -1, -1, 0, 0, 0, -1, 0, true, 128);
+								DrawComboMoldorm(2, X, Y, Combo+i, 2, 2, CSet, -1, -1, 0, 0, 0, -1, 0, true, 128);
 								if(i==0){
-									DrawCombo(2, X, Y, Combo+6, 2, 2, CSet, 32, 32, X, Y, Vars[1], -1, 0, true, 128);
+									DrawComboMoldorm(2, X, Y, Combo+6, 2, 2, CSet, 32, 32, X, Y, Vars[1], -1, 0, true, 128);
 									Angle = WrapDegrees(Vars[1]-45);
 									Screen->FastCombo(2, X-8+VectorX(12, Angle), Y-8+VectorY(12, Angle), Combo+16, CSet, 128);
 									Angle = WrapDegrees(Vars[1]+45);
