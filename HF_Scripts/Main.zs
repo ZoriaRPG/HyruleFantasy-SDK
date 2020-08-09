@@ -10,6 +10,7 @@
 #include "LinkMovement.zh"
 #include "scrollingDraws.zh" 
 #include "DrawLayerFix.zh" 
+#include "LinkSpeed.zs"
 
 #include "SolidFFC.zs"
 #include "LttP_Buttons.zs"
