@@ -121,7 +121,7 @@ ffc script Medidorm{
 			X = TrackX[Pos];
 			Y = TrackY[Pos];
 			if(BounceFrames[i]>0){
-				DrawCombo(2, X, Y, Combo+i, 2, 2, CSet, 32+4*Sin(BounceFrames[i]*5.625*8), 32+4*Sin(BounceFrames[i]*5.625*8), 0, 0, 0, -1, 0, true, 128);
+				DrawComboMoldorm(2, X, Y, Combo+i, 2, 2, CSet, 32+4*Sin(BounceFrames[i]*5.625*8), 32+4*Sin(BounceFrames[i]*5.625*8), 0, 0, 0, -1, 0, true, 128);
 				if(i==2){
 					Angle = WrapDegrees(Vars[1]-45);
 					Screen->FastCombo(2, X-8+VectorX(8+4*Sin(BounceFrames[i]*5.625*8), Angle), Y-8+VectorY(12+4*Sin(BounceFrames[i]*5.625*8), Angle), Combo+8+AngleDir8(Angle), CSet, 128);
@@ -136,7 +136,7 @@ ffc script Medidorm{
 				Link->HitDir = 8;
 			}
 			else{
-				DrawCombo(2, X, Y, Combo+i, 2, 2, CSet, -1, -1, 0, 0, 0, -1, 0, true, 128);
+				DrawComboMoldorm(2, X, Y, Combo+i, 2, 2, CSet, -1, -1, 0, 0, 0, -1, 0, true, 128);
 				if(i==2){
 					Angle = WrapDegrees(Vars[1]-45);
 					Screen->FastCombo(2, X-8+VectorX(8, Angle), Y-8+VectorY(12, Angle), Combo+8+AngleDir8(Angle), CSet, 128);
@@ -235,7 +235,7 @@ ffc script Medidorm{
 							X = TrackX[Pos];
 							Y = TrackY[Pos];
 							if(i<4){
-								DrawCombo(2, X, Y, Combo+i, 2, 2, CSet, -1, -1, 0, 0, 0, -1, 0, true, 128);
+								DrawComboMoldorm(2, X, Y, Combo+i, 2, 2, CSet, -1, -1, 0, 0, 0, -1, 0, true, 128);
 								if(i==2){
 									Angle = WrapDegrees(Vars[1]-45);
 									Screen->FastCombo(2, X-8+VectorX(12, Angle), Y-8+VectorY(12, Angle), Combo+16, CSet, 128);
