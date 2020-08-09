@@ -343,9 +343,13 @@ ffc script Big_Beamos
 				}
 				else
 				{
-					unless(LaserEnded[k]){
-						unless(((Screen->isSolid(LEndX[k] - BEAMOS_LASER_SPEED, LEndY[k]) && Screen->isSolid(LEndX[k] + BEAMOS_LASER_SPEED, LEndY[k]) && Screen->isSolid(LEndX[k], LEndY[k] - BEAMOS_LASER_SPEED) && Screen->isSolid(LEndX[k], LEndY[k] + BEAMOS_LASER_SPEED))
-						&&(LEndX[k]<-16||LEndX[k]>272||LEndY[k]<-16||LEndY[k]>192))||!Distance((LStartX[k], LStartY[k], LEndX[k], LEndY[k])<BEAMOS_LASER_MINDIST))
+					if(!LaserEnded[k]){
+						unless(((Screen->isSolid(LEndX[k] - BEAMOS_LASER_SPEED, LEndY[k]) 
+							&& Screen->isSolid(LEndX[k] + BEAMOS_LASER_SPEED, LEndY[k]) 
+							&& Screen->isSolid(LEndX[k], LEndY[k] - BEAMOS_LASER_SPEED) 
+							&& Screen->isSolid(LEndX[k], LEndY[k] + BEAMOS_LASER_SPEED))
+							&&(LEndX[k]<-16||LEndX[k]>272||LEndY[k]<-16||LEndY[k]>192))||!((Distance(LStartX[k], LStartY[k], LEndX[k], LEndY[k]))<BEAMOS_LASER_MINDIST))
+						
 						{
 							int LDist = Distance(LStartX[k], LStartY[k], LEndX[k], LEndY[k]);
 							LStartX[k] += VectorX(BEAMOS_LASER_SPEED, Angle[k]);

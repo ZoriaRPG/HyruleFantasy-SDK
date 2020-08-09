@@ -84,7 +84,7 @@ global script test_bobomb
 //Globally find any bobombs. If any are on the screen and the script is not running, run it. 
 void BobOmb(int npc_id, int ffc_slot, int ffc_data, int misc_timer, int misc_cset_slot, int flash_cset)
 {
-	npc n; int fscr = Game->GetFFCScript("bobomb")
+	npc n; int fscr = Game->GetFFCScript("bobomb");
 	ffc f = Screen->LoadFFC(ffc_slot);
 	if ( f->Script == fscr ) return;
 	for ( int q = Screen->NumNPCs(); q > 0; --q ) 
