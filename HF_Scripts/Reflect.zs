@@ -41,7 +41,7 @@ void DiagonAlley()
 		if (Distance(Link->X, Link->Y, ComboX(i), ComboY(i)) < 16)
 		{
 			int comp[3]; 
-			for (int m = 0; m < 3; m++) comp[m] = GetLayerComboD(m, i);
+			for (int m = 0; m < 3; m++) if ( Screen->LayerMap(m) != -1 && Screen->LayerScreen(m) != -1 ) comp[m] = GetLayerComboD(m, i);
 			if (CompareArray(comp, topleft)) dir = 1;
 			else if (CompareArray(comp, topright)) dir = 2;
 			else if (CompareArray(comp, bottomleft)) dir = 3;
