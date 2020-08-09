@@ -1,5 +1,8 @@
 #include "std.zh"
 
+//NPC Scrripts
+#include "bobomb.zs"
+
 #include "ffcscript.zh"
 #include "stdCombos.zh"
 #include "ghost_HF.zh"
@@ -66,7 +69,6 @@
 #include "Stalfos.zs"
 #include "Lanmola.zs"
 #include "Hoarder.zs"
-#include "Bombite.zs"
 #include "Vire.zs"
 #include "SomariaBlock.zs"
 #include "Bracelet.zs"
@@ -256,7 +258,6 @@ global script Main_Loop{
     while(1)
     {
 	  //Trace(1);
-	  BobOmb(NPC_BOBOMB, BOBOMB_FFC_SLOT, BOBOMB_FFC_DATA, BOBOMB_FFC_D_TIMER_SLOT, BOBOMB_FFC_D_CSET_SLOT, BOBOMB_FFC_FLASH_CSET);
 	  ScrollPFix();
       UpdateGhostZH1();
 	  Tango_Update1();
