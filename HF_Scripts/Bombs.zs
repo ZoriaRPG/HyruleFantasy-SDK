@@ -1,5 +1,7 @@
 // script for GB style bombs
 
+//! This needs to become a constant item script and an lweapon script. 
+
 // global
 int bomb_num;
 int holding_bomb;
@@ -20,68 +22,72 @@ bool bomb_on_screen;
 bool isChangingBomb;
 
 // item script
-item script Bombs{
-void run(){
-  if (powerBracelet[HOLDING_BLOCK] != 0) Quit();
-  lweapon bomb;
-  lweapon w;
-  for(int nw=1;nw<=Screen->NumLWeapons();nw++){
-   w = Screen->LoadLWeapon(nw);
-   if(w->ID == LW_BOMB) {
-    bomb = w;
-    bomb_num = nw;
-   }
-  }
-  if(bomb_on_screen){
-   if(LinkCollision(bomb)) PickUpBomb();
-  }
-  else PlaceBomb(bomb);
-  isChangingBomb = true;
-}
+item script Bombs
+{
+	void run()
+	{
+		if (powerBracelet[HOLDING_BLOCK]) Quit();
+		lweapon bomb;
+		lweapon w;
+		for(int nw = Screen->NumLWeapons();nw > 0; --nw)
+		{
+			w = Screen->LoadLWeapon(nw);
+			if(w->ID == LW_BOMB) 
+			{
+				bomb = w;
+				bomb_num = nw;
+			}
+		}
+		if(bomb_on_screen)
+		{
+			if(LinkCollision(bomb)) PickUpBomb();
+		}
+		else PlaceBomb(bomb);
+		isChangingBomb = true;
+	}
 }
 
 // functions
-void PlaceBomb(lweapon bomb){
-bomb->X = Link->X + InFrontX(Link->Dir,8);
-bomb->Y = Link->Y + InFrontY(Link->Dir,8);
-bomb_on_screen = true;
+void PlaceBomb(lweapon bomb)
+{
+	bomb->X = Link->X + InFrontX(Link->Dir,8);
+	bomb->Y = Link->Y + InFrontY(Link->Dir,8);
+	bomb_on_screen = true;
 }
 
 
-void PickUpBomb(){
-Game->PlaySound(SFX_PICKUP_BLOCK);
-holding_bomb++;
+void PickUpBomb()
+{
+	Game->PlaySound(SFX_PICKUP_BLOCK);
+	++holding_bomb;
 }
 
 
 // global function
-void Bombs(){
+void Bombs()
+{
 	lweapon bomb;
 	lweapon w;
 	int num_bombs = 0;
-	for(int nw=1;nw<=Screen->NumLWeapons();nw++){
-	  w = Screen->LoadLWeapon(nw);
-	  if(w->ID == LW_BOMB) {
-	   bomb = w;
-	   bomb_num = nw;
-	   num_bombs ++;
-	  }
-	}
-	if(num_bombs==0) bomb_on_screen = false;
-	//
-	if(holding_bomb>0){
-		//if (bomb->isValid() && bomb->ID == LW_BOMB) bomb_damage = bomb->Damage;
-		if (false)
+	for(int nw = Screen->NumLWeapons();nw > 0; --nw)
+	{
+		w = Screen->LoadLWeapon(nw);
+		if(w->ID == LW_BOMB) 
 		{
-		  bomb->X = Link->X;
-		  bomb->Y = Link->Y;
-		  bomb->Z = 16;
+			bomb = w;
+			bomb_num = nw;
+			++num_bombs;
 		}
+	}
+	unless(num_bombs) bomb_on_screen = false;
+	//
+	if(holding_bomb>0)
+	{
 		if (num_bombs > 0) Remove(bomb);
 		Screen->FastTile(3, Link->X, Link->Y - 14, BOMB_TILE, 7, OP_OPAQUE);
-		holding_bomb++;
+		++holding_bomb;
 		if(holding_bomb>20 && (Link->InputA || Link->InputB || Link->InputEx2)) ThrowBomb();
-		if(!Link->Item[LTM_HOLDING]) Link->Item[LTM_HOLDING] = true;
+		unless(Link->Item[LTM_HOLDING]) Link->Item[LTM_HOLDING] = true;
 		if(Link->Item[LTM_CATCHING]) Link->Item[LTM_CATCHING] = false;
 		if(Link->Item[LTM_PULLING]) Link->Item[LTM_PULLING] = false;
 	}
@@ -97,37 +103,34 @@ void Bombs(){
 		{
 			if (bomb->ID == LW_BOMB && bomb->isValid())
 			{
-				if(bomb->Z > 0){
-				  bomb->Z += (4-throwing_bomb/2);
-				  throwing_bomb++;
-				  if(Screen->ComboS[ComboAt(bomb->X+8,bomb->Y+12)]!=15){
-				   bomb->X += BOMB_SPEED*(Floor(bomb_dir/2) * (2*bomb_dir-5));
-				   bomb->Y += BOMB_SPEED*(Floor((-bomb_dir+3)/2) * (2*bomb_dir-1));
-				  }
+				if(bomb->Z > 0)
+				{
+					bomb->Z += (4-throwing_bomb/2);
+					++throwing_bomb;
+					if(Screen->ComboS[ComboAt(bomb->X+8,bomb->Y+12)]!=15)
+					{
+						bomb->X += BOMB_SPEED*(Floor(bomb_dir/2) * (2*bomb_dir-5));
+						bomb->Y += BOMB_SPEED*(Floor((-bomb_dir+3)/2) * (2*bomb_dir-1));
+					}
 				}
-				else if(bomb->Z == 0){
-				  throwing_bomb = 0;
+				else
+				{
+					throwing_bomb = 0;
 				}
 			}
 		}
 	}
-	if (false)
-	{
-		if(!bomb->isValid()) {
-		  holding_bomb = 0;
-		  throwing_bomb = 0;
-		} 
-	}
 }
 
-void ThrowBomb(){
-Game->PlaySound(SFX_THROW_BLOCK);
-throwing_bomb = 1;
-holding_bomb = 0;
-bomb_dir = Link->Dir;
-lweapon bomb = Screen->CreateLWeapon(LW_BOMB);
-bomb->Damage = bomb_damage;
-bomb->X = Link->X;
-bomb->Y = Link->Y;
-bomb->Z = 16;
+void ThrowBomb()
+{
+	Game->PlaySound(SFX_THROW_BLOCK);
+	throwing_bomb = 1;
+	holding_bomb = 0;
+	bomb_dir = Link->Dir;
+	lweapon bomb = Screen->CreateLWeapon(LW_BOMB);
+	bomb->Damage = bomb_damage;
+	bomb->X = Link->X;
+	bomb->Y = Link->Y;
+	bomb->Z = 16;
 }
