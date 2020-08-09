@@ -1,8 +1,0 @@
-const int invC==1
-ffc script fallingItem
-	void run (int arg1, int CChange)
-		if (!Screen->State[ST_ITEM] && (arg1 == 1))
-			Screen->ComboD = invC
-	Waitframe();
-	
-			
