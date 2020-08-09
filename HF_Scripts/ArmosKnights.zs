@@ -3,35 +3,35 @@
 // import "ghost.zh"
 
 // Time before coming to life
-const int AK_INITIAL_WAIT_TIME = 180;
-const int AK_RUMBLE_TIME = 60;
+const int AK_INITIAL_WAIT_TIME 		= 180;
+const int AK_RUMBLE_TIME 		= 60;
 
 // First phase movement
-const int AK_PART_1_WAIT_TIME = 150;
-const int AK_PART_1_TOTAL_CIRCLE_TIME = 510;
-const int AK_PART_1_REDUCE_RADIUS_TIME = 300;
-const int AK_PART_1_EXPAND_RADIUS_TIME = 390;
-const int AK_PART_1_STEP = 1.25;
-const int AK_PART_1_ROTATE_SPEED = 1;
+const int AK_PART_1_WAIT_TIME 		= 150;
+const int AK_PART_1_TOTAL_CIRCLE_TIME 	= 510;
+const int AK_PART_1_REDUCE_RADIUS_TIME 	= 300;
+const int AK_PART_1_EXPAND_RADIUS_TIME 	= 390;
+const float AK_PART_1_STEP 		= 1.25;
+const int AK_PART_1_ROTATE_SPEED 	= 1;
 
 // Second phase movement
-const int AK_PART_2_WAIT_TIME = 30;
-const int AK_PART_2_STEP = 3.5;
-const int AK_PART_2_RISE_DIVISOR = 2;
-const int AK_PART_2_FALL_STEP = 6;
+const int AK_PART_2_WAIT_TIME 		= 30;
+const float AK_PART_2_STEP 		= 3.5;
+const int AK_PART_2_RISE_DIVISOR 	= 2;
+const int AK_PART_2_FALL_STEP 		= 6;
 
 // ffc->Misc[] indices
-const int AK_IDX_LAST_ONE = 0;
-const int AK_IDX_PLAY_SOUND = 1;
-const int AK_IDX_DYING = 2;
+const int AK_IDX_LAST_ONE 		= 0;
+const int AK_IDX_PLAY_SOUND 		= 1;
+const int AK_IDX_DYING 			= 2;
 
 // npc->Attributes[] indices
-const int AK_ATTR_NUM_KNIGHTS = 0;
-const int AK_ATTR_SECOND_CSET = 1;
-const int AK_ATTR_SFX_STOMP = 2;
-const int AK_ATTR_SFX_JUMP = 3;
-const int AK_ATTR_SFX_RUMBLE = 4;
-const int AK_ATTR_EXPLODE = 5;
+const int AK_ATTR_NUM_KNIGHTS 		= 0;
+const int AK_ATTR_SECOND_CSET 		= 1;
+const int AK_ATTR_SFX_STOMP 		= 2;
+const int AK_ATTR_SFX_JUMP 		= 3;
+const int AK_ATTR_SFX_RUMBLE 		= 4;
+const int AK_ATTR_EXPLODE 		= 5;
 
 ffc script ArmosKnights
 {
@@ -39,10 +39,10 @@ ffc script ArmosKnights
 	{
 		// The placed enemy is a dummy that acts as a supervisor;
 		// it'll set up the rest of the FFCs and give them nonzero knightIDs
-		if(knightID==0)
-		SupervisorRun(this, enemyID);
+		unless(knightID)
+			SupervisorRun(this, enemyID);
 		else
-		KnightRun(this, enemyID, knightID-1, numKnights, rowX, rowY);
+			KnightRun(this, enemyID, knightID-1, numKnights, rowX, rowY);
 	}
 
 	// Supervisor mode ------------------------
@@ -83,11 +83,11 @@ ffc script ArmosKnights
 		{
 			ffcID=FindUnusedFFC(ffcID);
 
-			if(ffcID==0)
-			break;
+			unless(ffcID)
+				break;
 
 			knightFFC[numFFCs]=Screen->LoadFFC(ffcID);
-			numFFCs++;
+			++numFFCs;
 		}
 
 		// Reduce the number of knights if too few FFCs were available
@@ -99,7 +99,7 @@ ffc script ArmosKnights
 		GetColumnPositions(numKnights, rowY);
 
 		// Set up the FFCs; no enemies or scripts yet
-		for(i=0; i<numKnights; i++)
+		for(i=0; i<numKnights; ++i)
 		{
 			knightFFC[i]->Data=combo;
 			knightFFC[i]->CSet=cset;
@@ -115,16 +115,16 @@ ffc script ArmosKnights
 		Waitframes(AK_INITIAL_WAIT_TIME);
 
 		Game->PlaySound(ghost->Attributes[AK_ATTR_SFX_RUMBLE]);
-		for(i=0; i<AK_RUMBLE_TIME; i++)
+		for(i=0; i < AK_RUMBLE_TIME; ++i)
 		{
-			for(int j=0; j<numKnights; j++)
-			knightFFC[j]->X=startX[j]+Rand(3)-1; // Starting position +/- 1
+			for(int j=0; j < numKnights; ++j)
+				knightFFC[j]->X=startX[j]+Rand(3)-1; // Starting position +/- 1
 			Waitframe();
 		}
 
 		// Set up the knights' scripts
 		numAlive=numKnights;
-		for(i=0; i<numKnights; i++)
+		for(i=0; i < numKnights; ++i)
 		{
 			knightFFC[i]->Script=this->Script;
 			knightFFC[i]->InitD[0]=enemyID;
@@ -136,29 +136,29 @@ ffc script ArmosKnights
 		}
 
 		// The knights will move on their own; just watch to see when they die
-		while(numAlive>1)
+		while( numAlive > 1 )
 		{
 			Waitframe();
 			if (this->InitD[5] > 0)
 			{
 				int Attack = Rand(1, 5);
-				for(i=0; i<numKnights; i++)
+				for(i=0; i < numKnights; ++i)
 				{
 					knightFFC[i]->InitD[5] = Attack;
 				}
 				this->InitD[5] = 0;
 			}
-			for(i=0; i<numKnights; i++)
+			for(i=0; i < numKnights; ++i)
 			{
-				if(!alive[i])
+				unless(alive[i])
 				continue;
 
 				// If a knight is dying, don't count it as dead unless there's at least one other;
 				// if they all died at once here, the second phase of the fight wouldn't happen
-				if(knightFFC[i]->Misc[AK_IDX_DYING]!=0 && numAlive>1)
+				if(knightFFC[i]->Misc[AK_IDX_DYING] && numAlive > 1)
 				{
 					alive[i]=false;
-					numAlive--;
+					--numAlive;
 				}
 				// Check if a landing sound should be played;
 				// It's the supervisor that does this so the sound only plays once per jump
@@ -174,7 +174,7 @@ ffc script ArmosKnights
 		}
 
 		// Only one is left; tell it to switch behavior
-		for(i=0; i<numKnights; i++)
+		for(i=0; i < numKnights; ++i)
 		{
 			if(alive[i])
 			{
@@ -199,112 +199,122 @@ ffc script ArmosKnights
 	// Determine the initial position of each knight based on the total number
 	void GetStartingPositions(int numKnights, int startX, int startY)
 	{
-		if(numKnights==1)
+		switch(numKnights)
 		{
-			startX[0]=120;
-			startY[0]=72;
-		}
-		else if(numKnights==2)
-		{
-			startX[0]=72;
-			startY[0]=72;
+			case 1:
+			{
+				startX[0]=120;
+				startY[0]=72;
+				break;
+			}
+			case 2:
+			{
+				startX[0]=72;
+				startY[0]=72;
 
-			startX[1]=168;
-			startY[1]=72;
-		}
-		else if(numKnights==3)
-		{
-			startX[0]=120;
-			startY[0]=48;
+				startX[1]=168;
+				startY[1]=72;
+				break;
+			}
+			case 3:
+			{
+				startX[0]=120;
+				startY[0]=48;
 
-			startX[1]=168;
-			startY[1]=96;
+				startX[1]=168;
+				startY[1]=96;
 
-			startX[2]=72;
-			startY[2]=96;
-		}
-		else if(numKnights==4)
-		{
-			startX[0]=72;
-			startY[0]=48;
+				startX[2]=72;
+				startY[2]=96;
+				break;
+			}
+			case 4:
+			{
+				startX[0]=72;
+				startY[0]=48;
 
-			startX[1]=168;
-			startY[1]=48;
+				startX[1]=168;
+				startY[1]=48;
 
-			startX[2]=168;
-			startY[2]=96;
+				startX[2]=168;
+				startY[2]=96;
 
-			startX[3]=72;
-			startY[3]=96;
-		}
-		else if(numKnights==5)
-		{
-			startX[0]=120;
-			startY[0]=48;
+				startX[3]=72;
+				startY[3]=96;
+				break;
+			}
+			case 5:
+			{
+				startX[0]=120;
+				startY[0]=48;
 
-			startX[1]=168;
-			startY[1]=48;
+				startX[1]=168;
+				startY[1]=48;
 
-			startX[2]=148;
-			startY[2]=96;
+				startX[2]=148;
+				startY[2]=96;
 
-			startX[3]=88;
-			startY[3]=96;
+				startX[3]=88;
+				startY[3]=96;
 
-			startX[4]=72;
-			startY[4]=48;
-		}
-		else if (numKnights == 6) // 6
-		{
-			startX[0]=120;
-			startY[0]=48;
+				startX[4]=72;
+				startY[4]=48;
+				break;
+			}
+			case 6:
+			{
+				startX[0]=120;
+				startY[0]=48;
 
-			startX[1]=168;
-			startY[1]=48;
+				startX[1]=168;
+				startY[1]=48;
 
-			startX[2]=168;
-			startY[2]=96;
+				startX[2]=168;
+				startY[2]=96;
 
-			startX[3]=120;
-			startY[3]=96;
+				startX[3]=120;
+				startY[3]=96;
 
-			startX[4]=72;
-			startY[4]=96;
+				startX[4]=72;
+				startY[4]=96;
 
-			startX[5]=72;
-			startY[5]=48;
-		}
-		else
-		{
-			startX[0]=104;
-			startY[0]=60;
+				startX[5]=72;
+				startY[5]=48;
+				break;
+			}
+			default:
+			{
+				startX[0]=104;
+				startY[0]=60;
 
-			startX[1]=136;
-			startY[1]=60;
+				startX[1]=136;
+				startY[1]=60;
 
-			startX[2]=104;
-			startY[2]=32;
+				startX[2]=104;
+				startY[2]=32;
 
-			startX[3]=136;
-			startY[3]=32;
+				startX[3]=136;
+				startY[3]=32;
 
-			startX[4]=160;
-			startY[4]=48;
+				startX[4]=160;
+				startY[4]=48;
 
-			startX[5]=160;
-			startY[5]=72;
-			
-			startX[6]=136;
-			startY[6]=88;
+				startX[5]=160;
+				startY[5]=72;
+				
+				startX[6]=136;
+				startY[6]=88;
 
-			startX[7]=104;
-			startY[7]=88;
+				startX[7]=104;
+				startY[7]=88;
 
-			startX[8]=80;
-			startY[8]=72;
+				startX[8]=80;
+				startY[8]=72;
 
-			startX[9]=80;
-			startY[9]=48;
+				startX[9]=80;
+				startY[9]=48;
+				break;
+			}
 		}
 	}
 
@@ -312,50 +322,63 @@ ffc script ArmosKnights
 	void GetRowPositions(int numKnights, int rowX)
 	{
 		// If there's only one, this won't be used, anyway
-		if(numKnights==2)
+		switch(numKnights)
 		{
-			rowX[0]=64;
-			rowX[1]=160;
-		}
-		else if(numKnights==3)
-		{
-			rowX[0]=56;
-			rowX[1]=112;
-			rowX[2]=168;
-		}
-		else if(numKnights==4)
-		{
-			rowX[0]=40;
-			rowX[1]=88;
-			rowX[2]=136;
-			rowX[3]=184;
-		}
-		else if(numKnights==5)
-		{
-			rowX[0]=32;
-			rowX[1]=72;
-			rowX[2]=112;
-			rowX[3]=152;
-			rowX[4]=192;
-		}
-		else if(numKnights==6)// 6
-		{
-			rowX[0]=40;
-			rowX[1]=72;
-			rowX[2]=104;
-			rowX[3]=136;
-			rowX[4]=168;
-			rowX[5]=200;
-		}
-		else
-		{
-			for (int j = 0; j < numKnights; j++) rowX[j]=48 + (j*16);
+			case 1: break;
+			case 2:
+			{
+				rowX[0]=64;
+				rowX[1]=160;
+				break;
+			}
+			case 3:
+			{
+				rowX[0]=56;
+				rowX[1]=112;
+				rowX[2]=168;
+				break;
+			}
+			case 4:
+			{
+				rowX[0]=40;
+				rowX[1]=88;
+				rowX[2]=136;
+				rowX[3]=184;
+				break;
+			}
+			case 5:
+			{
+				rowX[0]=32;
+				rowX[1]=72;
+				rowX[2]=112;
+				rowX[3]=152;
+				rowX[4]=192;
+				break;
+			}
+			case 6:
+			{
+				rowX[0]=40;
+				rowX[1]=72;
+				rowX[2]=104;
+				rowX[3]=136;
+				rowX[4]=168;
+				rowX[5]=200;
+				break;
+			}
+			default:
+			{
+				for (int j = 0; j < numKnights; ++j) 
+				{
+					rowX[j]=48 + (j*16);
+				}
+				break;
+			}
 		}
 	}
 	
 	void GetColumnPositions(int numKnights, int rowY)
 	{
-		for (int j = 0; j < numKnights; j++) 
+		for (int j = 0; j < numKnights; ++j) 
 		{
 			rowY[j]=32 + ((j%5)*22.4);
 		}
@@ -407,7 +430,7 @@ ffc script ArmosKnights
 			break;
 
 			// Jump in a circle for a while
-			for(i=0; i<AK_PART_1_TOTAL_CIRCLE_TIME && !endPart1; i++)
+			for(i=0; (i < AK_PART_1_TOTAL_CIRCLE_TIME && !endPart1); ++i)
 			{
 				// Change radius at certain points
 				if(i==AK_PART_1_REDUCE_RADIUS_TIME)
@@ -427,8 +450,8 @@ ffc script ArmosKnights
 			}
 
 			if(endPart1)
-			break;
-			for (int f = 1; f <= 32; f++)
+				break;
+			for (int f = 1; f <= 32; ++f)
 			{
 				ffc MightKnight = Screen->LoadFFC(f);
 				if (MightKnight->Script == this->Script && MightKnight->InitD[1] <= 0)
@@ -439,7 +462,8 @@ ffc script ArmosKnights
 			}
 			endPart1=AKPart1Waitframe(this, ghost, targetX, targetY);
 			if(endPart1)
-			break;
+				break;
+			
 			int Attack = this->InitD[5];
 			if (Attack == 1)
 			{
@@ -463,8 +487,8 @@ ffc script ArmosKnights
 				targetAngle=270+(position/numKnights)*360;
 				targetX=rowX;
 				targetY=72;
-				for(i=0; i<AK_PART_1_WAIT_TIME && !endPart1; i++)
-				endPart1=AKPart1Waitframe(this, ghost, targetX, targetY);
+				for(i=0; (i < AK_PART_1_WAIT_TIME && !endPart1); ++i)
+					endPart1=AKPart1Waitframe(this, ghost, targetX, targetY);
 
 				if(endPart1)
 				break;
@@ -487,26 +511,27 @@ ffc script ArmosKnights
 				if (position < 5) targetX=48;
 				else targetX=192;
 				targetY=rowY;
-				for(i=0; i<AK_PART_1_WAIT_TIME && !endPart1; i++)
-				endPart1=AKPart1Waitframe(this, ghost, targetX, targetY);
+				for(i=0; (i < AK_PART_1_WAIT_TIME && !endPart1); ++i)
+					endPart1=AKPart1Waitframe(this, ghost, targetX, targetY);
 
 				if(endPart1)
-				break;
+					break;
 
 				if (position < 5) targetX=192;
 				else targetX=48;
 
 				// Moving 192-48=144 pixels, so wait exactly long enough for that
-				for(i=144/AK_PART_1_STEP; i>0 && !endPart1; i--)endPart1=AKPart1Waitframe(this, ghost, targetX, targetY);
+				for(i=144/AK_PART_1_STEP; (i > 0 && !endPart1); --i)
+					endPart1=AKPart1Waitframe(this, ghost, targetX, targetY);
 			}
 			else if (Attack == 4)
 			{
 				int highestlower = position;
 				ffc IsKnight;
-				for (int i = 0; i < 660 && !endPart1; i++)
+				for (int i = 0; (i < 660 && !endPart1); ++i)
 				{
 					highestlower = position;
-					for (int f = 1; f <= 32; f++)
+					for (int f = 1; f <= 32; ++f)
 					{
 						ffc MightKnight = Screen->LoadFFC(f);
 						if (MightKnight->Script == this->Script && (MightKnight->InitD[1] - 1) < position && ((MightKnight->InitD[1] - 1) > highestlower || highestlower >= position) && MightKnight->InitD[1] > 0)
@@ -522,7 +547,7 @@ ffc script ArmosKnights
 					}
 					else
 					{
-						for (int k = 19; k > 0; k--)
+						for (int k = 19; k > 0; --k)
 						{
 							if (followx[k] <= 0)
 							{
@@ -552,12 +577,12 @@ ffc script ArmosKnights
 				targetAngle=270+(position/numKnights)*360;
 				targetX=120+radiusx*Cos(targetAngle);
 				targetY=72+radiusy*Sin(targetAngle*2);
-				for(i=0; i<AK_PART_1_WAIT_TIME && !endPart1; i++)
-				endPart1=AKPart1Waitframe(this, ghost, targetX, targetY);
+				for(i=0; (i < AK_PART_1_WAIT_TIME && !endPart1); ++i)
+					endPart1=AKPart1Waitframe(this, ghost, targetX, targetY);
 
 				if(endPart1)
-				break;
-				for(i=0; i<AK_PART_1_TOTAL_CIRCLE_TIME && !endPart1; i++)
+					break;
+				for(i=0; (i < AK_PART_1_TOTAL_CIRCLE_TIME && !endPart1); ++i)
 				{
 					targetAngle+=angleStep;
 					targetX=120+radiusx*Cos(targetAngle);
@@ -566,7 +591,7 @@ ffc script ArmosKnights
 				}
 			}
 			if(endPart1)
-			break;
+				break;
 
 			// Rotate the opposite direction next time
 			angleStep*=-1;
@@ -578,7 +603,7 @@ ffc script ArmosKnights
 
 		// Finish falling...
 		while(Ghost_Z>0)
-		AKPart2Waitframe(this, ghost, Ghost_X, Ghost_Y);
+			AKPart2Waitframe(this, ghost, Ghost_X, Ghost_Y);
 
 		// Change Z handling...
 		Ghost_SetFlag(GHF_NO_FALL);
@@ -592,12 +617,12 @@ ffc script ArmosKnights
 
 			Game->PlaySound(ghost->Attributes[AK_ATTR_SFX_JUMP]);
 
-			while(!(Ghost_X==targetX && Ghost_Y==targetY))
-			AKPart2Waitframe(this, ghost, targetX, targetY);
+			until((Ghost_X==targetX && Ghost_Y==targetY))
+				AKPart2Waitframe(this, ghost, targetX, targetY);
 
 			// Hold it for a moment
-			for(i=0; i<AK_PART_2_WAIT_TIME; i++)
-			AKPart2Waitframe(this, ghost, targetX, targetY);
+			for(i=0; i < AK_PART_2_WAIT_TIME; ++i)
+				AKPart2Waitframe(this, ghost, targetX, targetY);
 
 			// Fall
 			while(Ghost_Z>0)
@@ -609,8 +634,8 @@ ffc script ArmosKnights
 			Game->PlaySound(ghost->Attributes[AK_ATTR_SFX_STOMP]);
 
 			// And wait for a moment before repeating
-			for(i=0; i<AK_PART_2_WAIT_TIME; i++)
-			AKPart2Waitframe(this, ghost, targetX, targetY);
+			for(i=0; i<AK_PART_2_WAIT_TIME; ++i)
+				AKPart2Waitframe(this, ghost, targetX, targetY);
 		}
 	}
 
@@ -634,17 +659,20 @@ ffc script ArmosKnights
 		}
 
 		// If on the ground, jump and tell the supervisor to play the bounce sound
-		if(Ghost_Z==0)
+		unless(Ghost_Z)
 		{
 			Ghost_Jump=2;
 			this->Misc[AK_IDX_PLAY_SOUND]=1;
 		}
-		else if(this->Misc[AK_IDX_PLAY_SOUND]==1)
-		this->Misc[AK_IDX_PLAY_SOUND]=0;
+		else 
+		{
+			if(this->Misc[AK_IDX_PLAY_SOUND]==1)
+				this->Misc[AK_IDX_PLAY_SOUND]=0;
+		}
 
 		// Don't automatically clear and quit on death; if the last two died
 		// at the same time, the second phase of the battle wouldn't happen
-		if(!Ghost_Waitframe(this, ghost, false, false))
+		unless(Ghost_Waitframe(this, ghost, false, false))
 		{
 			// Wait a frame to let the supervisor check
 			this->Misc[AK_IDX_DYING]=1;
@@ -652,13 +680,12 @@ ffc script ArmosKnights
 			Ghost_Waitframe(this, ghost, true, true);
 
 			// If this isn't the last knight, it can die now
-			if(this->Misc[AK_IDX_LAST_ONE]==0)
+			unless(this->Misc[AK_IDX_LAST_ONE])
 			{
 				Ghost_HP=0;
 				Ghost_Waitframe(this, ghost, true, true);
 			}
-			else
-			return true;
+			else return true;
 		}
 
 		return this->Misc[AK_IDX_LAST_ONE]!=0;
@@ -669,11 +696,11 @@ ffc script ArmosKnights
 	{
 		ghost->Stun = 0;
 		ghost->Misc[1] = 0;
-		if(Ghost_X!=targetX || Ghost_Y!=targetY)
+		if(Ghost_X != targetX || Ghost_Y != targetY)
 		{
 			float dist=Distance(Ghost_X, Ghost_Y, targetX, targetY);
 
-			if(dist<AK_PART_2_STEP)
+			if(dist < AK_PART_2_STEP)
 			{
 				Ghost_X=targetX;
 				Ghost_Y=targetY;
@@ -688,8 +715,7 @@ ffc script ArmosKnights
 			}
 		}
 
-		if(!Ghost_Waitframe(this, ghost, ghost->Attributes[AK_ATTR_EXPLODE]==0,
-					ghost->Attributes[AK_ATTR_EXPLODE]==0))
+		unless(Ghost_Waitframe(this, ghost, (ghost->Attributes[AK_ATTR_EXPLODE]),(ghost->Attributes[AK_ATTR_EXPLODE])))
 		{
 			this->Misc[AK_IDX_DYING]=1;
 			Ghost_DeathAnimation(this, ghost, ghost->Attributes[AK_ATTR_EXPLODE]);
