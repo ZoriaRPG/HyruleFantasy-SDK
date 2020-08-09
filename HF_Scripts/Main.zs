@@ -73,7 +73,6 @@
 #include "Pushing.zs"
 #include "DarkWizard2.zs"
 #include "FireAttack.zs"
-#include "LinkSpeed.zs"
 #include "IceBlock.zs"
 #include "ArmosKnights.zs"
 #include "Helmasaur.zs"
@@ -385,29 +384,11 @@ global script Main_Loop{
 	  //Trace(6);
 	  if (Game->GetCurDMap() == 22 || ScreenFlag(SF_MISC, 3)!=0) //Inverse/Dark Dragon's Crypt drawing
 	  {
-		if (false)
-		{
-			screeny = 0x6D;
-			mapy = 31;
-			Screen->SetRenderTarget(RT_BITMAP1);
-			Screen->Rectangle(6, 0, 0, 512, 176 + (16 * 7) + 176, 0, 1, 0, 0, 0, true, OP_OPAQUE);
-			Screen->DrawScreen (6, mapy, screeny, 0, 0, 0);
-			Screen->DrawScreen (6, mapy, screeny + 16, 0, 176, 0);
-			Screen->DrawScreen (6, mapy, screeny, 0, 176 + (16 * 7), 0);
-			Screen->DrawScreen (6, mapy, screeny, 256, 0, 0);
-			Screen->DrawScreen (6, mapy, screeny + 16, 256, 176, 0);
-			Screen->DrawScreen (6, mapy, screeny, 256, 176 + (16 * 7), 0);
-			Screen->Circle(6, Link->X + 8 + XCounter, Link->Y + 8 + YCounter, 24, 0, 1, 0, 0, 0, true, OP_OPAQUE);
-			Screen->SetRenderTarget(RT_SCREEN);
-			Screen->DrawBitmap (6, RT_BITMAP1, XCounter, YCounter, 256, 176, 0, 0, 256, 176, 0, true);
-		}
-		if (true)
-		{
+		
 			Screen->DrawTile(6, 0 - Round(XCounter), 0 - Round(YCounter), 32500, 16, 18, 0, -1, -1, 0, 0, 0, 0, true, OP_TRANS);
 			Screen->DrawTile(6, (16 * 16) - Round(XCounter), (16 * 18) + 1 - Round(YCounter), 32500, 16, 18, 0, -1, -1, 0, 0, 0, 0, true, OP_TRANS);
 			Screen->DrawTile(6, (16 * 16) - Round(XCounter), 0 - Round(YCounter), 32500, 16, 18, 0, -1, -1, 0, 0, 0, 0, true, OP_TRANS);
 			Screen->DrawTile(6, 0 - Round(XCounter), (16 * 18) + 1 - Round(YCounter), 32500, 16, 18, 0, -1, -1, 0, 0, 0, 0, true, OP_TRANS);
-		}
 		XCounter+=0.5;
 		YCounter+=0.25;
 		XCounter %= 256;
@@ -443,11 +424,7 @@ global script Main_Loop{
       DiagonAlley();
 	  SomariaBlockCollision();
 	  //Trace(10);
-	  if (IsFreezing)
-	  {
-		LS_Speed = 0.5;
-	  }
-	  else LS_Speed = 1;
+	  if (IsFreezing) LinkMovement_AddLinkSpeedBoost(-0.75);
 	  IsFreezing = false;
 	  Olderscreen = Game->GetCurScreen();
 	  //Trace(11);
