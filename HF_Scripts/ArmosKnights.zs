@@ -715,7 +715,7 @@ ffc script ArmosKnights
 			}
 		}
 
-		unless(Ghost_Waitframe(this, ghost, (ghost->Attributes[AK_ATTR_EXPLODE]),(ghost->Attributes[AK_ATTR_EXPLODE])))
+		unless(Ghost_Waitframe(this, ghost, <bool>(ghost->Attributes[AK_ATTR_EXPLODE]),<bool>(ghost->Attributes[AK_ATTR_EXPLODE])))
 		{
 			this->Misc[AK_IDX_DYING]=1;
 			Ghost_DeathAnimation(this, ghost, ghost->Attributes[AK_ATTR_EXPLODE]);
