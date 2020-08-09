@@ -271,8 +271,6 @@ global script Main_Loop{
 	  PowerBracelet();
 	  //Trace(2.4);
 	  ScreenChange_Update();
-	  //Trace(2.5);
-      LS_Update();
 	  //Trace(3);
       
 	  MooshPit_Update();
