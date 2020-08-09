@@ -1,0 +1,14 @@
+Hyrule Fantasy Misc Stuff
+
+Enemies:
+
+Misc 0: Armos Knights, Bari, Aquamentus, Firebar, Moldorm
+Misc 1: Armos Knights, Aquamentus, Firebar, Gleeok, Gohma, Z3Stun
+Misc 2: Armos Knights
+Misc 3: Z3Stun
+Misc 4: Sidequests
+Misc 5: Z3Stun
+Misc 6: Z3Stun
+
+Misc 13: Bobomb
+Misc 14: Bobomb

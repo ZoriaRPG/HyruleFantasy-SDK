@@ -1,0 +1,227 @@
+//const int MAX_PUSH = 4;
+
+int LinkMovement[16];
+const int LM_PUSHX1A = 0;
+const int LM_PUSHY1A = 1;
+const int LM_PUSHX1B = 2;
+const int LM_PUSHY1B = 3;
+const int LM_PUSHX2A = 4;
+const int LM_PUSHY2A = 5;
+const int LM_PUSHX2B = 6;
+const int LM_PUSHY2B = 7;
+const int LM_STICKX = 8;
+const int LM_STICKY = 9;
+const int LM_MOVEBOOST = 10;
+
+void LinkMovement_UpdateInput(){
+	if(LinkMovement[LM_STICKY]==0){ //If no Y axis pressed
+		if(Link->PressUp&&Link->PressDown) //Default to up when buttons pressed simultaneously
+			LinkMovement[LM_STICKY] = -1;
+		else if(Link->PressUp) //Set axis based on which button what pressed
+			LinkMovement[LM_STICKY] = -1;
+		else if(Link->PressDown)
+			LinkMovement[LM_STICKY] = 1;
+	}
+	else{ //If Y axis pressed
+		if(!Link->InputUp&&!Link->InputDown) //Release Y axis if neither button pressed
+			LinkMovement[LM_STICKY] = 0;
+		else if(LinkMovement[LM_STICKY]==-1&&!Link->InputUp) //Reverse Y axis if opposite direction held and button released
+			LinkMovement[LM_STICKY] = 1;
+		else if(LinkMovement[LM_STICKY]==1&&!Link->InputDown)
+			LinkMovement[LM_STICKY] = -1;
+	}
+	
+	if(LinkMovement[LM_STICKX]==0){ //If no X axis pressed
+		if(Link->PressLeft&&Link->PressRight) //Default to left when buttons pressed simultaneously
+			LinkMovement[LM_STICKX] = -1;
+		else if(Link->PressLeft) //Set axis based on which button what pressed
+			LinkMovement[LM_STICKX] = -1;
+		else if(Link->PressRight)
+			LinkMovement[LM_STICKX] = 1;
+	}
+	else{ //If Y axis pressed
+		if(!Link->InputLeft&&!Link->InputRight) //Release Y axis if neither button pressed
+			LinkMovement[LM_STICKX] = 0;
+		else if(LinkMovement[LM_STICKX]==-1&&!Link->InputLeft) //Reverse Y axis if opposite direction held and button released
+			LinkMovement[LM_STICKX] = 1;
+		else if(LinkMovement[LM_STICKX]==1&&!Link->InputRight)
+			LinkMovement[LM_STICKX] = -1;
+	}
+}
+
+//Function adds extra movement to Link's step speed
+void LinkMovement_SpeedChange(){
+	if(Link->Action==LA_WALKING){
+		if(LinkMovement[LM_STICKX]!=0||LinkMovement[LM_STICKY]!=0){
+			float movementSpeed = LinkMovement[LM_MOVEBOOST];
+			if((LinkMovement[LM_STICKX]<0&&LinkMovement[LM_STICKY]<0) || //Up-left
+				(LinkMovement[LM_STICKX]>0&&LinkMovement[LM_STICKY]<0) || //Up-right
+				(LinkMovement[LM_STICKX]<0&&LinkMovement[LM_STICKY]>0) || //Down-left
+				(LinkMovement[LM_STICKX]>0&&LinkMovement[LM_STICKY]>0)) //Down-right
+					movementSpeed = movementSpeed*0.7071; //Reduce movement speed at a diagonal
+			
+			if(LinkMovement[LM_STICKX]<0)
+				LinkMovement[LM_PUSHX2A] -= movementSpeed;
+			else if(LinkMovement[LM_STICKX]>0)
+				LinkMovement[LM_PUSHX2A] += movementSpeed;
+			if(LinkMovement[LM_STICKY]<0)
+				LinkMovement[LM_PUSHY2A] -= movementSpeed;
+			else if(LinkMovement[LM_STICKY]>0)
+				LinkMovement[LM_PUSHY2A] += movementSpeed;
+		}	
+	}
+	LinkMovement[LM_MOVEBOOST] = 0; //Movement boost reset until the next frame to prevent forgetting to clear the boost
+}
+
+bool LinkMovement_CanWalk(int x, int y, int dir, int step, bool full_tile, bool noEdge) {
+    if(!noEdge)
+		return CanWalk(x, y, dir, step, full_tile);
+	
+	int c=8;
+    int xx = x+15;
+    int yy = y+15;
+    if(full_tile) c=0;
+    if(dir==0) return !(Screen->isSolid(x,y+c-step)||Screen->isSolid(x+8,y+c-step)||Screen->isSolid(xx,y+c-step));
+    else if(dir==1) return !(Screen->isSolid(x,yy+step)||Screen->isSolid(x+8,yy+step)||Screen->isSolid(xx,yy+step));
+    else if(dir==2) return !(Screen->isSolid(x-step,y+c)||Screen->isSolid(x-step,y+c+7)||Screen->isSolid(x-step,yy));
+    else if(dir==3) return !(Screen->isSolid(xx+step,y+c)||Screen->isSolid(xx+step,y+c+7)||Screen->isSolid(xx+step,yy));
+    return false; //invalid direction
+}
+
+void LinkMovement_UpdatePush(int indexX, int indexY, bool noEdge){
+	int Imprecision = 0;
+	for(int i=0; i<MAX_PUSH&&LinkMovement[indexX]<=-1; i++){
+		if(LinkMovement_CanWalk(Link->X, Link->Y, DIR_LEFT, 1, false, noEdge)){
+			Link->X--;
+			LinkMovement[indexX]++;
+		}
+		else if(Imprecision>0&&Abs(GridY(Link->Y+8)-Link->Y)<Imprecision&&LinkMovement_CanWalk(Link->X, GridY(Link->Y+8), DIR_LEFT, 1, false, noEdge)){
+			Link->Y = GridY(Link->Y+8);
+			Link->X--;
+			LinkMovement[indexX]++;
+		}
+		else{
+			LinkMovement[indexX] = 0;
+		}
+	}
+	for(int i=0; i<MAX_PUSH&&LinkMovement[indexX]>=1; i++){
+		if(LinkMovement_CanWalk(Link->X, Link->Y, DIR_RIGHT, 1, false, noEdge)){
+			Link->X++;
+			LinkMovement[indexX]--;
+		}
+		else if(Imprecision>0&&Abs(GridY(Link->Y+8)-Link->Y)<Imprecision&&LinkMovement_CanWalk(Link->X, GridY(Link->Y+8), DIR_RIGHT, 1, false, noEdge)){
+			Link->Y = GridY(Link->Y+8);
+			Link->X++;
+			LinkMovement[indexX]--;
+		}
+		else{
+			LinkMovement[indexX] = 0;
+		}
+	}
+	for(int i=0; i<MAX_PUSH&&LinkMovement[indexY]<=-1; i++){
+		if(LinkMovement_CanWalk(Link->X, Link->Y, DIR_UP, 1, false, noEdge)){
+			Link->Y--;
+			LinkMovement[indexY]++;
+		}
+		else if(Imprecision>0&&Abs(GridX(Link->X+8)-Link->X)<Imprecision&&LinkMovement_CanWalk(GridX(Link->X+8), Link->Y, DIR_UP, 1, false, noEdge)){
+			Link->X = GridX(Link->X+8);
+			Link->Y--;
+			LinkMovement[indexY]++;
+		}
+		else{
+			LinkMovement[indexY] = 0;
+		}
+	}
+	for(int i=0; i<MAX_PUSH&&LinkMovement[indexY]>=1; i++){
+		if(LinkMovement_CanWalk(Link->X, Link->Y, DIR_DOWN, 1, false, noEdge)){
+			Link->Y++;
+			LinkMovement[indexY]--;
+		}
+		else if(Imprecision>0&&Abs(GridX(Link->X+8)-Link->X)<Imprecision&&LinkMovement_CanWalk(GridX(Link->X+8), Link->Y, DIR_DOWN, 1, false, noEdge)){
+			Link->X = GridX(Link->X+8);
+			Link->Y++;
+			LinkMovement[indexY]--;
+		}
+		else{
+			LinkMovement[indexY] = 0;
+		}
+	}
+}
+
+void LinkMovement_Init(){
+	LinkMovement[LM_PUSHX1A] = 0;
+	LinkMovement[LM_PUSHY1A] = 0;
+	LinkMovement[LM_PUSHX1B] = 0;
+	LinkMovement[LM_PUSHY1B] = 0;
+	LinkMovement[LM_PUSHX2A] = 0;
+	LinkMovement[LM_PUSHY2A] = 0;
+	LinkMovement[LM_PUSHX2B] = 0;
+	LinkMovement[LM_PUSHY2B] = 0;
+	LinkMovement[LM_STICKX] = 0;
+	LinkMovement[LM_STICKY] = 0;
+	LinkMovement[LM_MOVEBOOST] = 0;
+}
+
+void LinkMovement_Update1(){
+	LinkMovement_UpdateInput();
+	LinkMovement_SpeedChange();
+	LinkMovement_UpdatePush(LM_PUSHX1A, LM_PUSHY1A, false);
+	LinkMovement_UpdatePush(LM_PUSHX1B, LM_PUSHY1B, true);
+}
+
+void LinkMovement_Update2(){
+	LinkMovement_UpdatePush(LM_PUSHX2A, LM_PUSHY2A, false);
+	LinkMovement_UpdatePush(LM_PUSHX2B, LM_PUSHY2B, true);
+}
+
+global script LinkMovement_Example{
+	void run(){
+		LinkMovement_Init();
+		while(true){
+			LinkMovement_Update1();
+			Waitdraw();
+			LinkMovement_Update2();
+			Waitframe();
+		}
+	}
+}
+
+void LinkMovement_Push(int pX, int pY){
+	LinkMovement[LM_PUSHX1A] += pX;
+	LinkMovement[LM_PUSHY1A] += pY;
+}
+
+void LinkMovement_PushNoEdge(int pX, int pY){
+	LinkMovement[LM_PUSHX1B] += pX;
+	LinkMovement[LM_PUSHY1B] += pY;
+}
+
+void LinkMovement_Push2(int pX, int pY){
+	LinkMovement[LM_PUSHX2A] += pX;
+	LinkMovement[LM_PUSHY2A] += pY;
+}
+
+void LinkMovement_Push2NoEdge(int pX, int pY){
+	LinkMovement[LM_PUSHX2B] += pX;
+	LinkMovement[LM_PUSHY2B] += pY;
+}
+
+void LinkMovement_AddLinkSpeedBoost(float i){
+	LinkMovement[LM_MOVEBOOST] += i;
+}
+
+void LinkMovement_SetLinkSpeedBoost(float i){
+	LinkMovement[LM_MOVEBOOST] = i;
+}
+
+float LinkMovement_GetLinkSpeedBoost(){
+	return LinkMovement[LM_MOVEBOOST];
+}
+
+int LinkMovement_StickX(){
+	return LinkMovement[LM_STICKX];
+}
+
+int LinkMovement_StickY(){
+	return LinkMovement[LM_STICKY];
+}
