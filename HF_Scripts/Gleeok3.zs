@@ -74,10 +74,10 @@ ffc script Gleeok3
 					} while (Ghost_Z > 0)
 					Screen->Quake = 4;
 					Game->PlaySound(SFX_BOMB);
-					Blitz[0] = FireEWeapon(EW_FIREBALL, Ghost_X + 8, Ghost_Y + 8, 0, 0, 16, SPRITE_FIREBALL, SFX_FIREBALL, EWF_UNBLOCKABLE);
-					Blitz[1] = FireEWeapon(EW_FIREBALL, Ghost_X + 8, Ghost_Y + 8, 0, 0, 16, SPRITE_FIREBALL, SFX_FIREBALL, EWF_UNBLOCKABLE);
-					Blitz[2] = FireEWeapon(EW_FIREBALL, Ghost_X + 8, Ghost_Y + 8, 0, 0, 16, SPRITE_FIREBALL, SFX_FIREBALL, EWF_UNBLOCKABLE);
-					Blitz[3] = FireEWeapon(EW_FIREBALL, Ghost_X + 8, Ghost_Y + 8, 0, 0, 16, SPRITE_FIREBALL, SFX_FIREBALL, EWF_UNBLOCKABLE);
+					Blitz[0] = FireEWeapon(EW_FIREBALL, Ghost_X + 8, Ghost_Y + 8, 0, 0, 16, SP_FIREBALL, SFX_FIREBALL, EWF_UNBLOCKABLE);
+					Blitz[1] = FireEWeapon(EW_FIREBALL, Ghost_X + 8, Ghost_Y + 8, 0, 0, 16, SP_FIREBALL, SFX_FIREBALL, EWF_UNBLOCKABLE);
+					Blitz[2] = FireEWeapon(EW_FIREBALL, Ghost_X + 8, Ghost_Y + 8, 0, 0, 16, SP_FIREBALL, SFX_FIREBALL, EWF_UNBLOCKABLE);
+					Blitz[3] = FireEWeapon(EW_FIREBALL, Ghost_X + 8, Ghost_Y + 8, 0, 0, 16, SP_FIREBALL, SFX_FIREBALL, EWF_UNBLOCKABLE);
 					for (int k = 0; k < 32; k++)
 					{
 						Blitzer++;
@@ -313,7 +313,7 @@ ffc script GleeokHead3
 					//if (k % 24 == 0) 
 					//GleeokHeadWait(ghost, this);
 					eweapon Nub; 
-					Nub = FireAimedEWeapon(EW_FIREBALL, Ghost_X, Ghost_Y + 6, 0, 250, ghost->WeaponDamage, SPRITE_FIREBALL, SFX_FIREBALL, 0);
+					Nub = FireAimedEWeapon(EW_FIREBALL, Ghost_X, Ghost_Y + 6, 0, 250, ghost->WeaponDamage, SP_FIREBALL, SFX_FIREBALL, 0);
 					SetEWeaponMovement(Nub, EWM_HOMING_REAIM, 1, 45);
 					for (int k = 0; k < 25; k++)
 					{
@@ -463,10 +463,10 @@ ffc script FlamingGleeokHead3
 					//if (k % 24 == 0)
 					//GleeokHeadWait(ghost, this);
 					eweapon Nub;
-					Nub = FireAimedEWeapon(EW_FIREBALL, Ghost_X, Ghost_Y + 6, 0, 250, ghost->WeaponDamage, SPRITE_FIREBALL, SFX_FIREBALL, 0);
+					Nub = FireAimedEWeapon(EW_FIREBALL, Ghost_X, Ghost_Y + 6, 0, 250, ghost->WeaponDamage, SP_FIREBALL, SFX_FIREBALL, 0);
 					//SetEWeaponMovement(Nub, EWM_HOMING_REAIM, 1, 45);
 					SetEWeaponLifespan(Nub, EWL_TIMER, 45);
-					SetEWeaponDeathEffect(Nub, EWD_4_FIREBALLS_RANDOM, SPRITE_FIREBALL);
+					SetEWeaponDeathEffect(Nub, EWD_4_FIREBALLS_RANDOM, SP_FIREBALL);
 					for (int k = 0; k < 25; k++)
 					{
 						GleeokHeadWait(ghost, this);

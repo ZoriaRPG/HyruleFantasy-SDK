@@ -138,23 +138,23 @@ ffc script Armogohma2
 					{
 						if (k % 45 == 0)
 						{
-							FireAimedEWeapon(EW_FIREBALL, Ghost_X, Ghost_Y + 6, 0, 150, ghost->WeaponDamage, SPRITE_FIREBALL, SFX_FIREBALL, EWF_UNBLOCKABLE);
-							FireAimedEWeapon(EW_FIREBALL, Ghost_X, Ghost_Y + 6, 0, 200, ghost->WeaponDamage, SPRITE_FIREBALL, SFX_FIREBALL, EWF_UNBLOCKABLE);
-							FireAimedEWeapon(EW_FIREBALL, Ghost_X, Ghost_Y + 6, 0, 250, ghost->WeaponDamage, SPRITE_FIREBALL, SFX_FIREBALL, EWF_UNBLOCKABLE);
-							FireAimedEWeapon(EW_FIREBALL, Ghost_X, Ghost_Y + 6, 0, 300, ghost->WeaponDamage, SPRITE_FIREBALL, SFX_FIREBALL, EWF_UNBLOCKABLE);
-							FireAimedEWeapon(EW_FIREBALL, Ghost_X, Ghost_Y + 6, 0, 350, ghost->WeaponDamage, SPRITE_FIREBALL, SFX_FIREBALL, EWF_UNBLOCKABLE);
+							FireAimedEWeapon(EW_FIREBALL, Ghost_X, Ghost_Y + 6, 0, 150, ghost->WeaponDamage, SP_FIREBALL, SFX_FIREBALL, EWF_UNBLOCKABLE);
+							FireAimedEWeapon(EW_FIREBALL, Ghost_X, Ghost_Y + 6, 0, 200, ghost->WeaponDamage, SP_FIREBALL, SFX_FIREBALL, EWF_UNBLOCKABLE);
+							FireAimedEWeapon(EW_FIREBALL, Ghost_X, Ghost_Y + 6, 0, 250, ghost->WeaponDamage, SP_FIREBALL, SFX_FIREBALL, EWF_UNBLOCKABLE);
+							FireAimedEWeapon(EW_FIREBALL, Ghost_X, Ghost_Y + 6, 0, 300, ghost->WeaponDamage, SP_FIREBALL, SFX_FIREBALL, EWF_UNBLOCKABLE);
+							FireAimedEWeapon(EW_FIREBALL, Ghost_X, Ghost_Y + 6, 0, 350, ghost->WeaponDamage, SP_FIREBALL, SFX_FIREBALL, EWF_UNBLOCKABLE);
 						
-							FireAimedEWeapon(EW_FIREBALL, Ghost_X, Ghost_Y + 6, 0.6, 150, ghost->WeaponDamage, SPRITE_FIREBALL, SFX_FIREBALL, EWF_UNBLOCKABLE);
-							FireAimedEWeapon(EW_FIREBALL, Ghost_X, Ghost_Y + 6, 0.6, 200, ghost->WeaponDamage, SPRITE_FIREBALL, SFX_FIREBALL, EWF_UNBLOCKABLE);
-							FireAimedEWeapon(EW_FIREBALL, Ghost_X, Ghost_Y + 6, 0.6, 250, ghost->WeaponDamage, SPRITE_FIREBALL, SFX_FIREBALL, EWF_UNBLOCKABLE);
-							FireAimedEWeapon(EW_FIREBALL, Ghost_X, Ghost_Y + 6, 0.6, 300, ghost->WeaponDamage, SPRITE_FIREBALL, SFX_FIREBALL, EWF_UNBLOCKABLE);
-							FireAimedEWeapon(EW_FIREBALL, Ghost_X, Ghost_Y + 6, 0.6, 350, ghost->WeaponDamage, SPRITE_FIREBALL, SFX_FIREBALL, EWF_UNBLOCKABLE);
+							FireAimedEWeapon(EW_FIREBALL, Ghost_X, Ghost_Y + 6, 0.6, 150, ghost->WeaponDamage, SP_FIREBALL, SFX_FIREBALL, EWF_UNBLOCKABLE);
+							FireAimedEWeapon(EW_FIREBALL, Ghost_X, Ghost_Y + 6, 0.6, 200, ghost->WeaponDamage, SP_FIREBALL, SFX_FIREBALL, EWF_UNBLOCKABLE);
+							FireAimedEWeapon(EW_FIREBALL, Ghost_X, Ghost_Y + 6, 0.6, 250, ghost->WeaponDamage, SP_FIREBALL, SFX_FIREBALL, EWF_UNBLOCKABLE);
+							FireAimedEWeapon(EW_FIREBALL, Ghost_X, Ghost_Y + 6, 0.6, 300, ghost->WeaponDamage, SP_FIREBALL, SFX_FIREBALL, EWF_UNBLOCKABLE);
+							FireAimedEWeapon(EW_FIREBALL, Ghost_X, Ghost_Y + 6, 0.6, 350, ghost->WeaponDamage, SP_FIREBALL, SFX_FIREBALL, EWF_UNBLOCKABLE);
 						
-							FireAimedEWeapon(EW_FIREBALL, Ghost_X, Ghost_Y + 6, -0.6, 150, ghost->WeaponDamage, SPRITE_FIREBALL, SFX_FIREBALL, EWF_UNBLOCKABLE);
-							FireAimedEWeapon(EW_FIREBALL, Ghost_X, Ghost_Y + 6, -0.6, 200, ghost->WeaponDamage, SPRITE_FIREBALL, SFX_FIREBALL, EWF_UNBLOCKABLE);
-							FireAimedEWeapon(EW_FIREBALL, Ghost_X, Ghost_Y + 6, -0.6, 250, ghost->WeaponDamage, SPRITE_FIREBALL, SFX_FIREBALL, EWF_UNBLOCKABLE);
-							FireAimedEWeapon(EW_FIREBALL, Ghost_X, Ghost_Y + 6, -0.6, 300, ghost->WeaponDamage, SPRITE_FIREBALL, SFX_FIREBALL, EWF_UNBLOCKABLE);
-							FireAimedEWeapon(EW_FIREBALL, Ghost_X, Ghost_Y + 6, -0.6, 350, ghost->WeaponDamage, SPRITE_FIREBALL, SFX_FIREBALL, EWF_UNBLOCKABLE);
+							FireAimedEWeapon(EW_FIREBALL, Ghost_X, Ghost_Y + 6, -0.6, 150, ghost->WeaponDamage, SP_FIREBALL, SFX_FIREBALL, EWF_UNBLOCKABLE);
+							FireAimedEWeapon(EW_FIREBALL, Ghost_X, Ghost_Y + 6, -0.6, 200, ghost->WeaponDamage, SP_FIREBALL, SFX_FIREBALL, EWF_UNBLOCKABLE);
+							FireAimedEWeapon(EW_FIREBALL, Ghost_X, Ghost_Y + 6, -0.6, 250, ghost->WeaponDamage, SP_FIREBALL, SFX_FIREBALL, EWF_UNBLOCKABLE);
+							FireAimedEWeapon(EW_FIREBALL, Ghost_X, Ghost_Y + 6, -0.6, 300, ghost->WeaponDamage, SP_FIREBALL, SFX_FIREBALL, EWF_UNBLOCKABLE);
+							FireAimedEWeapon(EW_FIREBALL, Ghost_X, Ghost_Y + 6, -0.6, 350, ghost->WeaponDamage, SP_FIREBALL, SFX_FIREBALL, EWF_UNBLOCKABLE);
 						}
 					}
 					else
@@ -457,10 +457,10 @@ ffc script Armogohma2
 			Angulared%=360;
 			if (k % 4 == 0)
 			{
-				FireEWeapon(EW_FIREBALL, Ghost_X, Ghost_Y, DegtoRad(Angulared), 300, 0, SPRITE_FIREBALL, SFX_FIREBALL, EWF_UNBLOCKABLE);
-				FireEWeapon(EW_FIREBALL, Ghost_X, Ghost_Y, DegtoRad((Angulared + 90) % 360), 300, 0, SPRITE_FIREBALL, SFX_FIREBALL, EWF_UNBLOCKABLE);
-				FireEWeapon(EW_FIREBALL, Ghost_X, Ghost_Y, DegtoRad((Angulared + 180) % 360), 300, 0, SPRITE_FIREBALL, SFX_FIREBALL, EWF_UNBLOCKABLE);
-				FireEWeapon(EW_FIREBALL, Ghost_X, Ghost_Y, DegtoRad((Angulared + 270) % 360), 300, 0, SPRITE_FIREBALL, SFX_FIREBALL, EWF_UNBLOCKABLE);
+				FireEWeapon(EW_FIREBALL, Ghost_X, Ghost_Y, DegtoRad(Angulared), 300, 0, SP_FIREBALL, SFX_FIREBALL, EWF_UNBLOCKABLE);
+				FireEWeapon(EW_FIREBALL, Ghost_X, Ghost_Y, DegtoRad((Angulared + 90) % 360), 300, 0, SP_FIREBALL, SFX_FIREBALL, EWF_UNBLOCKABLE);
+				FireEWeapon(EW_FIREBALL, Ghost_X, Ghost_Y, DegtoRad((Angulared + 180) % 360), 300, 0, SP_FIREBALL, SFX_FIREBALL, EWF_UNBLOCKABLE);
+				FireEWeapon(EW_FIREBALL, Ghost_X, Ghost_Y, DegtoRad((Angulared + 270) % 360), 300, 0, SP_FIREBALL, SFX_FIREBALL, EWF_UNBLOCKABLE);
 			}
 			Gohma2Wait(ghost, this, Legs1, Legs2);
 		}
@@ -545,11 +545,11 @@ ffc script Armogohma2
 						Gohma3Wait(ghost, this, Legs1, Legs2, Scroll);
 					}
 					//Trace(904);
-					FireEWeapon(EW_FIREBALL, Ghost_X, Ghost_Y, DegtoRad(90), 150, ghost->WeaponDamage, SPRITE_FIREBALL, SFX_FIREBALL, EWF_UNBLOCKABLE);
-					FireEWeapon(EW_FIREBALL, Ghost_X, Ghost_Y, DegtoRad(90), 200, ghost->WeaponDamage, SPRITE_FIREBALL, SFX_FIREBALL, EWF_UNBLOCKABLE);
-					FireEWeapon(EW_FIREBALL, Ghost_X, Ghost_Y, DegtoRad(90), 250, ghost->WeaponDamage, SPRITE_FIREBALL, SFX_FIREBALL, EWF_UNBLOCKABLE);
-					FireEWeapon(EW_FIREBALL, Ghost_X, Ghost_Y, DegtoRad(90), 300, ghost->WeaponDamage, SPRITE_FIREBALL, SFX_FIREBALL, EWF_UNBLOCKABLE);
-					FireEWeapon(EW_FIREBALL, Ghost_X, Ghost_Y, DegtoRad(90), 350, ghost->WeaponDamage, SPRITE_FIREBALL, SFX_FIREBALL, EWF_UNBLOCKABLE);
+					FireEWeapon(EW_FIREBALL, Ghost_X, Ghost_Y, DegtoRad(90), 150, ghost->WeaponDamage, SP_FIREBALL, SFX_FIREBALL, EWF_UNBLOCKABLE);
+					FireEWeapon(EW_FIREBALL, Ghost_X, Ghost_Y, DegtoRad(90), 200, ghost->WeaponDamage, SP_FIREBALL, SFX_FIREBALL, EWF_UNBLOCKABLE);
+					FireEWeapon(EW_FIREBALL, Ghost_X, Ghost_Y, DegtoRad(90), 250, ghost->WeaponDamage, SP_FIREBALL, SFX_FIREBALL, EWF_UNBLOCKABLE);
+					FireEWeapon(EW_FIREBALL, Ghost_X, Ghost_Y, DegtoRad(90), 300, ghost->WeaponDamage, SP_FIREBALL, SFX_FIREBALL, EWF_UNBLOCKABLE);
+					FireEWeapon(EW_FIREBALL, Ghost_X, Ghost_Y, DegtoRad(90), 350, ghost->WeaponDamage, SP_FIREBALL, SFX_FIREBALL, EWF_UNBLOCKABLE);
 					//Trace(904);
 					for (int k = 15; k > 0; k--)
 					{
@@ -567,11 +567,11 @@ ffc script Armogohma2
 						Gohma3Wait(ghost, this, Legs1, Legs2, Scroll);
 					}
 					//Trace(907);
-					FireEWeapon(EW_FIREBALL, Ghost_X, Ghost_Y, DegtoRad(90), 150, ghost->WeaponDamage, SPRITE_FIREBALL, SFX_FIREBALL, EWF_UNBLOCKABLE);
-					FireEWeapon(EW_FIREBALL, Ghost_X, Ghost_Y, DegtoRad(90), 200, ghost->WeaponDamage, SPRITE_FIREBALL, SFX_FIREBALL, EWF_UNBLOCKABLE);
-					FireEWeapon(EW_FIREBALL, Ghost_X, Ghost_Y, DegtoRad(90), 250, ghost->WeaponDamage, SPRITE_FIREBALL, SFX_FIREBALL, EWF_UNBLOCKABLE);
-					FireEWeapon(EW_FIREBALL, Ghost_X, Ghost_Y, DegtoRad(90), 300, ghost->WeaponDamage, SPRITE_FIREBALL, SFX_FIREBALL, EWF_UNBLOCKABLE);
-					FireEWeapon(EW_FIREBALL, Ghost_X, Ghost_Y, DegtoRad(90), 350, ghost->WeaponDamage, SPRITE_FIREBALL, SFX_FIREBALL, EWF_UNBLOCKABLE);
+					FireEWeapon(EW_FIREBALL, Ghost_X, Ghost_Y, DegtoRad(90), 150, ghost->WeaponDamage, SP_FIREBALL, SFX_FIREBALL, EWF_UNBLOCKABLE);
+					FireEWeapon(EW_FIREBALL, Ghost_X, Ghost_Y, DegtoRad(90), 200, ghost->WeaponDamage, SP_FIREBALL, SFX_FIREBALL, EWF_UNBLOCKABLE);
+					FireEWeapon(EW_FIREBALL, Ghost_X, Ghost_Y, DegtoRad(90), 250, ghost->WeaponDamage, SP_FIREBALL, SFX_FIREBALL, EWF_UNBLOCKABLE);
+					FireEWeapon(EW_FIREBALL, Ghost_X, Ghost_Y, DegtoRad(90), 300, ghost->WeaponDamage, SP_FIREBALL, SFX_FIREBALL, EWF_UNBLOCKABLE);
+					FireEWeapon(EW_FIREBALL, Ghost_X, Ghost_Y, DegtoRad(90), 350, ghost->WeaponDamage, SP_FIREBALL, SFX_FIREBALL, EWF_UNBLOCKABLE);
 					for (int k = 15; k > 0; k--)
 					{
 						Gohma3Wait(ghost, this, Legs1, Legs2, Scroll);
@@ -588,11 +588,11 @@ ffc script Armogohma2
 						Gohma3Wait(ghost, this, Legs1, Legs2, Scroll);
 					}
 					//Trace(910);
-					FireEWeapon(EW_FIREBALL, Ghost_X, Ghost_Y, DegtoRad(90), 150, ghost->WeaponDamage, SPRITE_FIREBALL, SFX_FIREBALL, EWF_UNBLOCKABLE);
-					FireEWeapon(EW_FIREBALL, Ghost_X, Ghost_Y, DegtoRad(90), 200, ghost->WeaponDamage, SPRITE_FIREBALL, SFX_FIREBALL, EWF_UNBLOCKABLE);
-					FireEWeapon(EW_FIREBALL, Ghost_X, Ghost_Y, DegtoRad(90), 250, ghost->WeaponDamage, SPRITE_FIREBALL, SFX_FIREBALL, EWF_UNBLOCKABLE);
-					FireEWeapon(EW_FIREBALL, Ghost_X, Ghost_Y, DegtoRad(90), 300, ghost->WeaponDamage, SPRITE_FIREBALL, SFX_FIREBALL, EWF_UNBLOCKABLE);
-					FireEWeapon(EW_FIREBALL, Ghost_X, Ghost_Y, DegtoRad(90), 350, ghost->WeaponDamage, SPRITE_FIREBALL, SFX_FIREBALL, EWF_UNBLOCKABLE);
+					FireEWeapon(EW_FIREBALL, Ghost_X, Ghost_Y, DegtoRad(90), 150, ghost->WeaponDamage, SP_FIREBALL, SFX_FIREBALL, EWF_UNBLOCKABLE);
+					FireEWeapon(EW_FIREBALL, Ghost_X, Ghost_Y, DegtoRad(90), 200, ghost->WeaponDamage, SP_FIREBALL, SFX_FIREBALL, EWF_UNBLOCKABLE);
+					FireEWeapon(EW_FIREBALL, Ghost_X, Ghost_Y, DegtoRad(90), 250, ghost->WeaponDamage, SP_FIREBALL, SFX_FIREBALL, EWF_UNBLOCKABLE);
+					FireEWeapon(EW_FIREBALL, Ghost_X, Ghost_Y, DegtoRad(90), 300, ghost->WeaponDamage, SP_FIREBALL, SFX_FIREBALL, EWF_UNBLOCKABLE);
+					FireEWeapon(EW_FIREBALL, Ghost_X, Ghost_Y, DegtoRad(90), 350, ghost->WeaponDamage, SP_FIREBALL, SFX_FIREBALL, EWF_UNBLOCKABLE);
 					for (int k = 15; k > 0; k--)
 					{
 						Gohma3Wait(ghost, this, Legs1, Legs2, Scroll);
@@ -609,11 +609,11 @@ ffc script Armogohma2
 						Gohma3Wait(ghost, this, Legs1, Legs2, Scroll);
 					}
 					//Trace(913);
-					FireEWeapon(EW_FIREBALL, Ghost_X, Ghost_Y, DegtoRad(90), 150, ghost->WeaponDamage, SPRITE_FIREBALL, SFX_FIREBALL, EWF_UNBLOCKABLE);
-					FireEWeapon(EW_FIREBALL, Ghost_X, Ghost_Y, DegtoRad(90), 200, ghost->WeaponDamage, SPRITE_FIREBALL, SFX_FIREBALL, EWF_UNBLOCKABLE);
-					FireEWeapon(EW_FIREBALL, Ghost_X, Ghost_Y, DegtoRad(90), 250, ghost->WeaponDamage, SPRITE_FIREBALL, SFX_FIREBALL, EWF_UNBLOCKABLE);
-					FireEWeapon(EW_FIREBALL, Ghost_X, Ghost_Y, DegtoRad(90), 300, ghost->WeaponDamage, SPRITE_FIREBALL, SFX_FIREBALL, EWF_UNBLOCKABLE);
-					FireEWeapon(EW_FIREBALL, Ghost_X, Ghost_Y, DegtoRad(90), 350, ghost->WeaponDamage, SPRITE_FIREBALL, SFX_FIREBALL, EWF_UNBLOCKABLE);
+					FireEWeapon(EW_FIREBALL, Ghost_X, Ghost_Y, DegtoRad(90), 150, ghost->WeaponDamage, SP_FIREBALL, SFX_FIREBALL, EWF_UNBLOCKABLE);
+					FireEWeapon(EW_FIREBALL, Ghost_X, Ghost_Y, DegtoRad(90), 200, ghost->WeaponDamage, SP_FIREBALL, SFX_FIREBALL, EWF_UNBLOCKABLE);
+					FireEWeapon(EW_FIREBALL, Ghost_X, Ghost_Y, DegtoRad(90), 250, ghost->WeaponDamage, SP_FIREBALL, SFX_FIREBALL, EWF_UNBLOCKABLE);
+					FireEWeapon(EW_FIREBALL, Ghost_X, Ghost_Y, DegtoRad(90), 300, ghost->WeaponDamage, SP_FIREBALL, SFX_FIREBALL, EWF_UNBLOCKABLE);
+					FireEWeapon(EW_FIREBALL, Ghost_X, Ghost_Y, DegtoRad(90), 350, ghost->WeaponDamage, SP_FIREBALL, SFX_FIREBALL, EWF_UNBLOCKABLE);
 					for (int k = 15; k > 0; k--)
 					{
 						Gohma3Wait(ghost, this, Legs1, Legs2, Scroll);
@@ -635,11 +635,11 @@ ffc script Armogohma2
 						Gohma3Wait(ghost, this, Legs1, Legs2, Scroll);
 					}
 					//Trace(954);
-					FireEWeapon(EW_FIREBALL, Ghost_X, Ghost_Y, DegtoRad(90), 150, ghost->WeaponDamage, SPRITE_FIREBALL, SFX_FIREBALL, EWF_UNBLOCKABLE);
-					FireEWeapon(EW_FIREBALL, Ghost_X, Ghost_Y, DegtoRad(90), 200, ghost->WeaponDamage, SPRITE_FIREBALL, SFX_FIREBALL, EWF_UNBLOCKABLE);
-					FireEWeapon(EW_FIREBALL, Ghost_X, Ghost_Y, DegtoRad(90), 250, ghost->WeaponDamage, SPRITE_FIREBALL, SFX_FIREBALL, EWF_UNBLOCKABLE);
-					FireEWeapon(EW_FIREBALL, Ghost_X, Ghost_Y, DegtoRad(90), 300, ghost->WeaponDamage, SPRITE_FIREBALL, SFX_FIREBALL, EWF_UNBLOCKABLE);
-					FireEWeapon(EW_FIREBALL, Ghost_X, Ghost_Y, DegtoRad(90), 350, ghost->WeaponDamage, SPRITE_FIREBALL, SFX_FIREBALL, EWF_UNBLOCKABLE);
+					FireEWeapon(EW_FIREBALL, Ghost_X, Ghost_Y, DegtoRad(90), 150, ghost->WeaponDamage, SP_FIREBALL, SFX_FIREBALL, EWF_UNBLOCKABLE);
+					FireEWeapon(EW_FIREBALL, Ghost_X, Ghost_Y, DegtoRad(90), 200, ghost->WeaponDamage, SP_FIREBALL, SFX_FIREBALL, EWF_UNBLOCKABLE);
+					FireEWeapon(EW_FIREBALL, Ghost_X, Ghost_Y, DegtoRad(90), 250, ghost->WeaponDamage, SP_FIREBALL, SFX_FIREBALL, EWF_UNBLOCKABLE);
+					FireEWeapon(EW_FIREBALL, Ghost_X, Ghost_Y, DegtoRad(90), 300, ghost->WeaponDamage, SP_FIREBALL, SFX_FIREBALL, EWF_UNBLOCKABLE);
+					FireEWeapon(EW_FIREBALL, Ghost_X, Ghost_Y, DegtoRad(90), 350, ghost->WeaponDamage, SP_FIREBALL, SFX_FIREBALL, EWF_UNBLOCKABLE);
 					for (int k = 15; k > 0; k--)
 					{
 						Gohma3Wait(ghost, this, Legs1, Legs2, Scroll);
@@ -656,11 +656,11 @@ ffc script Armogohma2
 						Gohma3Wait(ghost, this, Legs1, Legs2, Scroll);
 					}
 					//Trace(957);
-					FireEWeapon(EW_FIREBALL, Ghost_X, Ghost_Y, DegtoRad(90), 150, ghost->WeaponDamage, SPRITE_FIREBALL, SFX_FIREBALL, EWF_UNBLOCKABLE);
-					FireEWeapon(EW_FIREBALL, Ghost_X, Ghost_Y, DegtoRad(90), 200, ghost->WeaponDamage, SPRITE_FIREBALL, SFX_FIREBALL, EWF_UNBLOCKABLE);
-					FireEWeapon(EW_FIREBALL, Ghost_X, Ghost_Y, DegtoRad(90), 250, ghost->WeaponDamage, SPRITE_FIREBALL, SFX_FIREBALL, EWF_UNBLOCKABLE);
-					FireEWeapon(EW_FIREBALL, Ghost_X, Ghost_Y, DegtoRad(90), 300, ghost->WeaponDamage, SPRITE_FIREBALL, SFX_FIREBALL, EWF_UNBLOCKABLE);
-					FireEWeapon(EW_FIREBALL, Ghost_X, Ghost_Y, DegtoRad(90), 350, ghost->WeaponDamage, SPRITE_FIREBALL, SFX_FIREBALL, EWF_UNBLOCKABLE);
+					FireEWeapon(EW_FIREBALL, Ghost_X, Ghost_Y, DegtoRad(90), 150, ghost->WeaponDamage, SP_FIREBALL, SFX_FIREBALL, EWF_UNBLOCKABLE);
+					FireEWeapon(EW_FIREBALL, Ghost_X, Ghost_Y, DegtoRad(90), 200, ghost->WeaponDamage, SP_FIREBALL, SFX_FIREBALL, EWF_UNBLOCKABLE);
+					FireEWeapon(EW_FIREBALL, Ghost_X, Ghost_Y, DegtoRad(90), 250, ghost->WeaponDamage, SP_FIREBALL, SFX_FIREBALL, EWF_UNBLOCKABLE);
+					FireEWeapon(EW_FIREBALL, Ghost_X, Ghost_Y, DegtoRad(90), 300, ghost->WeaponDamage, SP_FIREBALL, SFX_FIREBALL, EWF_UNBLOCKABLE);
+					FireEWeapon(EW_FIREBALL, Ghost_X, Ghost_Y, DegtoRad(90), 350, ghost->WeaponDamage, SP_FIREBALL, SFX_FIREBALL, EWF_UNBLOCKABLE);
 					for (int k = 15; k > 0; k--)
 					{
 						Gohma3Wait(ghost, this, Legs1, Legs2, Scroll);
@@ -677,11 +677,11 @@ ffc script Armogohma2
 						Gohma3Wait(ghost, this, Legs1, Legs2, Scroll);
 					}
 					//Trace(960);
-					FireEWeapon(EW_FIREBALL, Ghost_X, Ghost_Y, DegtoRad(90), 150, ghost->WeaponDamage, SPRITE_FIREBALL, SFX_FIREBALL, EWF_UNBLOCKABLE);
-					FireEWeapon(EW_FIREBALL, Ghost_X, Ghost_Y, DegtoRad(90), 200, ghost->WeaponDamage, SPRITE_FIREBALL, SFX_FIREBALL, EWF_UNBLOCKABLE);
-					FireEWeapon(EW_FIREBALL, Ghost_X, Ghost_Y, DegtoRad(90), 250, ghost->WeaponDamage, SPRITE_FIREBALL, SFX_FIREBALL, EWF_UNBLOCKABLE);
-					FireEWeapon(EW_FIREBALL, Ghost_X, Ghost_Y, DegtoRad(90), 300, ghost->WeaponDamage, SPRITE_FIREBALL, SFX_FIREBALL, EWF_UNBLOCKABLE);
-					FireEWeapon(EW_FIREBALL, Ghost_X, Ghost_Y, DegtoRad(90), 350, ghost->WeaponDamage, SPRITE_FIREBALL, SFX_FIREBALL, EWF_UNBLOCKABLE);
+					FireEWeapon(EW_FIREBALL, Ghost_X, Ghost_Y, DegtoRad(90), 150, ghost->WeaponDamage, SP_FIREBALL, SFX_FIREBALL, EWF_UNBLOCKABLE);
+					FireEWeapon(EW_FIREBALL, Ghost_X, Ghost_Y, DegtoRad(90), 200, ghost->WeaponDamage, SP_FIREBALL, SFX_FIREBALL, EWF_UNBLOCKABLE);
+					FireEWeapon(EW_FIREBALL, Ghost_X, Ghost_Y, DegtoRad(90), 250, ghost->WeaponDamage, SP_FIREBALL, SFX_FIREBALL, EWF_UNBLOCKABLE);
+					FireEWeapon(EW_FIREBALL, Ghost_X, Ghost_Y, DegtoRad(90), 300, ghost->WeaponDamage, SP_FIREBALL, SFX_FIREBALL, EWF_UNBLOCKABLE);
+					FireEWeapon(EW_FIREBALL, Ghost_X, Ghost_Y, DegtoRad(90), 350, ghost->WeaponDamage, SP_FIREBALL, SFX_FIREBALL, EWF_UNBLOCKABLE);
 					for (int k = 15; k > 0; k--)
 					{
 						Gohma3Wait(ghost, this, Legs1, Legs2, Scroll);
@@ -698,11 +698,11 @@ ffc script Armogohma2
 						Gohma3Wait(ghost, this, Legs1, Legs2, Scroll);
 					}
 					//Trace(963);
-					FireEWeapon(EW_FIREBALL, Ghost_X, Ghost_Y, DegtoRad(90), 150, ghost->WeaponDamage, SPRITE_FIREBALL, SFX_FIREBALL, EWF_UNBLOCKABLE);
-					FireEWeapon(EW_FIREBALL, Ghost_X, Ghost_Y, DegtoRad(90), 200, ghost->WeaponDamage, SPRITE_FIREBALL, SFX_FIREBALL, EWF_UNBLOCKABLE);
-					FireEWeapon(EW_FIREBALL, Ghost_X, Ghost_Y, DegtoRad(90), 250, ghost->WeaponDamage, SPRITE_FIREBALL, SFX_FIREBALL, EWF_UNBLOCKABLE);
-					FireEWeapon(EW_FIREBALL, Ghost_X, Ghost_Y, DegtoRad(90), 300, ghost->WeaponDamage, SPRITE_FIREBALL, SFX_FIREBALL, EWF_UNBLOCKABLE);
-					FireEWeapon(EW_FIREBALL, Ghost_X, Ghost_Y, DegtoRad(90), 350, ghost->WeaponDamage, SPRITE_FIREBALL, SFX_FIREBALL, EWF_UNBLOCKABLE);
+					FireEWeapon(EW_FIREBALL, Ghost_X, Ghost_Y, DegtoRad(90), 150, ghost->WeaponDamage, SP_FIREBALL, SFX_FIREBALL, EWF_UNBLOCKABLE);
+					FireEWeapon(EW_FIREBALL, Ghost_X, Ghost_Y, DegtoRad(90), 200, ghost->WeaponDamage, SP_FIREBALL, SFX_FIREBALL, EWF_UNBLOCKABLE);
+					FireEWeapon(EW_FIREBALL, Ghost_X, Ghost_Y, DegtoRad(90), 250, ghost->WeaponDamage, SP_FIREBALL, SFX_FIREBALL, EWF_UNBLOCKABLE);
+					FireEWeapon(EW_FIREBALL, Ghost_X, Ghost_Y, DegtoRad(90), 300, ghost->WeaponDamage, SP_FIREBALL, SFX_FIREBALL, EWF_UNBLOCKABLE);
+					FireEWeapon(EW_FIREBALL, Ghost_X, Ghost_Y, DegtoRad(90), 350, ghost->WeaponDamage, SP_FIREBALL, SFX_FIREBALL, EWF_UNBLOCKABLE);
 					for (int k = 15; k > 0; k--)
 					{
 						Gohma3Wait(ghost, this, Legs1, Legs2, Scroll);
@@ -811,9 +811,9 @@ ffc script Armogohma2
 					Gohma3Wait(ghost, this, Legs1, Legs2, Scroll);
 					if (k % 30 == 0)
 					{
-						FireAimedEWeapon(EW_FIREBALL, Ghost_X, Ghost_Y + 6, 0, 200, ghost->WeaponDamage, SPRITE_FIREBALL, SFX_FIREBALL, EWF_UNBLOCKABLE);
-						FireAimedEWeapon(EW_FIREBALL, Ghost_X, Ghost_Y + 6, 0.8, 200, ghost->WeaponDamage, SPRITE_FIREBALL, SFX_FIREBALL, EWF_UNBLOCKABLE);
-						FireAimedEWeapon(EW_FIREBALL, Ghost_X, Ghost_Y + 6, -0.8, 200, ghost->WeaponDamage, SPRITE_FIREBALL, SFX_FIREBALL, EWF_UNBLOCKABLE);
+						FireAimedEWeapon(EW_FIREBALL, Ghost_X, Ghost_Y + 6, 0, 200, ghost->WeaponDamage, SP_FIREBALL, SFX_FIREBALL, EWF_UNBLOCKABLE);
+						FireAimedEWeapon(EW_FIREBALL, Ghost_X, Ghost_Y + 6, 0.8, 200, ghost->WeaponDamage, SP_FIREBALL, SFX_FIREBALL, EWF_UNBLOCKABLE);
+						FireAimedEWeapon(EW_FIREBALL, Ghost_X, Ghost_Y + 6, -0.8, 200, ghost->WeaponDamage, SP_FIREBALL, SFX_FIREBALL, EWF_UNBLOCKABLE);
 					}
 				}
 				for (int k = 60; k > 0; k--)

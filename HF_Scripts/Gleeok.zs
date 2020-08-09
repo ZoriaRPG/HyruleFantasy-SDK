@@ -300,7 +300,7 @@ ffc script GleeokHead
 					{
 						GleeokHeadWait(ghost, this);
 					}
-					FireAimedEWeapon(EW_FIREBALL, Ghost_X, Ghost_Y + 6, 0, 250, ghost->WeaponDamage, SPRITE_FIREBALL, SFX_FIREBALL, 0);
+					FireAimedEWeapon(EW_FIREBALL, Ghost_X, Ghost_Y + 6, 0, 250, ghost->WeaponDamage, SP_FIREBALL, SFX_FIREBALL, 0);
 					for (int k = 0; k < 25; k++)
 					{
 						GleeokHeadWait(ghost, this);
@@ -409,7 +409,7 @@ ffc script FlamingGleeokHead
 					{
 						GleeokHeadWait(ghost, this);
 					}
-					FireAimedEWeapon(EW_FIREBALL, Ghost_X, Ghost_Y + 6, 0, 250, ghost->WeaponDamage, SPRITE_FIREBALL, SFX_FIREBALL, 0);
+					FireAimedEWeapon(EW_FIREBALL, Ghost_X, Ghost_Y + 6, 0, 250, ghost->WeaponDamage, SP_FIREBALL, SFX_FIREBALL, 0);
 					for (int k = 0; k < 25; k++)
 					{
 						GleeokHeadWait(ghost, this);

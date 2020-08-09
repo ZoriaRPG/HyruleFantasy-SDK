@@ -74,10 +74,10 @@ const int I_ROCSFEATHER_INCREASER   = 0; 	// Roc's feather upgrade, to automatic
 
 const int DASH_SWORD_DMG            = 8;        // Dash sword deals this regardless of sword damage.
 const int DASH_SWORD_MULT           = 1.5;        // Dash sword deals equipped sword damage times this.  0 uses above value. >0 uses this.
-//const int SPRITE_SWORD1 	    = 0;        // Set these to the sprite number used by that sword level
-//const int SPRITE_SWORD2 	    = 1;
-//const int SPRITE_SWORD3 	    = 2;
-//const int SPRITE_SWORD4 	    = 3;
+//const int SP_SWORD1 	    = 0;        // Set these to the sprite number used by that sword level
+//const int SP_SWORD2 	    = 1;
+//const int SP_SWORD3 	    = 2;
+//const int SP_SWORD4 	    = 3;
 
 const int NPC_ITEMSET               = 311;     	// ID of a dummy enemy with type different from "none", hp0, itemset overridden by script
 
@@ -321,13 +321,13 @@ void PegasusBoots(){
                 if(!mysword->isValid()) mysword = Screen->CreateLWeapon(LW_SCRIPT3);
 
                 if(swordEquip==174){
-                   mysword->UseSprite(SPRITE_SWORD4);
+                   mysword->UseSprite(SP_SWORD4);
                 }else if(swordEquip==173){
-                   mysword->UseSprite(SPRITE_SWORD3);
+                   mysword->UseSprite(SP_SWORD3);
                 }else if(swordEquip==172){
-                   mysword->UseSprite(SPRITE_SWORD2);
+                   mysword->UseSprite(SP_SWORD2);
                 }else{
-                   mysword->UseSprite(SPRITE_SWORD1);
+                   mysword->UseSprite(SP_SWORD1);
                 }//end sprite if
 
                 if(DASH_SWORD_MULT > 0){

@@ -1,5 +1,5 @@
 #include "std.zh"
-#include "string.zh"
+
 #include "ffcscript.zh"
 #include "stdCombos.zh"
 #include "ghost_HF.zh"
@@ -573,3 +573,129 @@ bool Is_Within_Proximity(npc e){
   else //DIR_DOWN
     return (av(e->Y - Link->Y) <= PROXIMITY && Link->X - e->X < 16 + offset && e->X - Link->X < 16);
 }
+
+#include "ffcscript.cfg"
+
+int RunFFCScriptAbove(char32 ptr, untyped args, int above)
+{
+	if ( above < 0 ) above = 1;
+	if ( above > 32 ) above = 32;
+	args = ( args < 0 ) ? NULL : args;
+	unless ( IsValidArray(ptr) )
+	{
+		printf("Invalid string / pointer, passed to RunFFCScript(char32)\n");
+		return 0;
+	}
+		
+	int scriptNum = Game->GetFFCScript(ptr);
+	//Invalid script
+	if(scriptNum < 0 || scriptNum > 511)
+	{
+		printf("Invalid Script Name (%s) passed to RunFFCScript", scriptNum);
+		return 0;
+	}
+	const int MIN = 0; //attibytes
+	const int MAX = 1; //attibytes
+	unless( args && IsValidArray(args) )
+	{	
+		args = NULL; //sanity guard against invalid arrays
+		printf("Invlalid array passed to RunFFCScript(args)\n");
+	}
+	
+	ffc theFFC = NULL;
+	
+	int ffscripth = NEVER_USE_COMBO_LABEL ? 0 : Game->GetCombo("FFCSCRIPTH");
+	int inv = NEVER_USE_COMBO_LABEL ? 0 : Game->GetCombo("INVISIBLE");
+	combodata c = ( ffscripth > 0 ) ? Game->LoadComboData(ffscripth) : NULL;
+	int invisible = ( inv > 0 ) ? inv : FFCS_INVISIBLE_COMBO;
+	int min = ( (c) ? c->Attribytes[MIN] : FFCS_MIN_FFC );
+	int max = ( (c) ? c->Attribytes[MAX] : FFCS_MAX_FFC );
+	min = Max(min,above);
+	// Find an FFC not already in use
+	for( int i = min; i <= max; ++i )
+	{
+		theFFC=Screen->LoadFFC(i);
+	
+		if
+		(
+			theFFC->Script!=0 ||
+			(theFFC->Data!=0 && theFFC->Data!=invisible) ||
+			theFFC->Flags[FFCF_CHANGER]
+		)
+			continue;
+	
+		// Found an unused one; set it up
+		theFFC->Data=inv;
+		theFFC->Script=scriptNum;
+		
+		if (args)
+		{
+			for ( int j = Min(SizeOfArray(args), 8)-1; j >= 0; --j)
+				theFFC->InitD[j] = args[j];
+		}
+	
+		return i;
+	}
+	
+	// No FFCs available
+	return 0;
+}
+
+int RunFFCScriptAbove(int scriptNum, untyped args, int above)
+{
+	if ( above < 0 ) above = 1;
+	if ( above > 32 ) above = 32;
+	args = ( args < 0 ) ? NULL : args;
+	//Invalid script
+	if(scriptNum < 0 || scriptNum > 511)
+	{
+		printf("Invalid script ID (%d) passed to RunFFCScript", scriptNum);
+		return 0;
+	}
+	const int MIN = 0; //attibytes
+	const int MAX = 1; //attibytes
+	unless( args && IsValidArray(args) )
+	{	
+		args = NULL; //sanity guard against invalid arrays
+		printf("Invlalid array passed to RunFFCScript(args)\n");
+	}
+	
+	ffc theFFC = NULL;
+	
+	int ffscripth = NEVER_USE_COMBO_LABEL ? 0 : Game->GetCombo("FFCSCRIPTH");
+	int inv = NEVER_USE_COMBO_LABEL ? 0 : Game->GetCombo("INVISIBLE");
+	combodata c = ( ffscripth > 0 ) ? Game->LoadComboData(ffscripth) : NULL;
+	int invisible = ( inv > 0 ) ? inv : FFCS_INVISIBLE_COMBO;
+	int min = ( (c) ? c->Attribytes[MIN] : FFCS_MIN_FFC );
+	int max = ( (c) ? c->Attribytes[MAX] : FFCS_MAX_FFC );
+	min = Max(min,above);
+	// Find an FFC not already in use
+	for( int i = min; i <= max; ++i )
+	{
+		theFFC=Screen->LoadFFC(i);
+	
+		if
+		(
+			theFFC->Script!=0 ||
+			(theFFC->Data!=0 && theFFC->Data!=invisible) ||
+			theFFC->Flags[FFCF_CHANGER]
+		)
+			continue;
+	
+		// Found an unused one; set it up
+		theFFC->Data=inv;
+		theFFC->Script=scriptNum;
+		
+		if (args)
+		{
+			for ( int j = Min(SizeOfArray(args), 8)-1; j >= 0; --j)
+				theFFC->InitD[j] = args[j];
+		}
+	
+		return i;
+	}
+	
+	// No FFCs available
+	return 0;
+}
+

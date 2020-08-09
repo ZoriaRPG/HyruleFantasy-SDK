@@ -490,7 +490,7 @@ ffc script GleeokHead2
 						Ghost_Z = GleeokBody->Z;
 						GleeokHeadWait(ghost, this);
 					}
-					FireAimedEWeapon(EW_FIREBALL, Ghost_X, Ghost_Y + 6, 0, 250, ghost->WeaponDamage, SPRITE_FIREBALL, SFX_FIREBALL, 0);
+					FireAimedEWeapon(EW_FIREBALL, Ghost_X, Ghost_Y + 6, 0, 250, ghost->WeaponDamage, SP_FIREBALL, SFX_FIREBALL, 0);
 					for (int k = 0; k < 25; k++)
 					{
 						Ghost_Z = GleeokBody->Z;
@@ -636,7 +636,7 @@ ffc script FlamingGleeokHead2
 					}
 					for (int k = 48; k >= 0; k--)
 					{
-						if (k % 12 == 0) FireAimedEWeapon(EW_FIREBALL, Ghost_X, Ghost_Y + 6, 0, 250, ghost->WeaponDamage, SPRITE_FIREBALL, SFX_FIREBALL, 0);
+						if (k % 12 == 0) FireAimedEWeapon(EW_FIREBALL, Ghost_X, Ghost_Y + 6, 0, 250, ghost->WeaponDamage, SP_FIREBALL, SFX_FIREBALL, 0);
 						GleeokHeadWait(ghost, this);
 					}
 					for (int k = 0; k < 25; k++)

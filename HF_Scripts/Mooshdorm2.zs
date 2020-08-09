@@ -708,7 +708,7 @@ ffc script Helmasaur_Fireballs{
 			for(int i=0; i<3; i++){
 				if(Split[i]->isValid()){
 					Split[i]->Step = 0;
-					SetEWeaponDeathEffect(Split[i], EWD_4_FIREBALLS_RANDOM, SPRITE_FIREBALL);
+					SetEWeaponDeathEffect(Split[i], EWD_4_FIREBALLS_RANDOM, SP_FIREBALL);
 				}
 			}
 			Waitframes(60);
