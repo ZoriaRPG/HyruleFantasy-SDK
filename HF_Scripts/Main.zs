@@ -3,7 +3,7 @@
 #include "ffcscript.zh"
 #include "stdCombos.zh"
 #include "ghost_HF.zh"
-#include "stdWeapons.zh"
+#include "stdWeapons_HF.zh"
 #include "Tango_HF.zh"
 #include "laser.zh"
 #include "stdExtra.zh" 
