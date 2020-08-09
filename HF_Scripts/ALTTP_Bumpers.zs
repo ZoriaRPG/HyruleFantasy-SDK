@@ -8,8 +8,10 @@
 //The FFC should use the first of the four bumper combos.
 //D0: How many frames Link gets pushed back for when he hits the bumper
 
-ffc script LttP_Bumper{
-	void run(int Bounce){
+ffc script LttP_Bumper
+{
+	void run(int Bounce)
+	{
 		int Combo = this->Data;
 		int BounceAngle = 0;
 		int BounceCounter = 0;
@@ -17,9 +19,12 @@ ffc script LttP_Bumper{
 		int AnimationCounter = 0;
 		int PushX;
 		int PushY;
-		while(true){
-			if(Distance(CenterX(this), CenterY(this), CenterLinkX(), CenterLinkY())<this->TileWidth*8+2&&Link->Z==0){
-				if(this->InitD[7]==0){
+		while(true)
+		{
+			if(Distance(CenterX(this), CenterY(this), CenterLinkX(), CenterLinkY())<this->TileWidth*8+2 && (!Link->Z))
+			{
+				unless(this->InitD[7])
+				{
 					Game->PlaySound(SFX_LTTP_BUMPER);
 					BounceAngle = Angle(CenterX(this), CenterY(this), CenterLinkX(), CenterLinkY());
 					BounceCounter = Bounce;
@@ -27,61 +32,76 @@ ffc script LttP_Bumper{
 				}
 				NoAction();
 			}
-			if(BounceCounter>0){
+			if(BounceCounter>0)
+			{
 				PushX += VectorX(LTTP_BUMPER_FORCE, BounceAngle);
 				PushY += VectorY(LTTP_BUMPER_FORCE, BounceAngle);
-				BounceCounter--;
+				--BounceCounter;
 			}
-			if(Abs(PushX)>0){
-				for(int i=0; i<MAX_PUSH&&PushX<=-1; i++){
-					if(CanWalk(Link->X, Link->Y, DIR_LEFT, 1, false)){
-						Link->X--;
-						PushX++;
+			if(Abs(PushX)>0)
+			{
+				for(int i=0; (i < MAX_PUSH && PushX <= -1); ++i)
+				{
+					if(CanWalk(Link->X, Link->Y, DIR_LEFT, 1, false))
+					{
+						--Link->X;
+						++PushX;
 					}
-					else{
+					else
+					{
 						if(Abs(PushY)>0)
 							PushY += Sign(PushY)*Abs(PushX/2);
 						PushX = 0;
 					}
 				}
-				for(int i=0; i<MAX_PUSH&&PushX>=1; i++){
-					if(CanWalk(Link->X, Link->Y, DIR_RIGHT, 1, false)){
-						Link->X++;
-						PushX--;
+				for(int i=0; (i < MAX_PUSH && PushX >= 1); ++i)
+				{
+					if(CanWalk(Link->X, Link->Y, DIR_RIGHT, 1, false))
+					{
+						++Link->X;
+						--PushX;
 					}
-					else{
+					else
+					{
 						if(Abs(PushY)>0)
 							PushY += Sign(PushY)*Abs(PushX/2);
 						PushX = 0;
 					}
 				}
 			}
-			if(Abs(PushY)>0){
-				for(int i=0; i<MAX_PUSH&&PushY<=-1; i++){
-					if(CanWalk(Link->X, Link->Y, DIR_UP, 1, false)){
-						Link->Y--;
-						PushY++;
+			if(Abs(PushY)>0)
+			{
+				for(int i=0; (i < MAX_PUSH && PushY <= -1); ++i)
+				{
+					if(CanWalk(Link->X, Link->Y, DIR_UP, 1, false))
+					{
+						--Link->Y;
+						++PushY;
 					}
-					else{
+					else
+					{
 						if(Abs(PushX)>0)
 							PushX += Sign(PushX)*Abs(PushY/2);
 						PushY = 0;
 					}
 				}
-				for(int i=0; i<MAX_PUSH&&PushY>=1; i++){
-					if(CanWalk(Link->X, Link->Y, DIR_DOWN, 1, false)){
-						Link->Y++;
-						PushY--;
+				for(int i=0; (i < MAX_PUSH && PushY >= 1); ++i)
+				{
+					if(CanWalk(Link->X, Link->Y, DIR_DOWN, 1, false))
+					{
+						++Link->Y;
+						--PushY;
 					}
-					else{
+					else
+					{
 						if(Abs(PushX)>0)
 							PushX += Sign(PushX)*Abs(PushY/2);
 						PushY = 0;
 					}
 				}
 			}
-			if(AnimationCounter>0)
-				AnimationCounter--;
+			if(AnimationCounter > 0)
+				--AnimationCounter;
 			this->Data = Combo+Floor(AnimationCounter/LTTP_BUMPER_ANIM_SPEED);
 			Waitframe();
 		}
