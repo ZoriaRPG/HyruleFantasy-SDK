@@ -1,5 +1,7 @@
 ffc script Big_Beamos
 {
+	const int SFX_BEAMOS_SHOT = 74;
+	const int NPC_BEAMOS_FALLING = 310;
 	void run(int enemyID)
 	{
 		npc ghost = Ghost_InitAutoGhost(this, enemyID);
@@ -35,16 +37,16 @@ ffc script Big_Beamos
 					FireEWeapon(EW_FIREBALL, Ghost_X, Ghost_Y +8, DegtoRad(210), 200, ghost->WeaponDamage, -1, -1, 0);
 					FireEWeapon(EW_FIREBALL, Ghost_X, Ghost_Y +8, DegtoRad(150), 200, ghost->WeaponDamage, -1, -1, 0);
 				}
-				for (int i = 0; i < 32; i++)
+				for (int i = 0; i < 32; ++i)
 				{
 					Ghost_Data = Clockwise + Floor(i / 4);
-					if (AttackCounter > 0) AttackCounter--;
-					if (FireballCounter > 0) FireballCounter--;
+					if (AttackCounter > 0) --AttackCounter;
+					if (FireballCounter > 0) --FireballCounter;
 					BeamosWaitframe(this, ghost, Angle, LStartX, LStartY, LEndX, LEndY, LaserLength, LaserEnded, LaserBounce);
 				}
 				MovingDown = true;
 				Ghost_Data = Main;
-				TurnCounter--;
+				--TurnCounter;
 			}
 			else if (((Link->Y < Ghost_Y - 16 || Ghost_Y >= 128) || (Link->Y <= Ghost_Y + 8 && TurnCounter == 1)) && MovingDown)
 			{
@@ -54,22 +56,22 @@ ffc script Big_Beamos
 					FireEWeapon(EW_FIREBALL, Ghost_X, Ghost_Y +8, DegtoRad(210), 200, ghost->WeaponDamage, -1, -1, 0);
 					FireEWeapon(EW_FIREBALL, Ghost_X, Ghost_Y +8, DegtoRad(150), 200, ghost->WeaponDamage, -1, -1, 0);
 				}
-				for (int i = 0; i < 32; i++)
+				for (int i = 0; i < 32; ++i)
 				{
 					Ghost_Data = CounterClockwise + Floor(i / 4);
-					if (AttackCounter > 0) AttackCounter--;
-					if (FireballCounter > 0) FireballCounter--;
+					if (AttackCounter > 0) --AttackCounter;
+					if (FireballCounter > 0) --FireballCounter;
 					BeamosWaitframe(this, ghost, Angle, LStartX, LStartY, LEndX, LEndY, LaserLength, LaserEnded, LaserBounce);
 				}
 				Ghost_Data = Main;
 				MovingDown = false;
-				TurnCounter--;
+				--TurnCounter;
 			}
-			if (AttackCounter > 0) AttackCounter--;
-			if (FireballCounter > 0) FireballCounter--;
+			if (AttackCounter > 0) --AttackCounter;
+			if (FireballCounter > 0) --FireballCounter;
 			if (TurnCounter <= 0)
 			{
-				Game->PlaySound(74);
+				Game->PlaySound(SFX_BEAMOS_SHOT); //UNHARDCODE ME!
 				for (int i = 0; i < 16; i+=0.5)
 				{
 					DrawLaser(3, Ghost_X + 8, Ghost_Y + 16, i, 180, 1);
@@ -102,12 +104,12 @@ ffc script Big_Beamos
 					Screen->Quake = 4;
 				}
 				Game->PlaySound(SFX_FALL);
-				npc Fall1 = Screen->CreateNPC(310);
+				npc Fall1 = Screen->CreateNPC(NPC_BEAMOS_FALLING); //UNHARDCODE ME!
 				int Combo = FindSpawnPoint(-1, 38);
 				Fall1->X = ComboX(Combo);
 				Fall1->Y = ComboY(Combo);
 				Fall1->Z = Rand(80, 120);
-				npc Fall2 = Screen->CreateNPC(310);
+				npc Fall2 = Screen->CreateNPC(NPC_BEAMOS_FALLING); //UNHARDCODE ME!
 				Combo = FindSpawnPoint(-1, 38);
 				Fall2->X = ComboX(Combo);
 				Fall2->Y = ComboY(Combo);
@@ -120,7 +122,7 @@ ffc script Big_Beamos
 			{
 				if (MovingDown)
 				{
-					for (int i = 0; i < 32; i++)
+					for (int i = 0; i < 32; ++i)
 					{
 						Ghost_Data = CounterClockwise + Floor(i / 4);
 						BeamosWaitframe(this, ghost, Angle, LStartX, LStartY, LEndX, LEndY, LaserLength, LaserEnded, LaserBounce);
@@ -133,7 +135,7 @@ ffc script Big_Beamos
 					LEndY[NewLaser] = Clamp(Ghost_Y + 8, 30 + BEAMOS_LASER_SPEED, 160 - BEAMOS_LASER_SPEED);
 					Angle[NewLaser] = 225;
 					LaserBounce[NewLaser] = 3;
-					for (int i = 0; i < 32; i++)
+					for (int i = 0; i < 32; ++i)
 					{
 						Ghost_Data = Clockwise + Floor(i / 4);
 						BeamosWaitframe(this, ghost, Angle, LStartX, LStartY, LEndX, LEndY, LaserLength, LaserEnded, LaserBounce);
@@ -148,7 +150,7 @@ ffc script Big_Beamos
 					LaserBounce[NewLaser] = 3;
 					if (Ghost_HP <= (MaxHP / 2))
 					{
-						for (int i = 0; i < 32; i++)
+						for (int i = 0; i < 32; ++i)
 						{
 							Ghost_Data = CounterClockwise + Floor(i / 4);
 							BeamosWaitframe(this, ghost, Angle, LStartX, LStartY, LEndX, LEndY, LaserLength, LaserEnded, LaserBounce);
@@ -161,7 +163,7 @@ ffc script Big_Beamos
 						LEndY[NewLaser] = Clamp(Ghost_Y + 8, 30 + BEAMOS_LASER_SPEED, 160 - BEAMOS_LASER_SPEED);
 						Angle[NewLaser] = 200;
 						LaserBounce[NewLaser] = 3;
-						for (int i = 0; i < 32; i++)
+						for (int i = 0; i < 32; ++i)
 						{
 							Ghost_Data = Clockwise + Floor(i / 4);
 							BeamosWaitframe(this, ghost, Angle, LStartX, LStartY, LEndX, LEndY, LaserLength, LaserEnded, LaserBounce);
@@ -175,7 +177,7 @@ ffc script Big_Beamos
 						Angle[NewLaser] = 160;
 						LaserBounce[NewLaser] = 3;
 					}
-					for (int i = 0; i < 32; i++)
+					for (int i = 0; i < 32; ++i)
 					{
 						Ghost_Data = Clockwise + Floor(i / 4);
 						BeamosWaitframe(this, ghost, Angle, LStartX, LStartY, LEndX, LEndY, LaserLength, LaserEnded, LaserBounce);
@@ -184,7 +186,7 @@ ffc script Big_Beamos
 				}
 				else
 				{
-					for (int i = 0; i < 32; i++)
+					for (int i = 0; i < 32; ++i)
 					{
 						Ghost_Data = Clockwise + Floor(i / 4);
 						BeamosWaitframe(this, ghost, Angle, LStartX, LStartY, LEndX, LEndY, LaserLength, LaserEnded, LaserBounce);
@@ -197,7 +199,7 @@ ffc script Big_Beamos
 					LEndY[NewLaser] = Clamp(Ghost_Y + 24, 30 + BEAMOS_LASER_SPEED, 160 - BEAMOS_LASER_SPEED);
 					Angle[NewLaser] = 135;
 					LaserBounce[NewLaser] = 3;
-					for (int i = 0; i < 32; i++)
+					for (int i = 0; i < 32; ++i)
 					{
 						Ghost_Data = CounterClockwise + Floor(i / 4);
 						BeamosWaitframe(this, ghost, Angle, LStartX, LStartY, LEndX, LEndY, LaserLength, LaserEnded, LaserBounce);
@@ -212,7 +214,7 @@ ffc script Big_Beamos
 					LaserBounce[NewLaser] = 3;
 					if (Ghost_HP <= (MaxHP / 2))
 					{
-						for (int i = 0; i < 32; i++)
+						for (int i = 0; i < 32; ++i)
 						{
 							Ghost_Data = Clockwise + Floor(i / 4);
 							BeamosWaitframe(this, ghost, Angle, LStartX, LStartY, LEndX, LEndY, LaserLength, LaserEnded, LaserBounce);
@@ -225,7 +227,7 @@ ffc script Big_Beamos
 						LEndY[NewLaser] = Clamp(Ghost_Y + 24, 30 + BEAMOS_LASER_SPEED, 160 - BEAMOS_LASER_SPEED);
 						Angle[NewLaser] = 135;
 						LaserBounce[NewLaser] = 3;
-						for (int i = 0; i < 32; i++)
+						for (int i = 0; i < 32; ++i)
 						{
 							Ghost_Data = CounterClockwise + Floor(i / 4);
 							BeamosWaitframe(this, ghost, Angle, LStartX, LStartY, LEndX, LEndY, LaserLength, LaserEnded, LaserBounce);
@@ -239,7 +241,7 @@ ffc script Big_Beamos
 						Angle[NewLaser] = 225;
 						LaserBounce[NewLaser] = 3;
 					}
-					for (int i = 0; i < 32; i++)
+					for (int i = 0; i < 32; ++i)
 					{
 						Ghost_Data = CounterClockwise + Floor(i / 4);
 						BeamosWaitframe(this, ghost, Angle, LStartX, LStartY, LEndX, LEndY, LaserLength, LaserEnded, LaserBounce);
@@ -250,7 +252,7 @@ ffc script Big_Beamos
 			}
 			else if (FireballCounter <= 0)
 			{
-				for (int i = 0; i < 32; i++)
+				for (int i = 0; i < 32; ++i)
 				{
 					Ghost_Data = Clockwise + Floor(i / 4);
 					BeamosWaitframe(this, ghost, Angle, LStartX, LStartY, LEndX, LEndY, LaserLength, LaserEnded, LaserBounce);
@@ -258,7 +260,7 @@ ffc script Big_Beamos
 				FireEWeapon(EW_FIREBALL, Ghost_X, Ghost_Y +8, DegtoRad(180), 200, ghost->WeaponDamage, -1, -1, 0);
 				FireEWeapon(EW_FIREBALL, Ghost_X, Ghost_Y +8, DegtoRad(210), 200, ghost->WeaponDamage, -1, -1, 0);
 				FireEWeapon(EW_FIREBALL, Ghost_X, Ghost_Y +8, DegtoRad(150), 200, ghost->WeaponDamage, -1, -1, 0);
-				for (int i = 0; i < 32; i++)
+				for (int i = 0; i < 32; ++i)
 				{
 					Ghost_Data = CounterClockwise + Floor(i / 4);
 					BeamosWaitframe(this, ghost, Angle, LStartX, LStartY, LEndX, LEndY, LaserLength, LaserEnded, LaserBounce);
@@ -277,8 +279,8 @@ ffc script Big_Beamos
 			}
 			else
 			{
-				if (MovingDown) Ghost_Y++;
-				else if (!MovingDown) Ghost_Y--;
+				if (MovingDown) ++Ghost_Y;
+				else if (!MovingDown) --Ghost_Y;
 			}
 			BeamosWaitframe(this, ghost, Angle, LStartX, LStartY, LEndX, LEndY, LaserLength, LaserEnded, LaserBounce);
 		}
@@ -286,9 +288,9 @@ ffc script Big_Beamos
 	void BeamosWaitframe(ffc this, npc ghost, int Angle, int LStartX, int LStartY, int LEndX, int LEndY, int LaserLength, bool LaserEnded, int LaserBounce)
 	{
 		HandleLasers(ghost, this, Angle, LStartX, LStartY, LEndX, LEndY, LaserLength, LaserEnded, LaserBounce);
-		if (!Ghost_Waitframe(this, ghost, false, false))
+		unless (Ghost_Waitframe(this, ghost, false, false))
 		{
-			for (int i = Screen->NumNPCs(); i > 1; i--)
+			for (int i = Screen->NumNPCs(); i > 1; --i) //Not > 0? Is this intentional?!
 			{
 				npc Kill = Screen->LoadNPC(i);
 				Kill->HP = 0;
@@ -304,7 +306,7 @@ ffc script Big_Beamos
 	}
 	void HandleLasers(npc ghost, ffc this, int Angle, int LStartX, int LStartY, int LEndX, int LEndY, int LaserLength, bool LaserEnded, int LaserBounce)
 	{
-		for (int k = 0; k < 20; k++)
+		for (int k = 0; k < 20; ++k)
 		{
 			if (IsValidLaser(LStartX, LStartY, LEndX, LEndY, k))
 			{
@@ -330,7 +332,8 @@ ffc script Big_Beamos
 						}
 					}
 					//Draw everything in order
-					if(Link->HP>0){
+					if(Link->HP>0)
+					{
 						Screen->Rectangle(LAYER_BEAMOS2, LStartX[k], LStartY[k]-1, LStartX[k]+LDist, LStartY[k]+1, COLOR_BEAMOS_LASER2, 1, LStartX[k], LStartY[k], Angle[k], true, 128);
 						Screen->Line(LAYER_BEAMOS2, LStartX[k], LStartY[k], LEndX[k], LEndY[k], COLOR_BEAMOS_LASER1, 1, 0, 0, 0, 128);
 						Screen->FastCombo(LAYER_BEAMOS2, LStartX[k]-8, LStartY[k]-8, CMB_BEAMOS_LASER_ENDPOINT, CS_BEAMOS_LASER_ENDPOINT, 128);
@@ -340,9 +343,10 @@ ffc script Big_Beamos
 				}
 				else
 				{
-					if(!LaserEnded[k]){
-						if(((!Screen->isSolid(LEndX[k] - BEAMOS_LASER_SPEED, LEndY[k]) && !Screen->isSolid(LEndX[k] + BEAMOS_LASER_SPEED, LEndY[k]) && !Screen->isSolid(LEndX[k], LEndY[k] - BEAMOS_LASER_SPEED) && !Screen->isSolid(LEndX[k], LEndY[k] + BEAMOS_LASER_SPEED))
-						&&!(LEndX[k]<-16||LEndX[k]>272||LEndY[k]<-16||LEndY[k]>192))||Distance(LStartX[k], LStartY[k], LEndX[k], LEndY[k])<BEAMOS_LASER_MINDIST){
+					unless(LaserEnded[k]){
+						unless(((Screen->isSolid(LEndX[k] - BEAMOS_LASER_SPEED, LEndY[k]) && Screen->isSolid(LEndX[k] + BEAMOS_LASER_SPEED, LEndY[k]) && Screen->isSolid(LEndX[k], LEndY[k] - BEAMOS_LASER_SPEED) && Screen->isSolid(LEndX[k], LEndY[k] + BEAMOS_LASER_SPEED))
+						&&(LEndX[k]<-16||LEndX[k]>272||LEndY[k]<-16||LEndY[k]>192))||!Distance((LStartX[k], LStartY[k], LEndX[k], LEndY[k])<BEAMOS_LASER_MINDIST))
+						{
 							int LDist = Distance(LStartX[k], LStartY[k], LEndX[k], LEndY[k]);
 							LStartX[k] += VectorX(BEAMOS_LASER_SPEED, Angle[k]);
 							LStartY[k] += VectorY(BEAMOS_LASER_SPEED, Angle[k]);
@@ -369,16 +373,19 @@ ffc script Big_Beamos
 							//Ghost_Waitframe(this, ghost, true, true);
 						}
 					}
-					else if (Distance(LStartX[k], LStartY[k], LEndX[k], LEndY[k])>BEAMOS_LASER_SPEED){
+					else if (Distance(LStartX[k], LStartY[k], LEndX[k], LEndY[k])>BEAMOS_LASER_SPEED)
+					{
 						int LDist = Distance(LStartX[k], LStartY[k], LEndX[k], LEndY[k]);
-						if(LaserLength[k]>BEAMOS_LASER_LENGTH){
+						if(LaserLength[k]>BEAMOS_LASER_LENGTH)
+						{
 							LStartX[k] += VectorX(BEAMOS_LASER_SPEED, Angle[k]);
 							LStartY[k] += VectorY(BEAMOS_LASER_SPEED, Angle[k]);
 						}
 						if(LaserLength[k]<=BEAMOS_LASER_LENGTH)
 							LaserLength[k] += BEAMOS_LASER_SPEED;
 						//Draw everything in order
-						if(Link->HP>0){
+						if(Link->HP>0)
+						{
 							Screen->Rectangle(LAYER_BEAMOS2, LStartX[k], LStartY[k]-1, LStartX[k]+LDist, LStartY[k]+1, COLOR_BEAMOS_LASER2, 1, LStartX[k], LStartY[k], Angle[k], true, 128);
 							Screen->Line(LAYER_BEAMOS2, LStartX[k], LStartY[k], LEndX[k], LEndY[k], COLOR_BEAMOS_LASER1, 1, 0, 0, 0, 128);
 							if(LaserLength[k]<=BEAMOS_LASER_LENGTH)
@@ -405,12 +412,12 @@ ffc script Big_Beamos
 	int GetUnusedLaser(int LStartX, int LStartY, int LEndX, int LEndY)
 	{
 		int counting = 0;
-		for (int i = 0; i < 20; i++)
+		for (int i = 0; i < 20; ++i)
 		{
-			if (LStartX[i] <= -1) counting++;
-			if (LStartY[i] <= -1) counting++;
-			if (LEndX[i] <= -1) counting++;
-			if (LEndY[i] <= -1) counting++;
+			if (LStartX[i] <= -1) ++counting;
+			if (LStartY[i] <= -1) ++counting;
+			if (LEndX[i] <= -1) ++counting;
+			if (LEndY[i] <= -1) ++counting;
 			if (counting >= 3) return i;
 			else counting = 0;
 		}
@@ -418,10 +425,10 @@ ffc script Big_Beamos
 	bool IsValidLaser(int LStartX, int LStartY, int LEndX, int LEndY, int Index)
 	{
 		int counting = 0;
-		if (LStartX[Index] <= -1) counting++;
-		if (LStartY[Index] <= -1) counting++;
-		if (LEndX[Index] <= -1) counting++;
-		if (LEndY[Index] <= -1) counting++;
+		if (LStartX[Index] <= -1) ++counting;
+		if (LStartY[Index] <= -1) ++counting;
+		if (LEndX[Index] <= -1) ++counting;
+		if (LEndY[Index] <= -1) ++counting;
 		if (counting >= 3) return false;
 		else return true;
 	}
@@ -445,8 +452,10 @@ ffc script Big_Beamos
 			return ((0 - angle) % 360);
 		}
 	}
-	void CheckBeamosLaser(npc ghost, int StartX, int StartY, int EndX, int EndY){
-		if(lineBoxCollision(StartX, StartY, EndX, EndY, Link->X, Link->Y, Link->X+Link->HitWidth, Link->Y+Link->HitHeight, 0)){
+	void CheckBeamosLaser(npc ghost, int StartX, int StartY, int EndX, int EndY)
+	{
+		if(lineBoxCollision(StartX, StartY, EndX, EndY, Link->X, Link->Y, Link->X+Link->HitWidth, Link->Y+Link->HitHeight, 0))
+		{
 			eweapon e = FireEWeapon(EW_SCRIPT10, Link->X+InFrontX(Link->Dir, 10), Link->Y+InFrontY(Link->Dir, 10), 0, 0, ghost->WeaponDamage, -1, -1, EWF_UNBLOCKABLE);
 			SetEWeaponLifespan(e, EWL_TIMER, 1);
 			SetEWeaponDeathEffect(e, EWD_VANISH, 0);
