@@ -1,4 +1,4 @@
-import "Projects\Hyrule_Fantasy\HF_Scripts\Reflect.z"
+#include "Reflect.zs"
 
 const int LINKMISC_DEFENSE = 4;
 

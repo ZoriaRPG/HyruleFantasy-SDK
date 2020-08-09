@@ -4,7 +4,7 @@
 #include "stdCombos.zh"
 #include "ghost_HF.zh"
 #include "stdWeapons.zh"
-#include "Tango+HF.zh"
+#include "Tango_HF.zh"
 #include "laser.zh"
 #include "stdExtra.zh" 
 #include "LinkMovement.zh"
