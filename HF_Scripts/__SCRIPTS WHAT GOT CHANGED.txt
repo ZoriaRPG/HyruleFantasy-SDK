@@ -1,9 +1,0 @@
-In case you don't want to replace every single script, here's what I changed:
-
-Bari.z (Fap to trap, get the zap, no more of that purely random crap)
-Anti Fairy.z (Fixed some stuff in the script??? Idk if this one was even finished, because the ones I placed down kept instantly killing themselves)
-MooshPit.z (Added AutoWarp A combo)
-
-And the scripts I added:
-RiverZora.z
-Kyameron.z
