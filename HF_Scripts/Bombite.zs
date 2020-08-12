@@ -1,5 +1,7 @@
+//Replaced by bobombnpc npc script, in classic.zh.
 //import "std.zh"
 
+/*
 //////////////////////////////////
 /// BobOmb for EotM - May 2017 ///
 /// By: ZoriaRPG               ///
@@ -110,3 +112,6 @@ void BobOmb(int npc_id, int ffc_slot, int ffc_data, int misc_timer, int misc_cse
 		
 							
 //Bobomb tiles in the demo qest are from this post: http://www.purezc.net/forums/index.php?showtopic=31432
+
+*/
+
