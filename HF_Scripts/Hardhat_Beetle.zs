@@ -60,7 +60,7 @@ ffc script HardhatBeetle
                 int angle = Angle(Ghost_X, Ghost_Y, Link->X, Link->Y);
                 if(Link->Action == LA_GOTHURTLAND && LinkCollision(ghost))
                     Link->HitDir = AngleDir4(angle);
-                if(!Ghost_CanMove(AngleDir8(angle), ss/100, 2)) ss = minStep;
+                unless(Ghost_CanMove(AngleDir8(angle), ss/100, 2)) ss = minStep;
                 Ghost_MoveTowardLink(ss/100, 2);
             }
         } while(Ghost_Waitframe(this, ghost, true, true));

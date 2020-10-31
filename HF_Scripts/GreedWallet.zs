@@ -1,13 +1,14 @@
 void GreedWallet()
 {
-	if (Link->Item[178])
+	const int I_GREEWALLET = 178;
+	if (Link->Item[I_GREEWALLET])
 	{
 		if (Game->Counter[CR_RUPEES] >= 10000)
 		{
-			if (Game->Counter[CR_SCRIPT1] < 50000) Game->Counter[CR_SCRIPT1]++;
+			if (Game->Counter[CR_SCRIPT1] < 50000) ++Game->Counter[CR_SCRIPT1];
 			Game->Counter[CR_RUPEES]-=10000;
 		}
-		for (int i = 1; i <= Screen->NumItems(); i++)
+		for (int i = Screen->NumItems(); i > 0 ; --i)
 		{
 			item Greedy = Screen->LoadItem(i);
 			if (Greedy->Misc[0] != 0)
@@ -67,9 +68,8 @@ void GreedWallet()
 			}
 			if (Greedy->ID == 86)
 			{
-				int lightning[] = "RupeeShower";
-				int script_num = Game->GetFFCScript(lightning); //Lightning is a script.
-				ffc Greedier = Screen->LoadFFC(RunFFCScript(script_num, 0)); 
+				
+				ffc Greedier = Screen->LoadFFC(RunFFCScript((Game->GetFFCScript("RupeeShower")), 0)); 
 				Greedier->X = Greedy->X;
 				Greedier->Y = Greedy->Y;
 				Remove(Greedy);
@@ -82,7 +82,7 @@ ffc script RupeeShower
 {
 	void run()
 	{
-		for (int i = 0; i < 360; i++)
+		for (int i = 0; i < 360; ++i)
 		{
 			if (i % 12 == 0)
 			{
@@ -136,12 +136,13 @@ void SubtractLarge (int num1, int num2)
 				while (num1[i] < 0) 
 				{
 					num1[i]+=10000;
-					num2[i+1]++;
+					++num2[i+1];
 				}
 			}
 			else
 			{
-				for (int l = 0; l < SizeOfArray(num1); l++)
+				int sz = SizeOfArray(num1);
+				for (int l = 0; l < sz; ++l)
 				{
 					num1[l] = 0;
 				}
@@ -159,7 +160,7 @@ ffc script GreedFill
 		{
 			if (LinkCollision(this))
 			{
-				Game->Counter[CR_SCRIPT1]++;
+				++Game->Counter[CR_SCRIPT1];
 			}
 			Waitframe();
 		}
