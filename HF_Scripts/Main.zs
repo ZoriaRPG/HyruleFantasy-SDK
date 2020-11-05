@@ -1,4 +1,7 @@
+// HF 2.55 Alpha 0.10
+
 #include "std.zh"
+#include "zshell.zs"
 
 //NPC Scrripts
 #include "bobomb.zs"
@@ -213,342 +216,355 @@ int GenInt[1000];
 
 //------MAIN GLOBAL SCRIPT--------
 
-global script Main_Loop{
-  void run() 
-  {
-      int curscreen = -1;
-      StartGhostZH();
-      //InitHoleLava(); //Inits Tamamo's holes and lava.
-	  MooshPit_Init();
-	  RefreshBottles();
-	  Tango_Start();
-	  ScrollingDraws_Init();
-	  Minecart_Init();
+global script Main_Loop
+{
+	void run() 
+	{
+		zshell::SP = 0;
+		zshell::clearbuffer();
+		int curscreen = -1;
+		StartGhostZH();
+		//InitHoleLava(); //Inits Tamamo's holes and lava.
+		MooshPit_Init();
+		RefreshBottles();
+		Tango_Start();
+		ScrollingDraws_Init();
+		Minecart_Init();
 
-      //Initialize variables used to store Link's strating position on Screen Init.
-      int olddmap = Game->GetCurDMap();
-      int oldscreen = Game->GetCurDMapScreen();
-      int startx = Link->X;
-      int starty = Link->Y;
-      int startdir = Link->Dir;
-	  int lastscreen = 0;
-	  int scrollCounter = 0;
-	  int scrollDir = 0;
-	  int drawX = 0;
-	  int drawY = 0;
+		//Initialize variables used to store Link's strating position on Screen Init.
+		int olddmap = Game->GetCurDMap();
+		int oldscreen = Game->GetCurDMapScreen();
+		int startx = Link->X;
+		int starty = Link->Y;
+		int startdir = Link->Dir;
+		int lastscreen = 0;
+		int scrollCounter = 0;
+		int scrollDir = 0;
+		int drawX = 0;
+		int drawY = 0;
 
-      //Clear global variables used by Bottomless pits.
-      //Falling = 0;
-      //Warping = false;
+		//Clear global variables used by Bottomless pits.
+		//Falling = 0;
+		//Warping = false;
 	  
-	  int XCounter = 0;
-	  int YCounter = 0;
-	  int screeny = 0;
-	  int mapy = 0;
-	  Setup_IceCombos();
-	  int Olderscreen = Game->GetCurScreen();
-	  
-	  powerBracelet[HOLDING_BLOCK] = 0;
-	  holding_bomb = 0;
+		int XCounter = 0;
+		int YCounter = 0;
+		int screeny = 0;
+		int mapy = 0;
+		Setup_IceCombos();
+		int Olderscreen = Game->GetCurScreen();
+		
+		powerBracelet[HOLDING_BLOCK] = 0;
+		holding_bomb = 0;
 
-	  LinkMovement_Init();
-	  bool HelloDarknessMyOldFriend = false;
-	  InitGrassClippings();
+		LinkMovement_Init();
+		bool HelloDarknessMyOldFriend = false;
+		InitGrassClippings();
 	  
-    while(1)
-    {
-	  //Trace(1);
-	  ScrollPFix();
-      UpdateGhostZH1();
-	  Tango_Update1();
-	  Z3_STUN();
-	  Z3_BRANG();
-	  //Trace(2);
-	  PushAnimation();
-	  //Trace(2.1);
-	  Bombs();
-	  //Trace(2.2);
-	  DoPowerBracelet();
-	  //Trace(2.3);
-	  PowerBracelet();
-	  //Trace(2.4);
-	  ScreenChange_Update();
-	  //Trace(3);
+		while(1)
+		{
+			zshell::process();
+			zshell::windowcleanup();
+			ScrollPFix();
+			UpdateGhostZH1();
+			Tango_Update1();
+			Z3_STUN();
+			Z3_BRANG();
+			PushAnimation();
+	 
+			Bombs();
+	 
+			DoPowerBracelet();
+	 
+			PowerBracelet();
+			//Trace(2.4);
+			ScreenChange_Update();
+			//Trace(3);
       
-	  MooshPit_Update();
+			MooshPit_Update();
 	  
-	  NayrusLove();
-	  DetectFireColl();
-	  DetectIceColl();
-	  SideQuestGlobal();
-	  //Z3_Sword();
+			NayrusLove();
+			DetectFireColl();
+			DetectIceColl();
+			SideQuestGlobal();
+			//Z3_Sword();
 	  
-	  UpdateLweaponZH();
-	  HelloDarknessMyOldFriend = DarkRoomGlobal(HelloDarknessMyOldFriend);
-	  SpinAttack();
+			UpdateLweaponZH();
+			HelloDarknessMyOldFriend = DarkRoomGlobal(HelloDarknessMyOldFriend);
+			SpinAttack();
 	  
-	  if (Link->PressEx3) Link->MaxHP -= 16;
-	  if (Link->PressEx4) Link->MaxHP += 16;
-	  
-      if(Link->Action != LA_SCROLLING)
-      {
-		if(oldscreen != Game->GetCurDMapScreen() || olddmap != Game->GetCurDMap())
-        {
-			if (Game->GetCurMap() == 1 && olddmap != Game->GetCurDMap())
+			
+			if(Link->Action != LA_SCROLLING)
 			{
-				Game->ContinueDMap = Game->GetCurDMap();
-				Game->ContinueScreen = Game->GetCurScreen();
-				Game->LastEntranceDMap = Game->GetCurDMap();
-				Game->LastEntranceScreen = Game->GetCurScreen();
+				if(oldscreen != Game->GetCurDMapScreen() || olddmap != Game->GetCurDMap())
+			{
+				if (Game->GetCurMap() == 1 && olddmap != Game->GetCurDMap())
+				{
+					Game->ContinueDMap = Game->GetCurDMap();
+					Game->ContinueScreen = Game->GetCurScreen();
+					Game->LastEntranceDMap = Game->GetCurDMap();
+					Game->LastEntranceScreen = Game->GetCurScreen();
+				}
+			}
+			if(Link->Z==0 && (oldscreen != Game->GetCurDMapScreen() || olddmap != Game->GetCurDMap()) && shutterRunning != true)
+			{
+				olddmap = Game->GetCurDMap();
+				oldscreen = Game->GetCurDMapScreen();
+				startx = Link->X;
+				starty = Link->Y;
+				startdir = Link->Dir;
 			}
 		}
-        //Update_HoleLava(startx, starty, olddmap, oldscreen, startdir);
-        if(Link->Z==0 && (oldscreen != Game->GetCurDMapScreen() || olddmap != Game->GetCurDMap()) && shutterRunning != true)
-        {
-          olddmap = Game->GetCurDMap();
-          oldscreen = Game->GetCurDMapScreen();
-          startx = Link->X;
-          starty = Link->Y;
-          startdir = Link->Dir;
-        }
-      }
 	  
-	  //Trace(4);
- 
-      // Other things can go here
-	  if (Game->GetCurScreen() != curscreen) {
-      curscreen = Game->GetCurScreen();
-      Barriers_NewScreen();}
-	  shutterControl();
-	  updatePrev();
-	  LWeaponLifespan();
-	  
-	  //Trace(5);
-	  
-	  if (Game->GetCurDMap() == 19) //Snake Island Temple Drawing
-	  {
-		if(Link->Action==LA_SCROLLING)
+	
+						
+		// Other things can go here
+		if (Game->GetCurScreen() != curscreen)	
 		{
-			if(scrollDir==-1)
+			curscreen = Game->GetCurScreen();
+			Barriers_NewScreen();}
+			shutterControl();
+			updatePrev();
+			LWeaponLifespan();
+	  
+			
+			if (Game->GetCurDMap() == 19) //Snake Island Temple Drawing
 			{
-				if(Link->Y>160)
+				if(Link->Action==LA_SCROLLING)
 				{
-					scrollDir=DIR_UP;
-					scrollCounter=45;
-				}
-				else if(Link->Y<0)
-				{
-					scrollDir=DIR_DOWN;
-					scrollCounter=45;
-				}
-				else if(Link->X>240)
-				{
-					scrollDir=DIR_LEFT;
-					scrollCounter=65;
+					if(scrollDir==-1)
+					{
+						if(Link->Y>160)
+						{
+							scrollDir=DIR_UP;
+							scrollCounter=45;
+						}
+						else if(Link->Y<0)
+						{
+							scrollDir=DIR_DOWN;
+							scrollCounter=45;
+						}
+						else if(Link->X>240)
+						{
+							scrollDir=DIR_LEFT;
+							scrollCounter=65;
+						}
+						else
+						{
+							scrollDir=DIR_RIGHT;
+							scrollCounter=65;
+						}
+					}
+			
+					if(scrollDir==DIR_UP && scrollCounter<45 && scrollCounter>0)
+						drawY+=4;
+					else if(scrollDir==DIR_DOWN && scrollCounter<45 && scrollCounter>0)
+						drawY-=4;
+					else if(scrollDir==DIR_LEFT && scrollCounter<65 && scrollCounter>0)
+						drawX+=4;
+					else if(scrollDir==DIR_RIGHT && scrollCounter<65 && scrollCounter>0)
+						drawX-=4;
+					
+					scrollCounter--;
+					Screen->Rectangle(3, 0, 0, 256, 176, 15, 1, 0, 0, 0, true, OP_OPAQUE);
+					Screen->DrawScreen (3, Game->GetCurMap(), lastscreen - 6, drawX, drawY, 0);
+					Screen->DrawScreen (3, Game->GetCurMap(), Game->GetCurScreen() - 6, drawX + 256, drawY, 0);
+					Screen->DrawScreen (3, Game->GetCurMap(), Game->GetCurScreen() - 6, drawX - 256, drawY, 0);
+					Screen->DrawScreen (3, Game->GetCurMap(), Game->GetCurScreen() - 6, drawX, drawY + 176, 0);
+					Screen->DrawScreen (3, Game->GetCurMap(), Game->GetCurScreen() - 6, drawX, drawY - 176, 0);
 				}
 				else
 				{
-					scrollDir=DIR_RIGHT;
-					scrollCounter=65;
+					drawX=0;
+					drawY=0;
+					Screen->Rectangle(3, 0, 0, 256, 176, 15, 1, 0, 0, 0, true, OP_OPAQUE);
+					Screen->DrawScreen (3, Game->GetCurMap(), Game->GetCurScreen() - 6, 0, 0, 0);
+					lastscreen = Game->GetCurScreen();
+					if(scrollDir!=-1)
+						scrollDir=-1;
 				}
 			}
-			
-			if(scrollDir==DIR_UP && scrollCounter<45 && scrollCounter>0)
-				drawY+=4;
-			else if(scrollDir==DIR_DOWN && scrollCounter<45 && scrollCounter>0)
-				drawY-=4;
-			else if(scrollDir==DIR_LEFT && scrollCounter<65 && scrollCounter>0)
-				drawX+=4;
-			else if(scrollDir==DIR_RIGHT && scrollCounter<65 && scrollCounter>0)
-				drawX-=4;
-			
-			scrollCounter--;
-			Screen->Rectangle(3, 0, 0, 256, 176, 15, 1, 0, 0, 0, true, OP_OPAQUE);
-			Screen->DrawScreen (3, Game->GetCurMap(), lastscreen - 6, drawX, drawY, 0);
-			Screen->DrawScreen (3, Game->GetCurMap(), Game->GetCurScreen() - 6, drawX + 256, drawY, 0);
-			Screen->DrawScreen (3, Game->GetCurMap(), Game->GetCurScreen() - 6, drawX - 256, drawY, 0);
-			Screen->DrawScreen (3, Game->GetCurMap(), Game->GetCurScreen() - 6, drawX, drawY + 176, 0);
-			Screen->DrawScreen (3, Game->GetCurMap(), Game->GetCurScreen() - 6, drawX, drawY - 176, 0);
+			if (Game->GetCurDMap() == 22 || ScreenFlag(SF_MISC, 3)!=0) //Inverse/Dark Dragon's Crypt drawing
+			{
+				Screen->DrawTile(6, 0 - Round(XCounter), 0 - Round(YCounter), 32500, 16, 18, 0, -1, -1, 0, 0, 0, 0, true, OP_TRANS);
+				Screen->DrawTile(6, (16 * 16) - Round(XCounter), (16 * 18) + 1 - Round(YCounter), 32500, 16, 18, 0, -1, -1, 0, 0, 0, 0, true, OP_TRANS);
+				Screen->DrawTile(6, (16 * 16) - Round(XCounter), 0 - Round(YCounter), 32500, 16, 18, 0, -1, -1, 0, 0, 0, 0, true, OP_TRANS);
+				Screen->DrawTile(6, 0 - Round(XCounter), (16 * 18) + 1 - Round(YCounter), 32500, 16, 18, 0, -1, -1, 0, 0, 0, 0, true, OP_TRANS);
+				XCounter+=0.5;
+				YCounter+=0.25;
+				XCounter %= 256;
+				YCounter %= 176 + (16 * 7);
+			}
+			BombsScreenShake();
+			if (Link->Item[PEGASUS_ITEM] == true) PegasusBootsEx2();
+				PegasusBoots();
+			PotBreak();
+			EmptyBottleGlobal();
+	  
+			DrawLayer3();
+	  
+			if (Link->Action == LA_SCROLLING) InitGrassClippings();
+			Z3SwordGlobalA();
+			Z3SwordBush();
+			UpdateGrassClippings();
+	  
+			LinkMovement_Update1();
+			ScrollingDraws_Update();
+	  
+			Waitdraw();
+			GreedWallet();
+			Minecart_Update();
+	
+			// Anything that says it needs to go after waitdraw goes here.
+			UpdateGhostZH2();
+			Tango_Update2();
+			//if (Link->Action != LA_SCROLLING && shutterRunning != true) RunHoleLava(); //Main Tamamo Holes and Lava function.
+			Update_IceCombos(Olderscreen);
+			DiagonAlley();
+			SomariaBlockCollision();
+	  
+			if (IsFreezing) LinkMovement_AddLinkSpeedBoost(-0.75);
+			IsFreezing = false;
+			Olderscreen = Game->GetCurScreen();
+	  
+			SolidObjects_Update();
+			LinkMovement_Update2();
+	  
+			RunInvisible();
+	  
+			Waitframe();
+			//Stalfos_Jump();
 		}
-		else
+	}
+}
+
+void Stalfos_Jump()
+{
+	npc e;
+	for(int i = Screen->NumNPCs(); i > 0 ; --i) 
+	{
+		e = Screen->LoadNPC(i);
+		unless(e->ID == NPC_STALFOS1 || e->ID == NPC_STALFOS2 || e->ID == NPC_STALFOS3)
+		continue;
+		if
+		( //SHORT CIRCUIT WARNING -Z 5tj Nov 2020
+			Link->Action == LA_ATTACKING                                                 &&
+			((Sword_EquippedA() && Link->InputA) || (Sword_EquippedB() && Link->InputB)) &&
+			e->Misc[JUMP_STATE] == ON_GROUND                                             &&
+			Is_Within_Proximity(e)                                                       &&
+			!e->Stun                                                                     &&
+			Link_Is_Facing(e)                                                            &&
+			!Link->SwordJinx
+		)
 		{
-			drawX=0;
-			drawY=0;
-			Screen->Rectangle(3, 0, 0, 256, 176, 15, 1, 0, 0, 0, true, OP_OPAQUE);
-			Screen->DrawScreen (3, Game->GetCurMap(), Game->GetCurScreen() - 6, 0, 0, 0);
-			lastscreen = Game->GetCurScreen();
-			if(scrollDir!=-1)
-				scrollDir=-1;
+			e->Misc[JUMP_STATE] = GOING_UP;
+			e->Misc[JUMP_DIR] = Link->Dir;
+			Game->PlaySound(SFX_JMP);
 		}
-	  }
-	  //Trace(6);
-	  if (Game->GetCurDMap() == 22 || ScreenFlag(SF_MISC, 3)!=0) //Inverse/Dark Dragon's Crypt drawing
-	  {
-		
-			Screen->DrawTile(6, 0 - Round(XCounter), 0 - Round(YCounter), 32500, 16, 18, 0, -1, -1, 0, 0, 0, 0, true, OP_TRANS);
-			Screen->DrawTile(6, (16 * 16) - Round(XCounter), (16 * 18) + 1 - Round(YCounter), 32500, 16, 18, 0, -1, -1, 0, 0, 0, 0, true, OP_TRANS);
-			Screen->DrawTile(6, (16 * 16) - Round(XCounter), 0 - Round(YCounter), 32500, 16, 18, 0, -1, -1, 0, 0, 0, 0, true, OP_TRANS);
-			Screen->DrawTile(6, 0 - Round(XCounter), (16 * 18) + 1 - Round(YCounter), 32500, 16, 18, 0, -1, -1, 0, 0, 0, 0, true, OP_TRANS);
-		XCounter+=0.5;
-		YCounter+=0.25;
-		XCounter %= 256;
-		YCounter %= 176 + (16 * 7);
-	  }
-	  //Trace(7);
-	  BombsScreenShake();
-	  if (Link->Item[PEGASUS_ITEM] == true) PegasusBootsEx2();
-	  PegasusBoots();
-	  PotBreak();
-	  EmptyBottleGlobal();
-	  //Trace(8);
-	  DrawLayer3();
-	  
-	  if (Link->Action == LA_SCROLLING) InitGrassClippings();
-	  Z3SwordGlobalA();
-	  Z3SwordBush();
-	  UpdateGrassClippings();
-	  
-	  LinkMovement_Update1();
-	  ScrollingDraws_Update();
-	  
-      Waitdraw();
-	  GreedWallet();
-	  Minecart_Update();
-	  //Trace(9);
- 
-      // Anything that says it needs to go after waitdraw goes here.
-      UpdateGhostZH2();
-	  Tango_Update2();
-      //if (Link->Action != LA_SCROLLING && shutterRunning != true) RunHoleLava(); //Main Tamamo Holes and Lava function.
-      Update_IceCombos(Olderscreen);
-      DiagonAlley();
-	  SomariaBlockCollision();
-	  //Trace(10);
-	  if (IsFreezing) LinkMovement_AddLinkSpeedBoost(-0.75);
-	  IsFreezing = false;
-	  Olderscreen = Game->GetCurScreen();
-	  //Trace(11);
-	  SolidObjects_Update();
-	  LinkMovement_Update2();
-	  
-	  RunInvisible();
-	  
-	  Waitframe();
-      //Stalfos_Jump();
-    }
-  }
+		if(e->Misc[JUMP_STATE] != ON_GROUND)
+			do_jump(e);
+	}
 }
 
-void Stalfos_Jump(){
-  npc e;
-  for(int i = Screen->NumNPCs(); i > 0 ; i--) {
-    e = Screen->LoadNPC(i);
-    if(e->ID != NPC_STALFOS1 && e->ID != NPC_STALFOS2 && e->ID != NPC_STALFOS3)
-      continue;
-    if(
-      Link->Action == LA_ATTACKING                                                 &&
-      ((Sword_EquippedA() && Link->InputA) || (Sword_EquippedB() && Link->InputB)) &&
-      e->Misc[JUMP_STATE] == ON_GROUND                                             &&
-      Is_Within_Proximity(e)                                                       &&
-      !e->Stun                                                                     &&
-      Link_Is_Facing(e)                                                            &&
-      !Link->SwordJinx
-    ){
-      e->Misc[JUMP_STATE] = GOING_UP;
-      e->Misc[JUMP_DIR] = Link->Dir;
-      Game->PlaySound(SFX_JMP);
-    }
-    if(e->Misc[JUMP_STATE] != ON_GROUND)
-      do_jump(e);
-  }
+bool E_Can_Move(npc e, int dir, int step)
+{
+	int x = e->X; int y = e->Y;
+	int c = 8;
+	int xx = x + 15;
+	int yy = y + 15;
+
+	if(dir==DIR_UP) return !(y-step<0 || Screen->isSolid(x,y+c-step) || Screen->isSolid(x+8,y+c-step)
+		|| Screen->isSolid(xx,y+c-step) || IsWater_Pit_OrNoEnemy(ComboAt(x,y-step)));
+	else if(dir==DIR_DOWN) return !(yy+step>=176 || Screen->isSolid(x,yy+step) || Screen->isSolid(x+8,yy+step)
+		|| Screen->isSolid(xx,yy+step) || IsWater_Pit_OrNoEnemy(ComboAt(x,yy+step)));
+	else if(dir==DIR_LEFT) return !(x-step<0 || Screen->isSolid(x-step,y+c) || Screen->isSolid(x-step,y+c+7)
+		|| Screen->isSolid(x-step,yy) || IsWater_Pit_OrNoEnemy(ComboAt(x-step,y)));
+	else if(dir==DIR_RIGHT) return !(xx+step>=256 || Screen->isSolid(xx+step,y+c) || Screen->isSolid(xx+step,y+c+7)
+		|| Screen->isSolid(xx+step,yy) || IsWater_Pit_OrNoEnemy(ComboAt(xx+step,y)));
+	return false; //invalid direction
 }
 
-bool E_Can_Move(npc e, int dir, int step){
-  int x = e->X; int y = e->Y;
-  int c = 8;
-  int xx = x + 15;
-  int yy = y + 15;
-
-  if(dir==DIR_UP) return !(y-step<0 || Screen->isSolid(x,y+c-step) || Screen->isSolid(x+8,y+c-step)
-    || Screen->isSolid(xx,y+c-step) || IsWater_Pit_OrNoEnemy(ComboAt(x,y-step)));
-  else if(dir==DIR_DOWN) return !(yy+step>=176 || Screen->isSolid(x,yy+step) || Screen->isSolid(x+8,yy+step)
-    || Screen->isSolid(xx,yy+step) || IsWater_Pit_OrNoEnemy(ComboAt(x,yy+step)));
-  else if(dir==DIR_LEFT) return !(x-step<0 || Screen->isSolid(x-step,y+c) || Screen->isSolid(x-step,y+c+7)
-    || Screen->isSolid(x-step,yy) || IsWater_Pit_OrNoEnemy(ComboAt(x-step,y)));
-  else if(dir==DIR_RIGHT) return !(xx+step>=256 || Screen->isSolid(xx+step,y+c) || Screen->isSolid(xx+step,y+c+7)
-    || Screen->isSolid(xx+step,yy) || IsWater_Pit_OrNoEnemy(ComboAt(xx+step,y)));
-  return false; //invalid direction
+bool Link_Is_Facing(npc e)
+{
+	if(e->X < Link->X && Link->Dir == DIR_LEFT)
+		return true;
+	else if(e->X > Link->X && Link->Dir == DIR_RIGHT)
+		return true;
+	else if(e->Y > Link->Y && Link->Dir == DIR_DOWN)
+		return true;
+	else if(e->Y < Link->Y && Link->Dir == DIR_UP)
+		return true;
+	return false;
 }
 
-bool Link_Is_Facing(npc e){
-  if(e->X < Link->X && Link->Dir == DIR_LEFT)
-    return true;
-  else if(e->X > Link->X && Link->Dir == DIR_RIGHT)
-    return true;
-  else if(e->Y > Link->Y && Link->Dir == DIR_DOWN)
-    return true;
-  else if(e->Y < Link->Y && Link->Dir == DIR_UP)
-    return true;
-  return false;
+void do_jump(npc e)
+{
+	int dir = e->Misc[JUMP_DIR];
+	Screen->FastTile(0, e->X, e->Y, SHADOW, SHADOW_CSET, 255);
+	if(E_Can_Move(e, dir, 1))
+	{
+		if(dir == DIR_LEFT) e->X -= (JUMP_BACK + 1);  //stalfos are more stubbron to push left and up for some reason
+		else if(dir == DIR_RIGHT) e->X += JUMP_BACK;
+		else if(dir == DIR_DOWN) e->Y += JUMP_BACK;
+		else e->Y -= (JUMP_BACK + 1);
+	}
+
+	if(e->Misc[JUMP_STATE] == GOING_UP)
+	{
+		e->Z += JUMP_FORCE;
+		if(e->Z >= MAX_HEIGHT) e->Misc[JUMP_STATE] = GOING_DOWN;
+	}
+	else
+	{
+		//no need to subtract from Z, the game enforces gravity on top-down view
+		if(e->Z <= 0) e->Misc[JUMP_STATE] = ON_GROUND;
+		Game->PlaySound(SFX_LAND);
+	}
 }
 
-void do_jump(npc e){
-  int dir = e->Misc[JUMP_DIR];
-  Screen->FastTile(0, e->X, e->Y, SHADOW, SHADOW_CSET, 255);
-  if(E_Can_Move(e, dir, 1)){
-    if(dir == DIR_LEFT) e->X -= (JUMP_BACK + 1);  //stalfos are more stubbron to push left and up for some reason
-    else if(dir == DIR_RIGHT) e->X += JUMP_BACK;
-    else if(dir == DIR_DOWN) e->Y += JUMP_BACK;
-    else e->Y -= (JUMP_BACK + 1);
-  }
-
-  if(e->Misc[JUMP_STATE] == GOING_UP){
-    e->Z += JUMP_FORCE;
-    if(e->Z >= MAX_HEIGHT) e->Misc[JUMP_STATE] = GOING_DOWN;
-  }else{
-    //no need to subtract from Z, the game enforces gravity on top-down view
-    if(e->Z <= 0) e->Misc[JUMP_STATE] = ON_GROUND;
-    Game->PlaySound(SFX_LAND);
-  }
+bool IsWater_Pit_OrNoEnemy(int position)
+{
+	int combo=Screen->ComboT[position];
+	int flag = Screen->ComboF[position];
+	if(combo==CT_WATER || combo==CT_SWIMWARP || combo==CT_DIVEWARP || (combo>=CT_SWIMWARPB && combo<=CT_DIVEWARPD)
+		|| combo==CT_PIT || combo==CT_PITR || (combo>=CT_PITB && combo<=CT_PITD)
+		|| flag==CF_NOENEMY || flag==CF_NOGROUNDENEMY)
+		return true;
+	else
+		return false;
 }
 
-bool IsWater_Pit_OrNoEnemy(int position){
-  int combo=Screen->ComboT[position];
-  int flag = Screen->ComboF[position];
-  if(combo==CT_WATER || combo==CT_SWIMWARP || combo==CT_DIVEWARP || (combo>=CT_SWIMWARPB && combo<=CT_DIVEWARPD)
-    || combo==CT_PIT || combo==CT_PITR || (combo>=CT_PITB && combo<=CT_PITD)
-    || flag==CF_NOENEMY || flag==CF_NOGROUNDENEMY)
-       return true;
-  else
-       return false;
+bool Sword_EquippedA()
+{
+	int ID = GetEquipmentA();
+	return (ID == I_SWORD1 || ID == I_SWORD2 || ID == I_SWORD3 || ID == I_SWORD4);
 }
 
-bool Sword_EquippedA(){
-  int ID = GetEquipmentA();
-  return (ID == I_SWORD1 || ID == I_SWORD2 || ID == I_SWORD3 || ID == I_SWORD4);
+bool Sword_EquippedB()
+{
+	int ID = GetEquipmentB();
+	return (ID == I_SWORD1 || ID == I_SWORD2 || ID == I_SWORD3 || ID == I_SWORD4);
 }
 
-bool Sword_EquippedB(){
-  int ID = GetEquipmentB();
-  return (ID == I_SWORD1 || ID == I_SWORD2 || ID == I_SWORD3 || ID == I_SWORD4);
+//WTF is this? -Z
+int av(int a)
+{
+	if(a >= 0) return a;
+	else return (-1 * a);
 }
 
-int av(int a){
-  if(a >= 0) return a;
-  else return (-1 * a);
-}
+bool Is_Within_Proximity(npc e)
+{
+	int offset;
+	if(Game->Generic[GEN_CANSLASH]) offset = 16;
+	else offset = 0;
 
-bool Is_Within_Proximity(npc e){
-  int offset;
-  if(Game->Generic[GEN_CANSLASH]) offset = 16;
-  else offset = 0;
-
-  if(Link->Dir == DIR_LEFT || Link->Dir == DIR_RIGHT)
-    return (av(e->X - Link->X) <= PROXIMITY && Link->Y - e->Y < 16 + offset && e->Y - Link->Y < 16);
-  else if(Link->Dir == DIR_UP)
-    return (av(e->Y - Link->Y) <= PROXIMITY && Link->X - e->X < 16 && e->X - Link->X < 16 + offset);
-  else //DIR_DOWN
-    return (av(e->Y - Link->Y) <= PROXIMITY && Link->X - e->X < 16 + offset && e->X - Link->X < 16);
+	if(Link->Dir == DIR_LEFT || Link->Dir == DIR_RIGHT)
+		return (av(e->X - Link->X) <= PROXIMITY && Link->Y - e->Y < 16 + offset && e->Y - Link->Y < 16);
+	else if(Link->Dir == DIR_UP)
+		return (av(e->Y - Link->Y) <= PROXIMITY && Link->X - e->X < 16 && e->X - Link->X < 16 + offset);
+	else //DIR_DOWN
+	return (av(e->Y - Link->Y) <= PROXIMITY && Link->X - e->X < 16 + offset && e->X - Link->X < 16);
 }
 
 #include "ffcscript.cfg"
