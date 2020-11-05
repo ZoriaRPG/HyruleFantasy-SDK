@@ -1,0 +1,207 @@
+
+//! ZScript: ZC Shell for Quest Debug and CHeat Commands
+//! Docs for v2.1.4
+
+/////////////
+/// USING ///
+/////////////
+
+Press F7 to open the shell.
+Type an instruction.
+Press the DOWN ARROW KEY to ENQUEUE the instruction, or;
+	Press ENTER to execute the instruction.
+If you have enqueued instructions, press ENTER either at the
+	end of an instruction, or on an empty line to EXECUTE 
+	all of your enqueued instructions.
+	
+//////////////
+/// Traces ///
+//////////////
+
+You may print a line of text, or a literal value directly
+to allegro.log using the following syntax:
+
+%s
+	This traces all characters that follow it, to
+	allegro.log as a string.
+	It eats all leading spaces and characters,
+	so all of these are identical:
+		%sPRINTME
+		%s:PRINTME
+		%s PRINTME
+		%s: PRINTME
+		
+	The output of this will be:
+		LOG: PRINTME
+		
+%d
+	This traces a literal value (integer or float)
+	to allegro.log.
+	It eats all leading spaces and characters,
+	so all of these are identical:
+		%100.500
+		%s:100.500
+		%s 100.500
+		%s: 100.500
+		
+	The output of this will be:
+		LOG: 100.500
+		
+Traces cannot be enqueued at this time. 
+	
+////////////////////////
+/// Sequence Scripts ///
+////////////////////////
+
+You may save a sequence of instructions that you have entered
+into the shell into one of TEN SEQUENCE SLOTS.
+
+To do this, after entering a series of commands, with a BLANK LINE,
+press the CONTROL KEY and one of the main number keys (above the home row,
+not on the number pad), 1 through 0.
+
+The number key that you press corresponds to the SEQUENCE slot that your
+sequence script is using.
+
+If you save the quest, your sequence script will save with it.
+
+To run a sequence script, open the shell, and do not add any INSTRUCTIONS ON THE STACK:
+Type the command: RunSequence,id 
+
+	[example--
+
+		RunSequence,1
+		
+	--end example]
+	
+	This will immediate;y run Sequence Script 1.
+	
+	
+
+
+
+//////////////////////////////
+/// Supported Instructions ///
+//////////////////////////////
+
+Instruction Set
+Instructions, 		Args			Description
+WARP: 			dmap,screen		Warp to a specific dmap and screen.
+POS			x,y			Reposition player on the screen.
+MOVEX			pixels (+/-)		Move player by +/-n pixels on the X axis.
+MOVEY			pixels (+/-)		Move player by +/-n pixels on the Y axis.
+REFILLHP		NONE			Refill player's HP to Max.
+REFILLMP		NONE			Refill player's MP to Max.
+REFILLCTR		counter			Refill a specific counter to Max.
+MAXHP			amount			Set player's Max HP.
+MAXMP			amount			Set player's Max MP.
+MAXCTR			counter, amount		Set the maximum value of a specific counter.
+INVISIBLE		(BOOL) on / off		Set player's Invisible state.
+INVENTORY		item, (BOOL), on / off	Set the state of a specific item in player's inventory.
+BIGHITBOX		(BOOL) on / off		Set if player sprite uses a full tile hitbox. (hitbox)
+DIAGONALMOVE		(BOOL) on / off		Set if player can move diagonally.
+
+SAVE			NONE			Save the game.
+CREATEITEM		id, x, y		Create an item at coordinates x, y. 
+CREATENPC		id, x, y		Create an enemy at coordinates x, y.
+
+PALETTE			dmap,pal		Change a DMap palette; -1 for current dmap.
+MONOCHROME 		(BOOL) on / off		Set monochrome effect.
+
+	
+ARROWS			amount			Set the current number of Arrows
+BOMBS			amount			Set the current number of Bombs
+RUPEES			amount			Set the current number of Rupees
+MAXBOMBS		amount			Set the current number of Max Bombs
+MAXARROWS		amount			Set the current number of Max Arrows
+MAXRUPEES		amount			Set the current number of Max Rupees
+KEYS			amount			Set the current number of Keys
+LKEYS			level id, number	Set the current number of Level Keys for a specific level ID.
+LMAP			level id, (BOOL) t|f	Set if the MAP item for a specific Level is in inventory.
+LCOMPASS		level id, (BOOL) t|f	Set if the COMPASS item for a specific Level is in inventory.
+LTRIFORCE		level id, (BOOL) t|f	Set if the TRIFORCE item for a specific Level is in inventory.
+LBOSSKEY		level id, (BOOL) t|f	Set if the BOSS KEy item for a specific Level is in inventory.
+
+HUE			r, g, b, (BOOL) t|f	Set a specific hue effect.
+TINT			r, g, b			Set a specific tint effect.
+CLEARTINT		NONE			Clear hue/tint.
+	
+FDATA			id, combo_id		Set the Data value of one ffc.
+FSCRIPT			id, scriptnumber	Set the Script value of one ffc.
+FCSET 			id, cset		Set the CSet of an ffc. 
+FX			id, x			Set the X component of an ffc.
+FY			id, y			Set the Y component of an ffc.
+FVX			id, vx			Set the X Velocity Component of an ffc.
+FVY			id, vy			Set the Y Velocity Component of an ffc.
+FAX 			id, ax			Set the X Accel. Component of an ffc. 
+FAY			id, ay			Set the XYAccel. Component of an ffc. 
+FFLAGS			id, flag, (BOOL) t|f	Set an ffc flag state true or false.
+FTHEIGHT		id, tileheight		Set the TileHeight of an ffc.
+FTWIDTH 		id, tilewidth		Set the TileWidth of an ffc.
+FEHEIGHT 		id, effectheight	Set the EffectHeight of an ffc.
+FEWIDTH			id, effectwidth		Set the EffectWidth of an ffc.
+FLINK 			id, link_id		Link an ffc to another, or clear a link. 
+FMISC			id, index, value	Write to the Misc[] values of an ffc.
+
+RUNFFCSCRIPTID		scriptid		Attempt to run an ffc script.
+	
+PLAYSOUND 		sound_id		Play a sound effect.
+PLAYMIDI 		midi_id			Play a MIDI. 
+DMAPMIDI		dmap_id, midi_id	Set the MIDI for a specific DMap to a desired ID.
+
+%D:			*number			Traces the number after :
+%S:			*string			Traces all text after :
+
+SAVESEQUENCE		id			Saved the current sequence to slot 0 through 9, as specified by the arg..
+RUNSEQUENCE		id			Runs a sequence script, as specified by the id arg (0 through 9).
+		
+PRSTACK			stackid			Prints the disassembly of a given stack; 0 to 9 for a sequence, -1 for current.
+
+
+////////////////////////
+/// Syntax and Usage ///
+////////////////////////
+
+The syntax for ZShell is simple:
+
+Type a command. If the command has args, separate the command and each arg
+using a comma:
+
+e.g. Link's Position
+WARP,1,2       : w,0,32 : Warps Link to DMap 0, screen 32.
+POS,1,2      : po,60,12 : Set Link's X to 60, and his Y to 12
+MOVEX,1        : mx,12 : moves Link +12 pixels on his X coordinate
+MOVEX,-1       : mx,-12 : moves Link -12 pixels on his X coordinate
+
+If you press enter/return, the console closes and the command runs instantly.
+You can instead to enqueue commands by pressing the DOWN ARROW key. Thic clears 
+the shell for the next command, and equeues the command into a temporary script.
+
+You can save an equeued script as a sequence by using colding the control key and
+pressing a number (0 to 9) on your keyboard. This saves the script as sequence 0 through
+sequence 9, depending on the selection that you pressed.
+
+You may alternatively save the sequence witht he SAVESEQUENCE command, followed by an arg
+for the sequence ID (0 to 9).
+
+e.g. SAVESEQUENCE,3
+
+You can then run the entire script by executing RUNSEQUENCE command, followed by the arg for
+the sequence ID.
+
+e.g. RUNSEQUENCE,3
+
+Sequence scripts are saved when you save the game, and after saving you can run them on 
+re-plays, until you overwrite them.
+
+
+//////////////////////
+/// LITERAL VALUES ///
+//////////////////////
+Use these as arg values, if desired, instead of literals:
+lx   : The current X-coordinate for Link.
+ly   : The current Y-coordinate for Link.
+
+CREATEITEM,1,lx,ly 
+This creates item ID 1 on top of Link.
+
