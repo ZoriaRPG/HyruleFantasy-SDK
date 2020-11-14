@@ -7,7 +7,7 @@ void DetectFireColl()
 		eweapon fire = Screen->LoadEWeapon(i);
 		if (fire->ID == EW_FIRE2 && fire->DeadState != 0)
 		{
-			if ((!CanWalk(fire->X, fire->Y, fire->Dir, fire->Step, false)) && 
+			if (!CanWalk(fire->X, fire->Y, fire->Dir%4, fire->Step, false) && 
 			Screen->ComboS[ComboAt(fire->X + 8 + InFrontX(fire->Dir, 16-(fire->Step / 100)), fire->Y + 8 + InFrontY(fire->Dir, 16-(fire->Step / 100)))] == 1111b)
 			{
 				lweapon sparkle = Screen->CreateLWeapon(LW_SPARKLE);

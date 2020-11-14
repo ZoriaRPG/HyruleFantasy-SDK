@@ -7,6 +7,7 @@ const float ARMOS_JUMP_HEIGHT 		= 1.5;
 // npc->Attribute[] indices
 const int ARMOS_ATTR_START_SOUND 	= 0;
 const int ARMOS_ATTR_JUMP_SOUND 	= 1;
+const int ARMOS_ATTR_NATURAL	 	= 2;
 
 ffc script Armos_LttP
 {
@@ -30,7 +31,7 @@ ffc script Armos_LttP
 		// Just jump toward Link forever
 		while(true)
 		{
-			unless(Ghost_Z==0)
+			if(Ghost_Z==0)
 			{
 				if(Ghost_Jump<=0)
 				{
@@ -66,32 +67,33 @@ ffc script Armos_LttP
 			this->Data=combo;
 			ghost->DrawXOffset=xOffset;
 			Ghost_SetPosition(this, ghost);
-			if (Screen->ComboF[ComboAt(this->X, this->Y)] != 9 || i!=29) Ghost_WaitframeLight(this, ghost);
+			if (i!=29) Ghost_WaitframeLight(this, ghost);
 			
 			// The combo has to be removed shortly before the animation
 			// finishes; otherwise, it's possible to spawn two of them.
-			if(i==29)
+			if(i==29 && ghost->Attributes[ARMOS_ATTR_NATURAL] == 0)
 			{
-				if ((Screen->ComboF[ComboAt(this->X + 8, this->Y + 8)] == 10 || Screen->ComboI[ComboAt(this->X + 8, this->Y + 8)] == 10) && Screen->RoomType == RT_SPECIALITEM && Screen->State[ST_SPECIALITEM] != true)
+				if ((Screen->ComboF[ComboAt(ghost->X + 8, ghost->Y + 8)] == 10 || Screen->ComboI[ComboAt(ghost->X + 8, ghost->Y + 8)] == 10) && Screen->RoomType == RT_SPECIALITEM && Screen->State[ST_SPECIALITEM] != true)
 				{
 					Game->PlaySound(SFX_SECRET);
 					item armositem = Screen->CreateItem(Screen->RoomData);
 					armositem->Pickup |= IP_ST_SPECIALITEM;
 					if ((Screen->Flags[SF_ITEMS] & 1)) armositem->Pickup |= IP_HOLDUP;
-					armositem->X = this->X;
-					armositem->Y = this->Y;
+					armositem->X = ghost->X;
+					armositem->Y = ghost->Y;
 				}
-				if (Screen->ComboF[ComboAt(this->X, this->Y)] == 9 || Screen->ComboI[ComboAt(this->X, this->Y)] == 9)
+				if (Screen->ComboF[ComboAt(ghost->X, ghost->Y)] == 9 || Screen->ComboI[ComboAt(ghost->X, ghost->Y)] == 9)
 				{
-					Screen->ComboD[ComboAt(this->X, this->Y)]=Screen->UnderCombo;
-					Screen->ComboC[ComboAt(this->X, this->Y)]=Screen->UnderCSet;
+					Screen->ComboD[ComboAt(ghost->X, ghost->Y)]=Screen->UnderCombo;
+					Screen->ComboC[ComboAt(ghost->X, ghost->Y)]=Screen->UnderCSet;
 					Ghost_WaitframeLight(this, ghost);
 					Screen->TriggerSecrets();
+					Game->PlaySound(SFX_SECRET);
 				}
 				else
 				{
-					Screen->ComboD[ComboAt(this->X, this->Y)]=Screen->UnderCombo;
-					Screen->ComboC[ComboAt(this->X, this->Y)]=Screen->UnderCSet;
+					Screen->ComboD[ComboAt(ghost->X, ghost->Y)]=Screen->UnderCombo;
+					Screen->ComboC[ComboAt(ghost->X, ghost->Y)]=Screen->UnderCSet;
 				}
 			}
 		}
