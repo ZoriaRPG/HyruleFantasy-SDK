@@ -75,12 +75,12 @@ ffc script MiniBossRoom
         if(!(GetLevelItem(Game->GetCurLevel(), LI_MINIBOSS) && port <= 0) && !(GetLevelItem(Game->GetCurLevel(), LI_MINIBOSS2) && port > 0))
             return;
         
-        while(LinkCollision(portal))
+        while(RectCollision(portal->X + 5, portal->Y + 9, portal->X + 10, portal->Y + 14, Link->X + 5, Link->Y + 9, Link->X + 10, Link->Y + 14))
             Waitframe();
         
         portal->Data = orig;
         
-        while(!LinkCollision(portal))
+        while(!RectCollision(portal->X + 6, portal->Y + 10, portal->X + 9, portal->Y + 13, Link->X + 6, Link->Y + 10, Link->X + 9, Link->Y + 13))
             Waitframe();
         
         Game->PlaySound(SFX_WARPING);

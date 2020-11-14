@@ -41,7 +41,7 @@ void DiagonAlley()
 		if (Distance(Link->X, Link->Y, ComboX(i), ComboY(i)) < 16)
 		{
 			int comp[3]; 
-			for (int m = 0; m < 3; m++) if ( Screen->LayerMap(m) != -1 && Screen->LayerScreen(m) != -1 ) comp[m] = GetLayerComboD(m, i);
+			for (int m = 0; m < 3; m++) if (m == 0 || Screen->LayerMap(m) > 1 || Screen->LayerScreen(m) > 0 ) comp[m] = GetLayerComboD(m, i);
 			if (CompareArray(comp, topleft)) dir = 1;
 			else if (CompareArray(comp, topright)) dir = 2;
 			else if (CompareArray(comp, bottomleft)) dir = 3;
@@ -50,7 +50,7 @@ void DiagonAlley()
 			{
 				if (dir == 1)
 				{
-					while (lineBoxCollision(ComboX(i) + 15, ComboY(i), ComboX(i), ComboY(i) + 15, Link->X, Link->Y + 7, Link->X + 15, Link->Y + 15, 1))
+					while (lineBoxCollision(ComboX(i) + 15, ComboY(i), ComboX(i), ComboY(i) + 15, Link->X + 2, Link->Y + 9, Link->X + 13, Link->Y + 13, 1))
 					{
 						if (!CanWalk(Link->X, Link->Y, DIR_DOWN, 1, false) && !CanWalk(Link->X, Link->Y, DIR_RIGHT, 1, false)) break;
 						if (CanWalk(Link->X, Link->Y, DIR_DOWN, 1, false)) Link->Y++;
@@ -60,7 +60,7 @@ void DiagonAlley()
 				}
 				else if (dir == 2)
 				{
-					while (lineBoxCollision(ComboX(i), ComboY(i), ComboX(i) + 15, ComboY(i) + 15, Link->X, Link->Y + 7, Link->X + 15, Link->Y + 15, 1))
+					while (lineBoxCollision(ComboX(i), ComboY(i), ComboX(i) + 15, ComboY(i) + 15, Link->X + 2, Link->Y + 9, Link->X + 13, Link->Y + 13, 1))
 					{
 						if (!CanWalk(Link->X, Link->Y, DIR_DOWN, 1, false) && !CanWalk(Link->X, Link->Y, DIR_LEFT, 1, false)) break;
 						if (CanWalk(Link->X, Link->Y, DIR_DOWN, 1, false)) Link->Y++;
@@ -70,7 +70,7 @@ void DiagonAlley()
 				}
 				else if (dir == 3)
 				{
-					while (lineBoxCollision(ComboX(i), ComboY(i), ComboX(i) + 15, ComboY(i) + 15, Link->X, Link->Y + 7, Link->X + 15, Link->Y + 15, 1))
+					while (lineBoxCollision(ComboX(i), ComboY(i), ComboX(i) + 15, ComboY(i) + 15, Link->X + 2, Link->Y + 9, Link->X + 13, Link->Y + 13, 1))
 					{
 						if (!CanWalk(Link->X, Link->Y, DIR_UP, 1, false) && !CanWalk(Link->X, Link->Y, DIR_RIGHT, 1, false)) break;
 						if (CanWalk(Link->X, Link->Y, DIR_UP, 1, false)) Link->Y--;
@@ -80,7 +80,7 @@ void DiagonAlley()
 				}
 				else if (dir == 4)
 				{
-					while (lineBoxCollision(ComboX(i) + 15, ComboY(i), ComboX(i), ComboY(i) + 15, Link->X, Link->Y + 7, Link->X + 15, Link->Y + 15, 1))
+					while (lineBoxCollision(ComboX(i) + 15, ComboY(i), ComboX(i), ComboY(i) + 15, Link->X + 2, Link->Y + 9, Link->X + 13, Link->Y + 13, 1))
 					{
 						if (!CanWalk(Link->X, Link->Y, DIR_UP, 1, false) && !CanWalk(Link->X, Link->Y, DIR_LEFT, 1, false)) break;
 						if (CanWalk(Link->X, Link->Y, DIR_UP, 1, false)) Link->Y--;
