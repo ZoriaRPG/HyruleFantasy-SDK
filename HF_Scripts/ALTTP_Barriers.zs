@@ -101,7 +101,7 @@ void Barriers_NewScreen()
 			}
 
 			// So run FFCscript to control barriers
-			RunFFCScript("Barriers", NULL);
+			RunFFCScript(Game->GetFFCScript("Barriers"), NULL);;
 			break;
 		}
 	}

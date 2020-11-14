@@ -268,10 +268,14 @@ bool OnIce()
         int comboLoc = ComboAt(Link->X + 8, Link->Y + 12);
         if(Screen->ComboT[comboLoc] == CT_ICECOMBO)
             return true;
-        else if(Screen->LayerMap(1) != -1 && Screen->LayerScreen(1) != -1 && GetLayerComboT(1, comboLoc) == CT_ICECOMBO)
-            return true;
-        else if(Screen->LayerMap(2) != -1 && Screen->LayerScreen(2) != -1 && GetLayerComboT(2, comboLoc) == CT_ICECOMBO)
-            return true;
+        else if(Screen->LayerMap(1) != -1 && Screen->LayerScreen(1) != -1 )
+	{
+		if ( GetLayerComboT(1, comboLoc) == CT_ICECOMBO) return true;
+	}
+        else if(Screen->LayerMap(2) != -1 && Screen->LayerScreen(2) != -1 )
+	{
+		if ( GetLayerComboT(2, comboLoc) == CT_ICECOMBO ) return true;
+	}
         else
             return false;
     }
